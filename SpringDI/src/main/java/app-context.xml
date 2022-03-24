@@ -11,7 +11,7 @@
 
 	<context:component-scan base-package="*" />
 	
-	<bean id="message" class="com.exe.springdi3.MessageEn"/>
+	<bean id="message" class="com.exe.springdi3.MessageKr"/>
 	
 	<bean id="serviceConsumer" class="com.exe.springdi4.ServiceConsumer" autowire="byName">
 		<constructor-arg ref="messageService"/>
