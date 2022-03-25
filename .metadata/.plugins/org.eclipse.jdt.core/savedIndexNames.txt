@@ -10,8 +10,8 @@ INDEX VERSION 1.131+D:\sts-bundle\work\.metadata\.plugins\org.eclipse.jdt.core
 2268892105.index
 629907115.index
 4010009787.index
-1253796938.index
 1970941832.index
+1253796938.index
 1345589558.index
 2822157957.index
 3979213637.index
@@ -20,5 +20,4 @@ INDEX VERSION 1.131+D:\sts-bundle\work\.metadata\.plugins\org.eclipse.jdt.core
 2957143811.index
 2584876436.index
 3715380125.index
-2446203778.index
 4047603251.index
