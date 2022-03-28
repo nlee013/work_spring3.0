@@ -30,16 +30,17 @@ public class CustomMain {
 		 */
 		
 		//select
-		/*
-		 * List<CustomDTO> lists = dao.getList();
-		 * 
-		 * for(CustomDTO dto1 : lists) {
-		 * 
-		 * System.out.printf("%d %s %d\n", dto1.getId(),dto1.getName(), dto1.getAge());
-		 * }
-		 * 
-		 * System.out.println("select 완료..");
-		 */
+		
+		  List<CustomDTO> lists = dao.getList();
+		  
+		  for(CustomDTO dto1 : lists) {
+		  
+		  System.out.printf("%d %s %d\n",
+				 dto1.getId(), dto1.getName(), dto1.getAge());
+		  }
+		  
+		  System.out.println("select 완료..");
+		 
 		
 		//OneSelect
 		/*

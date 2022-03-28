@@ -1,11 +1,16 @@
 package com.exe.springmybatis;
 
+//import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+//@Data
 public class CustomDTO {
 
-	private int id;
-	private String name;
-	private int age;
-	
+	private @Getter @Setter int id;
+	private @Getter @Setter String name;
+	private @Getter @Setter int age;
+	/*
 	public int getId() {
 		return id;
 	}
@@ -25,5 +30,5 @@ public class CustomDTO {
 		this.age = age;
 	}
 	
-	
+	*/
 }
