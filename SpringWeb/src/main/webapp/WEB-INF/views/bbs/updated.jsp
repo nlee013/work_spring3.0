@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="/springweb/resources/css/style.css"/>
 <link rel="stylesheet" type="text/css" href="/springweb/resources/css/created.css"/>
 
-<script type="text/javascript" src="springweb/resources/js/util.js"></script>
+<script type="text/javascript" src="/springweb/resources/js/util.js"></script>
 <script type="text/javascript">
 
 	function sendIt(){
@@ -69,7 +69,7 @@
 		}
 		f.pwd.value = str;
 		
-		f.action = "<%=cp%>updated_ok.action";
+		f.action = "<%=cp%>/updated_ok.action";
 		f.submit();
 		
 	}
