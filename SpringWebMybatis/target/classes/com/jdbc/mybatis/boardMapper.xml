@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertData" parameterType="com.jdbc.dto.BoardDTO">
 		insert into board(num, name, pwd, email, subject, content, ipAddr, hitCount, created )
-		values(#{num}, #{name}, #{pwd}, #{email}, #{subject}, #{content}, #{ipAddr#}, 0, sysdate)
+		values(#{num}, #{name}, #{pwd}, #{email}, #{subject}, #{content}, #{ipAddr}, 0, sysdate)
 	</insert>
 
 	<select id="getDataCount" parameterType="hashMap" resultType="int">
@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ${searchKey} like '%' || #{searchValue} || '%'
 	</select>
 	
-	<select id="getLists" parameterType="map" resultType="com.jdbc.dto.BoardDTO">
+	<select id="getList" parameterType="map" resultType="com.jdbc.dto.BoardDTO">
 		select*from(
 		select rownum rnum, data.* from(
 		select num, name, subject, hitCount, to_char(created, 'YYYY-MM-DD') created

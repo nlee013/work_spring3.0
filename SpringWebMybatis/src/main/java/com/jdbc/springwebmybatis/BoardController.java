@@ -1,4 +1,4 @@
-package com.jdbc.springweb;
+package com.jdbc.springwebmybatis;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
