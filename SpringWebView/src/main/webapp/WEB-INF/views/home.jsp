@@ -17,12 +17,12 @@
 	<h3>3.<a href="excelView.action">Excel View</a></h3>
 	
 	<h3>4.File Upload</h3>
-		<form action="upload.action" method="post" enctype="multipart/from-data">
+		<form action="uploadView.action" method="post" enctype="multipart/form-data">
 			<input type="file" name="upload"/><br/>
 			<input type="submit" value="전송"/><br/>
 		</form>
 	
-	<h3>5. <a href="download.action">File Download</a></h3>
+	<h3>5. <a href="downloadView.action">File Download</a></h3>
 	
 </div>
 
