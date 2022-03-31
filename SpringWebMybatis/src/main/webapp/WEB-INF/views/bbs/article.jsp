@@ -23,7 +23,7 @@
 	<div id="bbsArticle">
 		
 		<div id="bbsArticle_header">
-			게시물 제목
+			${dto.subject}
 		</div>
 		
 		<div class="bbsArticle_bottomLine">

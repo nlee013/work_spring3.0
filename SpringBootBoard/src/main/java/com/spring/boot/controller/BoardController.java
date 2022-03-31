@@ -17,39 +17,40 @@ import com.spring.boot.dto.BoardDTO;
 import com.spring.boot.service.BoardService;
 import com.spring.boot.util.MyUtil;
 
-@RestController//일반 @controller 사용불가
+@RestController
 public class BoardController {
-	
+
 	@Resource
 	private BoardService boardService;
 	
 	@Autowired
 	MyUtil myUtil;
 	
-	//spring boot에서는 무조건 modelAndView 사용
 	@RequestMapping(value = "/")
 	public ModelAndView index() throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("index");//index.html index.jsp
+		mav.setViewName("index");
 		
 		return mav;
+		
 	}
 	
-	@RequestMapping(value = "/created.action", method = {RequestMethod.GET})
+	@RequestMapping(value = "/created.action",method = {RequestMethod.GET})
 	public ModelAndView created() throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("bbs/created");//index.html index.jsp
+		mav.setViewName("bbs/created");
 		
 		return mav;
 		
 	}
 	
-	@RequestMapping(value = "/created.action", method = {RequestMethod.POST})
-	public ModelAndView created_ok(BoardDTO dto, HttpServletRequest request) throws Exception{
+	@RequestMapping(value = "/created.action",method = {RequestMethod.POST})
+	public ModelAndView created_ok(BoardDTO dto, 
+			HttpServletRequest request) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -66,33 +67,25 @@ public class BoardController {
 		
 	}
 	
-	@RequestMapping(value = "/list.action", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/list.action",
+			method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView list(HttpServletRequest request) throws Exception{
 		
-		String cp = request.getContextPath();
-		
 		String pageNum = request.getParameter("pageNum");
-	
-		int currentPage = 1;
-	
-		if(pageNum != null) {
 		
+		int currentPage = 1;
+		
+		if(pageNum!=null)
 			currentPage = Integer.parseInt(pageNum);
-		}	
-	
+		
 		String searchKey = request.getParameter("searchKey");
 		String searchValue = request.getParameter("searchValue");
 		
-		//나중에는 searchValue.equals("")과 같이 사용
-		if(searchValue == null) {
-			
+		if(searchValue==null) {
 			searchKey = "subject";
 			searchValue = "";
-
 		}else {
-			
-			if(request.getMethod().equals("GET")) {
-				
+			if(request.getMethod().equalsIgnoreCase("GET")) {
 				searchValue = URLDecoder.decode(searchValue, "UTF-8");
 			}
 		}
@@ -102,41 +95,36 @@ public class BoardController {
 		int numPerPage = 5;
 		int totalPage = myUtil.getPageCount(numPerPage, dataCount);
 		
-		if(currentPage > totalPage) {
-			
+		if(currentPage>totalPage)
 			currentPage = totalPage;
-		}
-	
-		int start = (currentPage - 1)*numPerPage + 1;
+		
+		int start = (currentPage-1)*numPerPage+1;
 		int end = currentPage*numPerPage;
 		
-		List<BoardDTO> lists = boardService.getlistList(start, end, searchKey, searchValue);
+		List<BoardDTO> lists = 
+				boardService.getList(start, end, searchKey, searchValue);
 		
 		String param = "";
-		
-		if(searchValue != null && !searchValue.equals("")) {
-			
+		if(searchValue!=null&&!searchValue.equals("")) {
 			param = "searchKey=" + searchKey;
-			param += "&searchValue=" + URLEncoder.encode(searchValue, "UTF-8");
+			param+= "&searchValue=" + URLEncoder.encode(searchValue, "UTF-8");
 		}
 		
 		String listUrl = "/list.action";
 		
 		if(!param.equals("")) {
-			
 			listUrl += "?" + param;
 		}
 		
-		String pageIndexList = myUtil.pageIndexList(currentPage, totalPage, listUrl);
-	
+		String pageIndexList = 
+				myUtil.pageIndexList(currentPage, totalPage, listUrl);
+		
 		String articleUrl = "/article.action?pageNum=" + currentPage;
-	
+		
 		if(!param.equals("")) {
-		
 			articleUrl += "&" + param;
-		
 		}
-	
+				
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("lists", lists);
@@ -147,7 +135,164 @@ public class BoardController {
 		mav.setViewName("bbs/list");
 		
 		return mav;
+		
+	}
+	
+	@RequestMapping(value = "/article.action",
+			method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView article(HttpServletRequest request) throws Exception{
+		
+		int num = Integer.parseInt(request.getParameter("num"));
+		String pageNum = request.getParameter("pageNum");
+		
+		String searchKey = request.getParameter("searchKey");
+		String searchValue = request.getParameter("searchValue");
+		
+		if(searchValue!=null) {
+			searchValue = URLDecoder.decode(searchValue, "UTF-8");
+		}
+		
+		boardService.updateHitCount(num);
+		
+		BoardDTO dto = boardService.getReadData(num);
+		
+		if(dto==null) {			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirect:/list.action?pageNum=" + pageNum);
+			return mav;
+		}
+		
+		int lineSu = dto.getContent().split("\n").length;
+		
+		//dto.setContent(dto.getContent().replaceAll("\r\n", "<br/>"));
+		
+		String param = "pageNum=" + pageNum;
+		if(searchValue!=null&&!searchValue.equals("")) {
+			
+			param += "&searchKey=" + searchKey;
+			param += "&searchValue=" + 
+					URLEncoder.encode(searchValue, "UTF-8");
+			
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("dto", dto);
+		mav.addObject("params", param);
+		mav.addObject("lineSu", lineSu);
+		mav.addObject("pageNum", pageNum);
+		
+		mav.setViewName("bbs/article");
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value = "/updated.action",
+			method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView updated(HttpServletRequest request) throws Exception{
+		
+		int num = Integer.parseInt(request.getParameter("num"));
+		String pageNum = request.getParameter("pageNum");
+		
+		String searchKey = request.getParameter("searchKey");
+		String searchValue = request.getParameter("searchValue");
+		
+		if(searchValue!=null) {
+			searchValue =
+					URLDecoder.decode(searchValue, "UTF-8");
+		}
+		
+		BoardDTO dto = boardService.getReadData(num);
+		
+		if(dto==null) {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirect:/list.action?pageNum=" + pageNum);
+			return mav;
+		}
+		
+		String param = "pageNum=" + pageNum;
+		
+		if(searchValue!=null&&!searchValue.equals("")) {
+			param += "&searchKey=" + searchKey;
+			param += "&searchValue=" +
+					URLEncoder.encode(searchValue, "UTF-8");
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("dto", dto);
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("params", param);
+		mav.addObject("searchKey", searchKey);
+		mav.addObject("searchValue", searchValue);
+		
+		mav.setViewName("bbs/updated");
+		
+		return mav;		
+		
 	}
 		
-
+	@RequestMapping(value = "/updated_ok.action",
+			method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView updated_ok(BoardDTO dto,HttpServletRequest request) throws Exception{
+	
+		String pageNum = request.getParameter("pageNum");		
+		String searchKey = request.getParameter("searchKey");
+		String searchValue = request.getParameter("searchValue");
+				
+		dto.setContent(dto.getContent().replaceAll("<br/>", "\r\n"));
+		
+		boardService.updateData(dto);
+		
+		String param = "pageNum=" + pageNum;
+		
+		if(searchValue!=null&&!searchValue.equals("")) {
+			param += "&searchKey=" + searchKey;
+			param += "&searchValue=" +
+					URLEncoder.encode(searchValue, "UTF-8");
+		}
+			
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("redirect:/list.action?" + param);
+				
+		return mav;
+		
+	}
+	
+	@RequestMapping(value = "/deleted_ok.action",
+			method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView deleted_ok(HttpServletRequest request) throws Exception{
+	
+		int num = Integer.parseInt(request.getParameter("num"));
+		String pageNum = request.getParameter("pageNum");		
+		String searchKey = request.getParameter("searchKey");
+		String searchValue = request.getParameter("searchValue");
+				
+		boardService.deleteData(num);
+		
+		String param = "pageNum=" + pageNum;
+		
+		if(searchValue!=null&&!searchValue.equals("")) {
+			param += "&searchKey=" + searchKey;
+			param += "&searchValue=" +
+					URLEncoder.encode(searchValue, "UTF-8");
+		}
+			
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("redirect:/list.action?" + param);		
+				
+		return mav;
+		
+	}
+	
+	
 }
+
+
+
+
+
+

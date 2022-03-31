@@ -1,9 +1,0 @@
-package com.exe.springdi4;
-
-import org.springframework.stereotype.Component;
-
-@Component("jobService")
-public interface JobService {
-
-	public void getJob();
-}
