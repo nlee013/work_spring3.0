@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.boot.mapper.BoardMapper">
+
+	<select id="maxNum" resultType="int">
+		select nvl(max(commuNo), 0) from commu
+	</select>
+
+	<insert id="insertData" parameterType="com.spring.boot.dto.CommuDTO">
+		insert into commu(commuNo, userId, userPwd, cmSubject, cmContent, ipAddr, hitCount, created )
+		values(#{commuNo}, #{userId}, #{userPwd}, #{cmSubject}, #{cmContent}, #{ipAddr}, 0, sysdate)
+	</insert>
+	
+	<select id="getDataCount" parameterType="hashMap" resultType="int">
+		select nvl(count(*), 0) from commu
+		where ${searchKey} like '%' || #{searchValue} || '%'
+	</select>
+	
+	<select id="getList" parameterType="map" resultType="com.spring.boot.dto.CommuDTO">
+		select*from(
+		select rownum rnum, data.* from(
+		select commuNo, userId, cmSubject, hitCount, to_char(created, 'YYYY-MM-DD') created
+		from commu where ${searchKey} like '%' || #{searchValue} || '%'
+		order by commuNo desc) data)
+	<![CDATA[
+		where rnum>=#{start} and rnum<=#{end}
+	]]>
+	</select>
+	
+	<update id="updateHitCount" parameterType="int">
+		update commu set hitCount= hitCount+1 where commuNo =#{commuNo}
+	</update>
+	
+	<select id="getReadData" parameterType="int" resultType="com.spring.boot.dto.CommuDTO">
+		select commuNo, userId, userPwd, cmSubject, cmContent, ipAddr, hitCount, created
+		from commu where commuNo=#{commuNo}
+	</select>
+	
+	<update id="updateData" parameterType="com.spring.boot.dto.CommuDTO">
+		update commu set userId=#{userId}, userPwd=#{userPwd},
+		cmSubject=#{cmSubject}, cmContent=#{cmContent} where commuNo=#{commuNo}
+	</update>
+
+	<delete id="deleteData" parameterType="int">
+		delete commu where commuNo=#{commuNo}
+	</delete>
+	
+
+</mapper>
