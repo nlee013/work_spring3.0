@@ -1,49 +1,97 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-	String cp = request.getContextPath();
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Contact | Muse-Market</title>
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="resources/css/font-awesome.min.css" rel="stylesheet">
-    <link href="resources/css/prettyPhoto.css" rel="stylesheet">
-    <link href="resources/css/price-range.css" rel="stylesheet">
-    <link href="resources/css/animate.css" rel="stylesheet">
-	<link href="resources/css/main.css" rel="stylesheet">
-	<link href="resources/css/responsive.css" rel="stylesheet">
+    <link href=" css/bootstrap.min.css" rel="stylesheet">
+    <link href=" css/font-awesome.min.css" rel="stylesheet">
+    <link href=" css/prettyPhoto.css" rel="stylesheet">
+    <link href=" css/price-range.css" rel="stylesheet">
+    <link href=" css/animate.css" rel="stylesheet">
+	<link href=" css/main.css" rel="stylesheet">
+	<link href=" css/responsive.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->       
-    <link rel="shortcut icon" href="resources/images/ico/favicon.ico">
+    <link rel="shortcut icon" href=" images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Q & A</title>
+<title>1 : 1</title>
 
-<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
-<link rel="stylesheet" type="text/css" href="resources/css/qa.css"/>
+<link rel="stylesheet" type="text/css" href=" css/style.css"/>
+<link rel="stylesheet" type="text/css" href=" css/created.css"/>
 
 <script type="text/javascript">
 
-	function sendIt() {
-		
-		var f = document.searchForm;
-		
-		f.action = "<%=cp%>/qa_contact.action";
-		f.submit();
+function sendIt(){
+	
+	var f = document.myForm;
+	
+	str = f.cSubject.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("\n제목을 입력하세요.");
+		f.cSubject.focus();
+		return;
 	}
-
-
+	f.cSubject.value = str;
+	
+	str = f.userId.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("\n아이디를 입력하세요.");
+		f.userId.focus();
+		return;
+	}		
+	
+	/* if(!isValidKorean(str)){
+		alert("\n이름을 정확히 입력하세요.");
+		f.name.focus()
+		return;
+	}		 */
+	f.userId.value = str;
+	
+	str = f.message.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("\n내용을 입력하세요.");
+		f.message.focus();
+		return;
+	}
+	f.message.value = str;
+	
+	str = f.userEmail.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("\n이메일을 입력하세요.");
+		f.userEmail.focus();
+		return;
+	}
+	f.userEmail.value = str;
+	
+	str = f.userPwd.value;
+	str = str.trim();
+	if(!str){
+		alert("\n비밀번호를 입력하세요.");
+		f.userPwd.focus();
+		return;
+	}
+	f.userPwd.value = str;
+	
+	f.action = "/qa_contact_ok.action";
+	f.submit();
+	
+}
 </script>
 
 
@@ -82,7 +130,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.html"><img src="resources/images/home/muse.png" alt=""  style="width:60px"/></a>
+							<a href="index.html"><img src=" images/home/muse.png" alt=""  style="width:60px"/></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
@@ -140,17 +188,16 @@
 								<li><a href="index.action" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Sale<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Art(Whole)</a>
-                                        <li><a href="shop.html">Art- Poster</a></li>
-                                        </li>
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                        
                                         <li><a href="shop.html">Art - Figure</a></li>
 										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
 										<li><a href="checkout.html">Art - Extra</a></li> 
 										
-										<li><a href="<%=cp%>/list.action">Community</a></li>
-                                        <li><a href="shop.html">Music(Whole)</a>
+										<li><a href="/list.action">Community</a></li>
+                                        <li><a href="shop.html">Music(Whole)</a></li>
                                         <li><a href="shop.html">Music - LP</a></li>
-                                        </li>
+                                        
                                         <li><a href="shop.html">Music - Video/DVD</a></li>
 										<li><a href="product-details.html">Music - Tape</a></li> 
 										<li><a href="checkout.html">Music - Instruments</a></li>
@@ -158,13 +205,10 @@
                                     </ul>
                                 </li>
                                
-								<li class="dropdown"><a href="<%=cp%>/list.action">Purchase<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="<%=cp%>/list.action">Community</a></li>
-                                        
-                                        <li><a href="shop.html">Art(Whole)</a>
-                                        <li><a href="shop.html">Art- Poster</a></li>
-                                        </li>
+								<li class="dropdown"><a th:href="@{list.action}">Purchase<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">                                                                       
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                  
                                         <li><a href="shop.html">Art - Figure</a></li>
 										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
 										<li><a href="checkout.html">Art - Extra</a></li> 
@@ -177,13 +221,14 @@
 										<li><a href="checkout.html">Music - Extra</a></li> 
                                     </ul>
                                 </li> 
-								<li><a href="<%=cp%>/list.action">Community</a></li>
+								<li><a th:href="@{list.action}">Community</a></li>
 								
-								<li class="dropdown"><a href="<%=cp%>/list.action">Contact<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a th:href="@{qa_contact.action}">Contact<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-										<li><a href="<%=cp%>/qa_list.action">Q & A</a></li>
-										<li><a href="<%=cp%>/qa_contact.action">Contact 1:1</a></li>
+										<li><a th:href="@{qa_list.action}">Q & A</a></li>
+										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
 									</ul>
+							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3">
@@ -203,64 +248,20 @@
 					<h2 class="title text-center">Contact <strong>1:1</strong></h2>    			    				    				
 					<div id="gmap" class="contact-map">
 					
-					<div id="bbsList">
+					<div id="bbsList">	
 
+
+<div id="bbs">
 	
-	<div id="bbsList_header">
-		<div id="leftHeader">
-		<form action="" method="post" name="searchForm">
-			
-			<input type="text" name="searchValue" class="textField"/>
-			<input type="button" value=" 검 색 " class="btn2" onclick="sendIt();"/>		
-		</form>				
-		</div>
-		<div id="rightHeader">
-			<input type="button" value=" 관리자 글올리기 " class="btn2"
-			onclick="javascript:location.href='<%=cp%>/qa_upload.action';"/>			
-		</div>	
-	</div>
-	<div id="bbsList_list">
-		<div id="title">
-			<dl>
-				<dt class="qa_upNo">번호</dt>
-				<dt class="qSubject">제목</dt>
-				<dt class="userId">아이디</dt>
-				<dt class="created">작성일</dt>
-				<dt class="hitCount">조회수</dt>
-			</dl>
-		</div>
-		<div id="lists">
-		<c:forEach var="dto" items="${lists }">
-			<dl>
-				<dd class="qa_upNo">${dto.qa_upNo }</dd>
-				<dd class="qSubject">
-				<a href="${articleUrl }&qa_upNo=${dto.qa_upNo}">
-					${dto.qSubject }
-				</a>
-				</dd>
-				<dd class="userId">${dto.userId }</dd>
-				<dd class="created">${dto.created }</dd>
-				<dd class="hitCount">${dto.hitCount }</dd>
-			</dl>
-		</c:forEach>
-		</div>
-		<div id="footer">
-			<c:if test="${dataCount != 0 }">
-				${pageIndexList }
-			</c:if>
-			<c:if test="${dataCount == 0 }">
-			등록된 게시물이 없습니다.
-			</c:if>
-		</div>
-		
-	</div>
+	<!-- form 시작 -->
+	<form action="" method="post" name="myForm" id="main-contact-form" class="contact-form row">
 	
 	<div class="row">  	
 	    		<div class="col-sm-8">
 	    			<div class="contact-form">
 	    				
 	    				<div class="status alert alert-success" style="display: none"></div>
-				    	<form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+				    	
 				            <div class="form-group col-md-6">
 				                <input type="text" name="userId" class="form-control" required="required" placeholder="Id">
 				            </div>
@@ -268,18 +269,31 @@
 				                <input type="email" name="userEmail" class="form-control" required="required" placeholder="Email">
 				            </div>
 				            <div class="form-group col-md-12">
-				                <input type="text" name="subject" class="form-control" required="required" placeholder="Subject">
+				                <input type="text" name="cSubject" class="form-control" required="required" placeholder="Subject">
 				            </div>
 				            <div class="form-group col-md-12">
 				                <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
-				            </div>                        
-				            <div class="form-group col-md-12">
-				                <input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
 				            </div>
-				        </form>
-				        
-	    			</div>
-	    		</div>
+				             <div class="form-group col-md-6">
+				                <input type="password" name="userPwd" class="form-control" required="required" placeholder="Pwd">
+				            </div>                     
+				          	
+						    </div><!--/#contact-page-->   
+										                	
+							<!-- 버튼 -->
+							<div id="bbsCreated_footer">
+								<input type="button" value=" 등록하기 " class="btn2"
+								onclick="javascript:location.href='/qa_contact_ok.action';"/>
+								<input type="reset" value=" 다시입력 " class="btn2" 
+								onclick="document.myForm.subject.focus();"/>
+								<input type="button" value=" 작성취소 " class="btn2"
+								onclick="javascript:location.href='/contact_list.action';"/>	
+							</div>				   
+				        </div>			 		
+					</div>   
+				</form>	    		
+	    	</div>
+	    </div>
 	    		<div class="col-sm-4">
 	    			<div class="contact-info">
 	    				<h2 class="title text-center">Contact Info</h2>
@@ -311,14 +325,14 @@
 	    			</div>
     			</div>    			
 	    	</div>
+
+</div>
+
+	    	</div>
 	
 </div>
 					</div>
-				</div>			 		
-			</div>    	
-    		  
-    	</div>	
-    </div><!--/#contact-page-->
+				
 	
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
@@ -480,21 +494,13 @@
 	
 
   
-    <script src="resources/js/jquery.js"></script>
-	<script src="resources/js/bootstrap.min.js"></script>
-	<script type="resources/text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src=" js/jquery.js"></script>
+	<script src=" js/bootstrap.min.js"></script>
+	<script type=" text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" src="js/gmaps.js"></script>
-	<script src="resources/js/contact.js"></script>
-	<script src="resources/js/price-range.js"></script>
-    <script src="resources/js/jquery.scrollUp.min.js"></script>
-    <script src="resources/js/jquery.prettyPhoto.js"></script>
-    <script src="resources/js/main.js"></script>
-</body>
+	<script src=" js/contact.js"></script>
+	<script src=" js/price-range.js"></script>
+    <script src=" js/jquery.scrollUp.min.js"></script>
+    <script src=" js/jquery.prettyPhoto.js"></script>
+    <script src=" js/main.js"></script>
 </html>
-
-
-
-
-
-
-

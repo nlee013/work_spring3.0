@@ -19,8 +19,6 @@ public interface ContactMapper {
 	
 	public QaContactDTO getReadData(int qa_conNo) throws Exception;
 	
-	public void updateHitCount(int qa_conNo) throws Exception;
-	
 	public void updateData(QaContactDTO dto) throws Exception;
 	
 	public void deleteData(int qa_conNo) throws Exception;

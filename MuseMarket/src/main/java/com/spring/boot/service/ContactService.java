@@ -1,8 +1,6 @@
 package com.spring.boot.service;
 
 import java.util.List;
-
-import com.spring.boot.dto.CommuDTO;
 import com.spring.boot.dto.QaContactDTO;
 
 public interface ContactService {
@@ -16,8 +14,6 @@ public interface ContactService {
 	public List<QaContactDTO> getList(int start, int end, String searchKey, String searchValue) throws Exception;
 	
 	public QaContactDTO getReadData(int qa_conNo) throws Exception;
-	
-	public void updateHitCount(int qa_conNo) throws Exception;
 	
 	public void updateData(QaContactDTO dto) throws Exception;
 	

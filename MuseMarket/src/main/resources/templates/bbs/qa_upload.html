@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-<title>게 시 판</title>
+<title>Q & A 게 시 판</title>
 
 <link rel="stylesheet" type="text/css" href=" css/style.css"/>
 <link rel="stylesheet" type="text/css" href=" css/created.css"/>
@@ -46,7 +46,7 @@
 		str = f.userId.value;
 		str = str.trim();
 		if(!str){
-			alert("\n이름을 입력하세요.");
+			alert("\n아이디를 입력하세요.");
 			f.userId.focus();
 			return;
 		}		
@@ -220,6 +220,7 @@
                                     <ul role="menu" class="sub-menu">
 										<li><a th:href="@{qa_list.action}">Q & A</a></li>
 										<li><a href="@{qa_contact.action}">Contact 1:1</a></li>
+										<li><a href="@{contact_list.action}">1:1 List</a></li>
 									</ul>
 						</div>
 					</div>
@@ -235,7 +236,7 @@
 
 <div id="bbs">
 	<div id="bbs_title">
-		Q A 게 시 판
+		Q & A 게 시 판
 	</div>
 	
 	<!-- form 시작 -->
@@ -257,7 +258,7 @@
 		<!-- 작성자 -->
 		<div class="bbsCreated_bottomLine">
 			<dl>
-				<dt>작성자</dt>
+				<dt>아이디</dt>
 				<dd>
 				<input type="text" name="userId" size="35" 
 				maxlength="20" class="boxTF"

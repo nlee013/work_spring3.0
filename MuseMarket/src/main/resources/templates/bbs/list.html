@@ -178,6 +178,7 @@
                                     <ul role="menu" class="sub-menu">
 										<li><a th:href="@{qa_list.action}">Q & A</a></li>
 										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
+										<li><a href="@{contact_list.action}">1:1 List</a></li>
 									</ul>
 						</div>
 					</div>
@@ -233,7 +234,7 @@
 				<a th:href="@{${articleUrl }} + '&commuNo=' + @{${dto.commuNo}}" 
 				th:text="${dto.cmSubject }">제목</a>
 				</td>
-				<td class="userId" th:text="${dto.userId }">이름</td>
+				<td class="userId" th:text="${dto.userId }">아이디</td>
 				<td class="created"  th:text="${dto.created }">날짜</td>
 				<td class="hitCount"  th:text="${dto.hitCount }">조회수</td>
 			</tr>

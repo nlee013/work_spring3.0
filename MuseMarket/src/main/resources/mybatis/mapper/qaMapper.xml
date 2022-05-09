@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="updateData" parameterType="com.spring.boot.dto.QaUploadDTO">
-		update qa_up set userId=#{userId}, userPwd=#{userPwd},qSubject=#{qSubject},
+		update qa_up set userId=#{userId}, userPwd=#{userPwd}, qSubject=#{qSubject},
 		qContent=#{qContent} where qa_upNo=#{qa_upNo}
 	</update>
 	

@@ -26,17 +26,16 @@ public class ContactController {
 	@Autowired
 	MyUtil myUtil;
 
-	
-//	@RequestMapping(value = "/qa_contact.action",method = {RequestMethod.GET})
-//	public ModelAndView qa_upload() throws Exception{
-//		
-//		ModelAndView mav = new ModelAndView();
-//		
-//		mav.setViewName("bbs/qa_contact");
-//		
-//		return mav;
-//		
-//	}
+	@RequestMapping(value = "/qa_contact.action",method = {RequestMethod.GET})
+	public ModelAndView qa_upload() throws Exception{
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("bbs/qa_contact");
+		
+		return mav;
+		
+	}
 	
 	@RequestMapping(value = "/qa_contact_ok.action",method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView created_ok(QaContactDTO dto, 
@@ -50,14 +49,14 @@ public class ContactController {
 				
 		contactService.insertData(dto);
 		
-		//mav.setViewName("redirect:/qa_contact.action");
-		mav.setViewName("bbs/qa_contact");
+		mav.setViewName("redirect:/contact_list.action");
+		//mav.setViewName("bbs/contact_list");
 		
 		return mav;
 		
 	}
 	
-	@RequestMapping(value = "/qa_contact.action",
+	@RequestMapping(value = "/contact_list.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView list(HttpServletRequest request) throws Exception{
 		
@@ -100,7 +99,7 @@ public class ContactController {
 			param+= "&searchValue=" + URLEncoder.encode(searchValue, "UTF-8");
 		}
 		
-		String listUrl = "/qa_contact.action";
+		String listUrl = "/contact_list.action";
 		
 		if(!param.equals("")) {
 			listUrl += "?" + param;
@@ -122,7 +121,7 @@ public class ContactController {
 		mav.addObject("pageIndexList", pageIndexList);
 		mav.addObject("dataCount", dataCount);
 		
-		mav.setViewName("bbs/qa_contact");
+		mav.setViewName("bbs/contact_list");
 		
 		return mav;
 		
@@ -148,7 +147,7 @@ public class ContactController {
 		
 		if(dto==null) {			
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("redirect:/qa_contact.action?pageNum=" + pageNum);
+			mav.setViewName("redirect:/contact_list.action?pageNum=" + pageNum);
 			return mav;
 		}
 		
@@ -197,7 +196,7 @@ public class ContactController {
 		
 		if(dto==null) {
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("redirect:/contact_qa.action?pageNum=" + pageNum);
+			mav.setViewName("redirect:/contact_list.action?pageNum=" + pageNum);
 			return mav;
 		}
 		
@@ -245,7 +244,7 @@ public class ContactController {
 			
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("redirect:/qa_contact.action?" + param);
+		mav.setViewName("redirect:/contact_list.action?" + param);
 				
 		return mav;
 		
@@ -272,7 +271,7 @@ public class ContactController {
 			
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("redirect:/qa_contact.action?" + param);		
+		mav.setViewName("redirect:/contact_list.action?" + param);		
 				
 		return mav;
 		

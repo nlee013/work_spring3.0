@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Muse-Market</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <title>Contact | Muse-Market</title>
+    <link href=" css/bootstrap.min.css" rel="stylesheet">
+    <link href=" css/font-awesome.min.css" rel="stylesheet">
     <link href=" css/prettyPhoto.css" rel="stylesheet">
     <link href=" css/price-range.css" rel="stylesheet">
     <link href=" css/animate.css" rel="stylesheet">
@@ -22,65 +21,22 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-<title>커뮤니티 게시판</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Q & A</title>
 
 <link rel="stylesheet" type="text/css" href=" css/style.css"/>
-<link rel="stylesheet" type="text/css" href=" css/created.css"/>
+<link rel="stylesheet" type="text/css" href=" css/contact_list.css"/>
 
-<script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript">
 
-	function sendIt(){
+	function sendIt() {
 		
-		var f = document.myForm;
+		var f = document.searchForm;
 		
-		
-		str = f.cmSubject.value;
-		str = str.trim();
-		if(!str){
-			alert("\n제목을 입력하세요.");
-			f.cmSubject.focus();
-			return;
-		}
-		f.cmSubject.value = str;
-		
-		str = f.userId.value;
-		str = str.trim();
-		if(!str){
-			alert("\n이름을 입력하세요.");
-			f.userId.focus();
-			return;
-		}		
-		
-		/* if(!isValidKorean(str)){
-			alert("\n이름을 정확히 입력하세요.");
-			f.name.focus()
-			return;
-		}		 */
-		f.userId.value = str;
-		
-		str = f.cmContent.value;
-		str = str.trim();
-		if(!str){
-			alert("\n내용을 입력하세요.");
-			f.cmContent.focus();
-			return;
-		}
-		f.cmContent.value = str;
-		
-		str = f.userPwd.value;
-		str = str.trim();
-		if(!str){
-			alert("\n비밀번호를 입력하세요.");
-			f.userPwd.focus();
-			return;
-		}
-		f.userPwd.value = str;
-		
-		f.action = "/created_ok.action";
+		f.action = "/contact_list.action";
 		f.submit();
-		
 	}
+
 
 </script>
 
@@ -120,7 +76,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.html"><img src="images/home/muse.png" alt=""  style="width:60px"/></a>
+							<a href="index.html"><img src=" images/home/muse.png" alt=""  style="width:60px"/></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
@@ -178,17 +134,16 @@
 								<li><a href="index.action" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Sale<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Art(Whole)</a>
-                                        <li><a href="shop.html">Art- Poster</a></li>
-                                        </li>
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                        
                                         <li><a href="shop.html">Art - Figure</a></li>
 										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
 										<li><a href="checkout.html">Art - Extra</a></li> 
 										
-										<li><a href="<%=cp%>/list.action">Community</a></li>
-                                        <li><a href="shop.html">Music(Whole)</a>
+										<li><a href="/list.action">Community</a></li>
+                                        <li><a href="shop.html">Music(Whole)</a></li>
                                         <li><a href="shop.html">Music - LP</a></li>
-                                        </li>
+                                        
                                         <li><a href="shop.html">Music - Video/DVD</a></li>
 										<li><a href="product-details.html">Music - Tape</a></li> 
 										<li><a href="checkout.html">Music - Instruments</a></li>
@@ -197,12 +152,9 @@
                                 </li>
                                
 								<li class="dropdown"><a th:href="@{list.action}">Purchase<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a th:href="@{list.action}">Community</a></li>
-                                        
-                                        <li><a href="shop.html">Art(Whole)</a>
-                                        <li><a href="shop.html">Art- Poster</a></li>
-                                        </li>
+                                    <ul role="menu" class="sub-menu">                                                                       
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                  
                                         <li><a href="shop.html">Art - Figure</a></li>
 										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
 										<li><a href="checkout.html">Art - Extra</a></li> 
@@ -223,6 +175,7 @@
 										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
 										<li><a href="@{contact_list.action}">1:1 List</a></li>
 									</ul>
+							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3">
@@ -234,85 +187,86 @@
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
+	 
+	 <div id="contact-page" class="container">
+    	<div class="bg">
+	    	<div class="row">    		
+	    		<div class="col-sm-12">    			   			
+					<h2 class="title text-center">1 : 1 <strong>목록</strong></h2>    			    				    				
+					<div id="gmap" class="contact-map">
+					
+					<div id="bbsList">
 	
-<div id="bbs">
-	<div id="bbs_title">
-		커뮤니티 게시판
-	</div>
-	
-	<!-- form 시작 -->
-	<form action="" method="post" name="myForm">
-	
-	<!-- 제목 -->
-	<div id="bbsCreated">
-		
-		<div class="bbsCreated_bottomLine">
-			<dl>
-				<dt>제&nbsp;&nbsp;&nbsp;&nbsp;목</dt>
-				<dd>
-				<input type="text" name="cmSubject" size="60" 
-				maxlength="100" class="boxTF"/>
-				</dd>
-			</dl>		
+	<div id="bbsList_header">
+		<div id="leftHeader">
+		<form action="" method="post" name="searchForm">
+			
+			<input type="text" name="searchValue" class="textField"/>
+			<input type="button" value=" 검 색 " class="btn2" onclick="sendIt();"/>		
+		</form>				
 		</div>
 		
-		<!-- 작성자 -->
-		<div class="bbsCreated_bottomLine">
-			<dl>
-				<dt>작성자</dt>
-				<dd>
-				<input type="text" name="userId" size="35" 
-				maxlength="20" class="boxTF"
-				value=" "/>
-				</dd>
-			</dl>		
-		</div>
-		
-		<!-- 내용 -->
-		<div id="bbsCreated_content">
-			<dl>
-				<dt>내&nbsp;&nbsp;&nbsp;&nbsp;용</dt>
-				<dd>
-				<textarea rows="12" cols="63" name="cmContent"
-				class="boxTA"></textarea>
-				</dd>
-			</dl>
-		</div>
-		
-		<!-- 비밀번호 -->
-		<div class="bbsCreated_noLine">
-			<dl>
-				<dt>비밀번호</dt>
-				<dd>
-				<input type="password" name="userPwd" size="35" 
-				maxlength="7" class="boxTF"/>
-				&nbsp;(게시물 수정 및 삭제시 필요!!)
-				</dd>
-			</dl>		
+		<div id="rightHeader">
+			<input type="button" value=" 1:1 글올리기 " class="btn2"
+			onclick="javascript:location.href='/qa_contact.action';"/>			
 		</div>	
-	
+		
 	</div>
-	
-	<!-- 버튼 -->
-	<div id="bbsCreated_footer">
-		<input type="button" value=" 등록하기 " class="btn2" onclick="sendIt();"/>
-		<input type="reset" value=" 다시입력 " class="btn2" 
-		onclick="document.myForm.subject.focus();"/>
-		<input type="button" value=" 작성취소 " class="btn2"
-		onclick="javascript:location.href='/list.action';"/>	
-	</div>
-	
-	</form>
 
+	<div id="bbsList_list">
+		<table>
+		<thead id="title">
+			<tr>
+				<th class="qa_conNo">번호</th>
+				<th class="cSubject">제목</th>
+				<th class="userId">아이디</th>
+				<th class="created">작성일</th>
+			</tr>
+		</thead>
+		
+		<tbody id="lists">
+			<tr th:if="${#lists.size(lists)} > 0" th:each="dto:${lists}" >
+				<td class="qa_conNo" th:text="${dto.qa_conNo }">번호</td>
+				<td class="cSubject">
+				<a th:href="@{${articleUrl }} + '&qa_conNo=' + @{${dto.qa_conNo}}" 
+				th:text="${dto.cSubject }">제목</a>
+				</td>
+				<td class="userId" th:text="${dto.userId }">아이디</td>
+				<td class="created"  th:text="${dto.created }">날짜</td>
+			</tr>
+			
+			<tr th:if="${#lists.size(lists)} > 0" th:each="dataCount:${dataCount}">
+				<td colspan="5" id="footer">
+					<a th:utext="${pageIndexList}"></a>	
+				</td>
+			</tr>
+			
+			<tr th:if="${#lists.size(lists)} < 0" th:each="dataCount:${dataCount}">
+				<td colspan="5" id="footer">
+					등록된 게시물이 없습니다.
+				</td>
+			</tr>
+		</tbody>
+		
+	</table>
+		
+	</div>
+	
 </div>
-
-<footer id="footer"><!--Footer-->
+					</div>
+				</div>			 		
+			</div>    	
+    		  
+    	</div>	
+    </div><!--/#contact-page-->
+	
+	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-2">
 						<div class="companyinfo">
-							<h2><span>e</span>-shopper</h2>
+							<h2><span>Muse</span>-Market</h2>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
 						</div>
 					</div>
@@ -328,7 +282,7 @@
 									</div>
 								</a>
 								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								<h2>24 MAY 2022</h2>
 							</div>
 						</div>
 						
@@ -463,6 +417,16 @@
 		</div>
 		
 	</footer><!--/Footer-->
+	
 
-</body>
+  
+    <script src=" js/jquery.js"></script>
+	<script src=" js/bootstrap.min.js"></script>
+	<script type=" text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="js/gmaps.js"></script>
+	<script src=" js/contact.js"></script>
+	<script src=" js/price-range.js"></script>
+    <script src=" js/jquery.scrollUp.min.js"></script>
+    <script src=" js/jquery.prettyPhoto.js"></script>
+    <script src=" js/main.js"></script>
 </html>

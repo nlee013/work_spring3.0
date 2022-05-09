@@ -4,6 +4,7 @@ public class QaContactDTO {
 
 	private int qa_conNo;
 	private String userId;
+	private String userPwd;
 	private String userEmail;
 	private String cSubject;
 	private String message;
@@ -20,6 +21,12 @@ public class QaContactDTO {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getUserPwd() {
+		return userPwd;
+	}
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
 	public String getUserEmail() {
 		return userEmail;
@@ -45,5 +52,7 @@ public class QaContactDTO {
 	public void setCreated(String created) {
 		this.created = created;
 	}
+	
+	
 	
 }

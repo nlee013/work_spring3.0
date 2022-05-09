@@ -17,12 +17,12 @@ public interface CommuMapper {
 	
 	public List<CommuDTO> getList(int start, int end, String searchKey, String searchValue) throws Exception;
 	
-	public CommuDTO getReadData(int commNo) throws Exception;
+	public CommuDTO getReadData(int commuNo) throws Exception;
 	
-	public void updateHitCount(int commNo) throws Exception;
+	public void updateHitCount(int commuNo) throws Exception;
 	
 	public void updateData(CommuDTO dto) throws Exception;
 	
-	public void deleteData(int commNo) throws Exception;
+	public void deleteData(int commuNo) throws Exception;
 	
 }

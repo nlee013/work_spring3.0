@@ -41,12 +41,6 @@ public class ContactServiceImpl implements ContactService{
 	}
 
 	@Override
-	public void updateHitCount(int qa_conNo) throws Exception {
-		contactMapper.updateHitCount(qa_conNo);
-
-	}
-
-	@Override
 	public void updateData(QaContactDTO dto) throws Exception {
 		contactMapper.updateData(dto);
 
@@ -57,9 +51,6 @@ public class ContactServiceImpl implements ContactService{
 		contactMapper.deleteData(qa_conNo);
 
 	}
-	
-	
-
 	
 	//찾아가는 순서
 	//BoardController -> BoardService(Interface) -> BoardServiceImpl(Class) -> BoardMapper(I) -> boardMapper.xml

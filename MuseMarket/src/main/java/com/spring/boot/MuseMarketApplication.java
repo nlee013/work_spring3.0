@@ -26,7 +26,7 @@ public class MuseMarketApplication {
 			sessionFactory.setDataSource(dataSource);//DI 의존성 주입
 			
 			//하나로 받을 때는 배열로 받을 필요없고 여러개를 나중에 사용하기 때문에 여기서 배열로 만든다
-			Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mapper/*.xml");
+			Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mapper/**/*.xml");
 			
 			sessionFactory.setMapperLocations(res);
 			
