@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Muse-Market</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/price-range.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+
+<!-- REQUIRED SCRIPTS --> <!-- jQuery -->
+<script src="jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="js/adminlte.min.js"></script>
+<!-- HandleBars JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+
+
+</head><!--/head-->
+<body>
+<header id="header"><!--header-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="#"><i class="fa fa-phone"></i> +82 123 1234</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> info@muse.com</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+		
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="index.html"><img src=" images/home/muse.png" alt=""  style="width:60px"/></a>
+						</div>
+						<div class="btn-group pull-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									Korea
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">USA</a></li>
+									<li><a href="#">UK</a></li>
+								</ul>
+							</div>
+							
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									Won
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Dollar</a></li>
+									<li><a href="#">Pound</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="index.action" class="active">Home</a></li>
+								<li class="dropdown"><a href="#">Sale<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                        
+                                        <li><a href="shop.html">Art - Figure</a></li>
+										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
+										<li><a href="checkout.html">Art - Extra</a></li> 
+										
+										<li><a href="/list.action">Community</a></li>
+                                        <li><a href="shop.html">Music(Whole)</a></li>
+                                        <li><a href="shop.html">Music - LP</a></li>
+                                        
+                                        <li><a href="shop.html">Music - Video/DVD</a></li>
+										<li><a href="product-details.html">Music - Tape</a></li> 
+										<li><a href="checkout.html">Music - Instruments</a></li>
+										<li><a href="checkout.html">Music - Extra</a></li> 
+                                    </ul>
+                                </li>
+                               
+								<li class="dropdown"><a th:href="@{list.action}">Purchase<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">                                                                       
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                  
+                                        <li><a href="shop.html">Art - Figure</a></li>
+										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
+										<li><a href="checkout.html">Art - Extra</a></li> 
+										
+                                        <li><a href="shop.html">Music(Whole)</a>
+                                        <li><a href="shop.html">Music - LP</a></li>
+                                        <li><a href="shop.html">Music - Video/DVD</a></li>
+										<li><a href="product-details.html">Music - Tape</a></li> 
+										<li><a href="checkout.html">Music - Instruments</a></li>
+										<li><a href="checkout.html">Music - Extra</a></li> 
+                                    </ul>
+                                </li> 
+								<li><a th:href="@{list.action}">Community</a></li>
+								
+								<li class="dropdown"><a th:href="@{list.action}">Contact<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+										<li><a th:href="@{qa_list.action}">Q & A</a></li>
+										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
+										<li><a href="@{contact_list.action}">1:1 List</a></li>
+									</ul>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+							<input type="text" placeholder="Search"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+	
+	<!-- 댓글 영역 -->
+	
+	<div class="card-body">
+		<form class="form-horizontal">
+			<div class="row">
+				<div class="form-group col-sm-8">
+					<input class="form-control input-sm" id="newReplyText" type="text" placeholder="댓글 입력...">
+				</div>
+				
+				<div class="form-group col-sm-2">
+					<input class="form-control input-sm" id="newReplyWriter" type="text" placeholder="작성자">
+				</div>
+				
+				<div class="form-group col-sm-2">
+					<button type="button" class="btn btn-primary btn-sm btn-block replyAddBtn">
+						<i class="fa fa-save"></i> 저장
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<div class="card card-primary card-outline">
+	<!-- 댓글 유무 / 댓글 갯수 / 댓글 펼치기, 접기 -->
+		<div class="card-header">
+			<a href="" class="link-black text-lg">
+				<i class="fas fa-comments margin-r-5 replyCount"></i>
+			</a>
+			<div class="card-tools">
+				<button type="button" class="btn primary" data-widget="collapse">
+					<i class="fa fa-plus"></i>
+				</button>
+			</div>
+		</div>
+		
+		<!-- 댓글 목록 -->
+		<div class="card-body repliesDiv"></div>
+	
+		<!--댓글 페이징-->
+		<div class="card-footer">
+			<nav aria-label="Contacts Page Navigation">
+				<ul class="pagination pagination-sm no-margin justify-content-center m-0"></ul>
+			</nav>
+		</div>
+	</div>
+
+<script type="text/javascript">
+/* 버튼 세팅 */
+ var btn_insert_cmt = document.getElementById("btn_insert_cmt");
+ btn_insert_cmt.onclick = function(){insertCmt();}
+ /* Model 값 세팅 */
+ var idx = ${bbsidx};
+ var userid = `${userid}`;
+ $(function(){
+    //댓글 목록 출력
+    selectBBScmt();
+     /* 댓글 더보기 화살표 hover */
+     $("#btn_cmt_more").hover(function(){
+         $("#imgMore").attr("src","/home/img/ico_cmt_more_after.png");
+         $("#cmt_more_guide").css("display","");
+     }, function(){
+         $("#imgMore").attr("src","/home/img/ico_cmt_more_before.png");
+         $("#cmt_more_guide").css("display","none");
+     });
+     /* 댓글 접기 화살표 hover*/
+     $("#btn_cmt_back").hover(function(){
+         $("#imgBack").attr("src","/home/img/ico_cmt_back_after.png");
+         $("#cmt_back_guide").css("display","");
+     }, function(){
+         $("#imgBack").attr("src","/home/img/ico_cmt_back_before.png");
+         $("#cmt_back_guide").css("display","none");
+     });
+});
+//댓글 목록 출력 ajax
+  function selectBBScmt(){
+     var str1 = ""; //최초 댓글 4개를 append할 변수
+     var str2 = ""; //댓글이 5개이상일때 추가 append할 변수
+     var strDelAndMod = "";//댓글 수정, 삭제 html string을 담는 변수
+     var replyImg = "";//대댓글 이미지 html string을 담는 변수
+     var inputWidthClass = "";//대댓글이 달릴때 대댓글의 width값을 담는 변수
+     var mlpClass=""; //대댓글이 달릴때 replyImg가 그려질 위치를 정하는 변수
+     
+      $.ajax({
+            type : "POST",  
+            url : "/selectBBScmt",       
+            dataType : "json",   
+            data : "bbscmtidx="+idx,
+            error : function(){
+                Rnd.alert("통신 에러","error","확인",function(){});
+            },
+            success : function(jdata) {
+                if(jdata.length < 4){ // 댓글이 4개 이하 일때 처음에는 댓글을 최대 4개까지만 보여줌
+                    for(var i=0; i<jdata.length; i++){
+                        if(userid == jdata[i].userid){
+                            //수정 삭제 답글 버튼 본인이 적은거
+                            strDelAndMod = "<em onclick=\"cmtModify("+jdata[i].idx+")\" style='cursor:pointer;'>&nbsp;&nbsp;수정</em>&nbsp;<em onclick=\"cmtDelete("+jdata[i].idx+")\" style='cursor:pointer;'>삭제</em>&nbsp;<em onclick=\"cmtReply('"+jdata[i].userid+"_"+jdata[i].idx+"','I')\"style='cursor:pointer;'>답글</em>";
+                        }
+                        else {
+                            strDelAndMod = "&nbsp;<em onclick=\"cmtReply('"+jdata[i].userid+"_"+jdata[i].idx+"','I')\"style='cursor:pointer;'>답글</em>";
+                        }
+                        if(jdata[i].level > 1){
+                            //대댓글 이미지 , input width class 
+                            replyImg = "<img src='/home/img/comment_reply.png' class='commentReply'>";
+                            inputWidthClass = "class='width96'";
+                            if(jdata[i].level == 2){mlpClass = "";}
+                            else if(jdata[i].level == 3){mlpClass = "class='mlp30'";}
+                            else if(jdata[i].level >= 4){mlpClass = "class='mlp60'";}
+                        }
+                        else{
+                            replyImg = "";
+                            inputWidthClass = "class='width100'";
+                            mlpClass="";
+                        }
+                        str1 += "<ul><li><div class='desc'style='border-top: 2px solid black;'>작성날짜&nbsp;<strong>"+jdata[i].regdate+"</strong>&nbsp;&nbsp;작성자&nbsp;<strong>"+jdata[i].userid+"</strong>"
+                            +strDelAndMod
+                            +"</div></li>"
+                            +"<li style='line-height:37px;' "+mlpClass+">"+replyImg
+                            +"<input type='text' "+inputWidthClass+"name=\""+jdata[i].idx+"\" value=\""+jdata[i].content+"\" disabled=''style='font-size:15px;font-weight:bold;background-color: #f6f6f6;border: 1px solid #f6f6f6;'></li>"
+                            +"<li id=\""+jdata[i].idx+"\" style='display:none;'>"
+                            +"<a href='javascript:void(0);' onclick='cmtModCancel(this)' orgcmt=\""+jdata[i].content+"\" class='btn_d btn_red'>취소</a>&nbsp;"
+                            +"<a href='javascript:void(0);' onclick=\"cmtModAri("+jdata[i].idx+")\" class='btn_d btn_build'>완료</a></li>"
+                            +"<li id=\""+jdata[i].userid+"_"+jdata[i].idx+"\" style='display:none;'>"
+                            +"<img src='/home/img/comment_reply.png' class='commentReply'>"
+                            +"<textarea class='replyTextarea' id='"+jdata[i].upidx+"_"+jdata[i].idx+"'></textarea>"
+                            +"<div class='replySubmitDiv'>"
+                            +"<a href='javascript:void(0);' onclick=\"cmtReply('"+jdata[i].userid+"_"+jdata[i].idx+"','C')\" class='btn_d btn_red'>취소</a>&nbsp;"
+                            +"<a href='javascript:void(0);' onclick=\"insertReplyCmt('"+jdata[i].upidx+"_"+jdata[i].idx+"','"+jdata[i].bbscmtidx+"')\" class='btn_d btn_build'>등록</a></div></li></ul>";
+                        }
+                    //댓글 목록 출력
+                    $("#board_cmt_list").empty();
+                    $("#board_cmt_list").append(str1);
+                }
+                else{ //댓글이 5개 이상일때 
+                    for(var i=0; i<4; i++){//기존 4개 먼저 보여짐
+                        if(userid == jdata[i].userid){
+                            strDelAndMod = "<em onclick=\"cmtModify("+jdata[i].idx+")\" style='cursor:pointer;'>&nbsp;&nbsp;수정</em>&nbsp;<em onclick=\"cmtDelete("+jdata[i].idx+")\" style='cursor:pointer;'>삭제</em>&nbsp;<em onclick=\"cmtReply('"+jdata[i].userid+"_"+jdata[i].idx+"','I')\"style='cursor:pointer;'>답글</em>";
+                        }
+                        else {
+                            strDelAndMod = "&nbsp;<em onclick=\"cmtReply('"+jdata[i].userid+"_"+jdata[i].idx+"','I')\"style='cursor:pointer;'>답글</em>";
+                        }
+                        if(jdata[i].level > 1){
+                            replyImg = "<img src='/home/img/comment_reply.png' class='commentReply'>";
+                            inputWidthClass = "class='width96'";
+                            if(jdata[i].level == 2){mlpClass = "";}
+                            else if(jdata[i].level == 3){mlpClass = "class='mlp30'";}
+                            else if(jdata[i].level >= 4){mlpClass = "class='mlp60'";}
+                        }
+                        else{
+                            replyImg = "";
+                            inputWidthClass = "class='width100'";
+                            mlpClass="";
+                        }
+                        str1+= "<ul><li><div class='desc'style='border-top: 2px solid black;'>작성날짜&nbsp;<strong>"+jdata[i].regdate+"</strong>&nbsp;&nbsp;작성자&nbsp;<strong>"+jdata[i].userid+"</strong>"
+                            +strDelAndMod
+                            +"</div></li>"
+                            +"<li style='line-height:37px;' "+mlpClass+">"+replyImg
+                            +"<input type='text' "+inputWidthClass+"name=\""+jdata[i].idx+"\" value=\""+jdata[i].content+"\" disabled=''style='font-size:15px;font-weight:bold;background-color: #f6f6f6;border: 1px solid #f6f6f6;'></li>"
+                            +"<li id=\""+jdata[i].idx+"\" style='display:none;'>"
+                            +"<a href='javascript:void(0);' onclick='cmtModCancel(this)' orgcmt=\""+jdata[i].content+"\" class='btn_d btn_red'>취소</a>&nbsp;"
+                            +"<a href='javascript:void(0);' onclick=\"cmtModAri("+jdata[i].idx+")\" class='btn_d btn_build'>완료</a></li>"
+                            +"<li id=\""+jdata[i].userid+"_"+jdata[i].idx+"\" style='display:none;'>"
+                            +"<img src='/home/img/comment_reply.png' class='commentReply'>"
+                            +"<textarea class='replyTextarea' id='"+jdata[i].upidx+"_"+jdata[i].idx+"'></textarea>"
+                            +"<div class='replySubmitDiv'>"
+                            +"<a href='javascript:void(0);' onclick=\"cmtReply('"+jdata[i].userid+"_"+jdata[i].idx+"','C')\" class='btn_d btn_red'>취소</a>&nbsp;"
+                            +"<a href='javascript:void(0);' onclick=\"insertReplyCmt('"+jdata[i].upidx+"_"+jdata[i].idx+"','"+jdata[i].bbscmtidx+"')\" class='btn_d btn_build'>등록</a></div></li></ul>";
+                        }
+                    for(var i=4; i<jdata.length; i++){ // 더보기 누르면 이미 그려노은거 추가하는거
+                        if(userid == jdata[i].userid){
+                            strDelAndMod = "<em onclick=\"cmtModify("+jdata[i].idx+")\" style='cursor:pointer;'>&nbsp;&nbsp;수정</em>&nbsp;<em onclick=\"cmtDelete("+jdata[i].idx+")\" style='cursor:pointer;'>삭제</em>&nbsp;<em onclick=\"cmtReply('"+jdata[i].userid+"_"+jdata[i].idx+"','I')\"style='cursor:pointer;'>답글</em>";
+                        }
+                        else {
+                            strDelAndMod = "&nbsp;<em onclick=\"cmtReply('"+jdata[i].userid+"_"+jdata[i].idx+"','I')\"style='cursor:pointer;'>답글</em>";
+                        }
+                        if(jdata[i].level > 1){
+                            replyImg = "<img src='/home/img/comment_reply.png' class='commentReply'>";
+                            inputWidthClass = "class='width96'";
+                            if(jdata[i].level == 2){mlpClass = "";}
+                            else if(jdata[i].level == 3){mlpClass = "class='mlp30'";}
+                            else if(jdata[i].level >= 4){mlpClass = "class='mlp60'";}
+                        }
+                        else{
+                            replyImg = "";
+                            inputWidthClass = "class='width100'";
+                            mlpClass="";
+                        }
+                        str2 += "<ul style='margin-left:6px;'><li><div class='desc'style='border-top: 2px solid black;'>작성날짜&nbsp;<strong>"+jdata[i].regdate+"</strong>&nbsp;&nbsp;작성자&nbsp;<strong>"+jdata[i].userid+"</strong>"
+                            +strDelAndMod
+                            +"</div></li>"
+                            +"<li style='line-height:37px;' "+mlpClass+">"+replyImg
+                            +"<input type='text' "+inputWidthClass+"name=\""+jdata[i].idx+"\" value=\""+jdata[i].content+"\" disabled=''style='font-size:15px;font-weight:bold;background-color: #f6f6f6;border: 1px solid #f6f6f6;'></li>"
+                            +"<li id=\""+jdata[i].idx+"\" style='display:none;'>"
+                            +"<a href='javascript:void(0);' onclick='cmtModCancel(this)' orgcmt=\""+jdata[i].content+"\" class='btn_d btn_red'>취소</a>&nbsp;"
+                            +"<a href='javascript:void(0);' onclick=\"cmtModAri("+jdata[i].idx+")\" class='btn_d btn_build'>완료</a></li>"
+                            +"<li id=\""+jdata[i].userid+"_"+jdata[i].idx+"\" style='display:none;'>"
+                            +"<img src='/home/img/comment_reply.png' class='commentReply'>"
+                            +"<textarea class='replyTextarea' id='"+jdata[i].upidx+"_"+jdata[i].idx+"'></textarea>"
+                            +"<div class='replySubmitDiv'>"
+                            +"<a href='javascript:void(0);' onclick=\"cmtReply('"+jdata[i].userid+"_"+jdata[i].idx+"','C')\" class='btn_d btn_red'>취소</a>&nbsp;"
+                            +"<a href='javascript:void(0);' onclick=\"insertReplyCmt('"+jdata[i].upidx+"_"+jdata[i].idx+"','"+jdata[i].bbscmtidx+"')\" class='btn_d btn_build'>등록</a></div></li></ul>";
+                        }
+                    
+                    //처음 댓글 목록 
+                    $("#board_cmt_list").empty();
+                    $("#board_cmt_list").append(str1);
+                    
+                    //펼치기 했을때 댓글 목록
+                    $("#cmtMore").empty();
+                    $("#cmtMore").append(str2);
+                    // 더보기 버튼 눌렀을때
+                    $("#btn_cmt_more").on("click",function(){
+                        $("#div_cmt_more").css("display","none");
+                        $("#cmtMore").slideDown();
+                        $("#div_cmt_back").css("display","");
+                        $("#wrap").animate({ // 스크롤 제일 아래로 애니메이션
+                            scrollTop : 10000
+                        }, 800);
+                    });
+                    //접기 버튼 눌렀을때
+                    $("#btn_cmt_back").on("click",function(){
+                        $("#cmtMore").slideUp(function(){
+                            $("#div_cmt_back").css("display","none");
+                            $("#div_cmt_more").css("display","");
+                        });
+                    });
+                }
+                $("#totalCmt").empty();
+                if(jdata.length == 0){
+                    totalCmt = 0;
+                    $("#imgMore").css("display","none");
+                }
+                else {
+                    $("#imgMore").css("display","");
+                    var totalCmt = jdata[0].totalCmt;
+                    }
+                $("#totalCmt").append(" "+totalCmt+" ");
+            }
+        });
+     }
+</script>
+ 
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	<footer id="footer"><!--Footer-->
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="companyinfo">
+							<h2><span>Muse</span>-Market</h2>
+							<p>Muse Market is a luxurious online market where you can trade art and music related products secondhand. </p>
+						</div>
+					</div>
+					<div class="col-sm-7">
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe1.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe2.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe3.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe4.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="address">
+							<img src=" /images/home/map.png" alt="" />
+							<p>3jo Luxurious Linas MuseMarket, Seoul</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Service</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Online Help</a></li>
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="#">Order Status</a></li>
+								<li><a href="#">Change Location</a></li>
+								<li><a th:href="@{qa_list.action}">FAQ’s</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Quick Shop</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Poster</a></li>
+								<li><a href="#">Figure</a></li>
+								<li><a href="#">Exhibition goods</a></li>
+								<li><a href="#">Vinyl Record(LP)</a></li>
+								<li><a href="#">Video/DVD</a></li>
+								<li><a href="#">Tape</a></li>
+								<li><a href="#">Instruments</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Policies</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Terms of Use</a></li>
+								<li><a href="#">Privecy Policy</a></li>
+								<li><a href="#">Refund Policy</a></li>
+								<li><a href="#">Billing System</a></li>								
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>About Muse Market</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Company Information</a></li>
+								<li><a href="#">Careers</a></li>
+								<li><a href="#">Store Location</a></li>
+								<li><a href="#">Affillate Program</a></li>
+								<li><a href="#">Copyright</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>About Muse Market</h2>
+							<form action="#" class="searchform">
+								<input type="text" placeholder="Your email address" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Muse Market is a luxurious online market where you can trade art and music related products secondhand. </p>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2022 Muse-Market Inc. All rights reserved.</p>
+					<p class="pull-right">Designed by <span><a target="_blank" href="">3조</a></span></p>
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+	
+
+  
+    <script src=" js/jquery.js"></script>
+	<script src=" js/bootstrap.min.js"></script>
+	<script src=" js/jquery.scrollUp.min.js"></script>
+	<script src=" js/price-range.js"></script>
+    <script src=" js/jquery.prettyPhoto.js"></script>
+    <script src=" js/main.js"></script>
+    
+</body>
+</html>

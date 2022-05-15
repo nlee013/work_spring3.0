@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.boot.mapper.ContactMapper">
+
+	<select id="maxNum" resultType="int">
+		select nvl(max(qa_conNo), 0) from qa_con
+	</select>
+	
+	<insert id="insertData" parameterType="com.spring.boot.dto.QaContactDTO">
+		insert into qa_con(qa_conNo, userId, userPwd, userEmail, cSubject, message, created ) 
+		values(#{qa_conNo}, #{userId}, #{userPwd}, #{userEmail},
+		#{cSubject}, #{message}, sysdate)
+	</insert>
+	
+	<select id="getDataCount" parameterType="hashMap" resultType="int">
+		select nvl(count(*), 0) from qa_con
+		where ${searchKey} like '%' || #{searchValue} || '%'
+	</select>
+	
+	<select id="getList" parameterType="map" resultType="com.spring.boot.dto.QaContactDTO">
+		select*from(
+		select rownum rnum, data.* from(
+		select qa_conNo, userId, userEmail, cSubject, to_char(created, 'YYYY-MM-DD') created
+		from qa_con where ${searchKey} like '%' || #{searchValue} || '%'
+		order by qa_conNo desc) data)
+	<![CDATA[
+		where rnum>=#{start} and rnum<=#{end}
+	]]>
+	</select>
+	
+	<select id="getReadData" parameterType="int" resultType="com.spring.boot.dto.QaContactDTO">
+		select qa_conNo, userId, userPwd, userEmail, cSubject, message, created
+		from qa_con where qa_conNo=#{qa_conNo}
+	</select>
+	
+	<update id="updateData" parameterType="com.spring.boot.dto.QaContactDTO">
+		update qa_con set userId=#{userId}, userPwd=#{userPwd}, userEmail=#{userEmail}, cSubject=#{cSubject},
+		message=#{message} where qa_conNo=#{qa_conNo}
+	</update>
+	
+	<delete id="deleteData" parameterType="int">
+		delete qa_con where qa_conNo=#{qa_conNo}
+	</delete>
+
+</mapper>

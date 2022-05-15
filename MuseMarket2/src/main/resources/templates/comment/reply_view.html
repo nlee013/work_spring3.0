@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Muse-Market</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/price-range.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+<body>
+
+
+<header id="header"><!--header-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="#"><i class="fa fa-phone"></i> +82 123 1234</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> info@muse.com</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+		
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="index.html"><img src=" images/home/muse.png" alt=""  style="width:60px"/></a>
+						</div>
+						<div class="btn-group pull-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									Korea
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">USA</a></li>
+									<li><a href="#">UK</a></li>
+								</ul>
+							</div>
+							
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									Won
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Dollar</a></li>
+									<li><a href="#">Pound</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="index.action" class="active">Home</a></li>
+								<li class="dropdown"><a href="#">Sale<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                        
+                                        <li><a href="shop.html">Art - Figure</a></li>
+										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
+										<li><a href="checkout.html">Art - Extra</a></li> 
+										
+										<li><a href="/list.action">Community</a></li>
+                                        <li><a href="shop.html">Music(Whole)</a></li>
+                                        <li><a href="shop.html">Music - LP</a></li>
+                                        
+                                        <li><a href="shop.html">Music - Video/DVD</a></li>
+										<li><a href="product-details.html">Music - Tape</a></li> 
+										<li><a href="checkout.html">Music - Instruments</a></li>
+										<li><a href="checkout.html">Music - Extra</a></li> 
+                                    </ul>
+                                </li>
+                               
+								<li class="dropdown"><a th:href="@{list.action}">Purchase<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">                                                                       
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                  
+                                        <li><a href="shop.html">Art - Figure</a></li>
+										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
+										<li><a href="checkout.html">Art - Extra</a></li> 
+										
+                                        <li><a href="shop.html">Music(Whole)</a>
+                                        <li><a href="shop.html">Music - LP</a></li>
+                                        <li><a href="shop.html">Music - Video/DVD</a></li>
+										<li><a href="product-details.html">Music - Tape</a></li> 
+										<li><a href="checkout.html">Music - Instruments</a></li>
+										<li><a href="checkout.html">Music - Extra</a></li> 
+                                    </ul>
+                                </li> 
+								<li><a th:href="@{list.action}">Community</a></li>
+								
+								<li class="dropdown"><a th:href="@{list.action}">Contact<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+										<li><a th:href="@{qa_list.action}">Q & A</a></li>
+										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
+										<li><a href="@{contact_list.action}">1:1 List</a></li>
+									</ul>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+							<input type="text" placeholder="Search"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+	
+	<!-- 댓글 영역 -->
+
+	<div id="bbsArticle">
+		<div id="bbsArticle_header">
+			<label for="content">댓글 남기기</label>
+			<dl>
+				<dt>작성자</dt>
+				<dd><input type="text" th:id="id" name="userId" placeholder="아이디"></dd>
+				<dt>내용</dt>
+				<dd><input type="text" th:id="content" name="crContent" placeholder="댓글을 남겨주세요."></dd>		
+			</dl>
+			
+			 <input type="hidden" name="crNo" value="${dto.crNo}"/>
+			  <input type="hidden" name="commuNo" value="${dto.commuNo}"/>		
+			  <input type="hidden" name="insert_time" value="${dto.insert_time}"/>					 
+			 <input type="button" value="등록" class="btn2"
+					th:onclick="'location.href=\'reply_article.action?' + @{${params }} + '\''"/>     
+		</div>
+	</div>
+	
+	<div id="bbsList_list">
+	<table>
+		<thead id="title">
+			<tr>
+				<th class="commuNo">게시물 번호</th>
+				<th class="crNo">댓글 번호</th>
+				<th class="crContent">댓글 내용</th>
+				<th class="userId">작성자</th>
+				<th class="insert_time">작성일</th>
+			</tr>
+		</thead>
+		
+		<tbody id="lists">
+			<tr th:if="${#lists.size(lists)} > 0" th:each="dto:${lists}" >
+				<td class="crNo" th:text="${dto.crNo }">번호</td>
+				<td class="crContent">
+				<a th:href="@{${articleUrl }} + '&crNo=' + @{${dto.crNo}}" 
+				th:text="${dto.crContent }">댓글 내용</a>
+				</td>
+				<td class="userId" th:text="${dto.userId }">작성자</td>
+				<td class="insert_time"  th:text="${dto.insert_time }">작성일</td>
+			</tr>
+			
+			<tr th:if="${#lists.size(lists)} > 0" th:each="dataCount:${dataCount}">
+				<td colspan="5" id="footer">
+					<a th:utext="${pageIndexList}"></a>	
+				</td>
+			</tr>
+			
+			<tr th:if="${#lists.size(lists)} < 0" th:each="dataCount:${dataCount}">
+				<td colspan="5" id="footer">
+					등록된 게시물이 없습니다.
+				</td>
+			</tr>
+		</tbody>
+		
+	</table>
+		
+	</div>
+	
+	<div class="card card-primary card-outline">
+	<!-- 댓글 유무 / 댓글 갯수 / 댓글 펼치기, 접기 -->
+		<div class="card-header">
+			<a href="" class="link-black text-lg">
+				<i class="fas fa-comments margin-r-5 replyCount"></i>
+			</a>
+			<div class="card-tools">
+				<button type="button" class="btn primary" data-widget="collapse">
+					<i class="fa fa-plus"></i>
+				</button>
+			</div>
+		</div>
+		
+		<!-- 댓글 목록 -->
+		<div class="card-body repliesDiv"></div>
+	
+		<!--댓글 페이징-->
+		<div class="card-footer">
+			<nav aria-label="Contacts Page Navigation">
+				<ul class="pagination pagination-sm no-margin justify-content-center m-0"></ul>
+			</nav>
+		</div>
+	</div>
+ 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+ 
+$(function(){
+ 
+    //댓글 수정 버튼
+    $("#btn_reply_Update").click(function(){
+    if(confirm("수정 하시겠습니까?")){
+        
+    //수정하는데 필요한 정보들, 댓글 번호, 글 내용, 작성자 아이디, 게시글 번호를 변수에 저장한다.
+        var crNo = $("#crNo").val();
+        var crContent = $("textarea#crContent").text();
+        var userId = $("#userId").val();
+        var commuNo = $("#commuNo").val();
+        
+        
+        //페이지 관련 값들과 댓글 수정에 필요한 값들을 url로 전송한다.
+        document.form1.action="reply_updated.action?crNo="+crNo+"&crContent="+encodeURI(crContent)+"&userId="+userId+"&commuNo="+commuNo+"&pageNum="+pageNum+"&searchValue="+searchValue+"&searchKey="+searchKey;
+        document.form1.submit();
+        
+        
+        alert("댓글이 수정되었습니다.")
+                }
+        });
+ 
+    
+    //댓글 삭제 버튼
+    $("#btn_reply_Delete").click(function(){
+        
+        if(confirm("삭제 하시겠습니까?")){
+        
+        //댓글 삭제를 하기위해 댓글 번호, 글 번호, 댓글 내용, 그리고 게시글 세부 페이지로 포워딩 하기 위해 페이지 관련 값들을 변수에 저장한다.
+            var rno = $("#rno").val();
+            var member_bno = $("#member_bno").val();
+            var content = $("textarea#r_content").text();
+            var curPage = $("#curPage").val();
+            var search_option = $("#search_option").val();
+            var keyword = $("#keyword").val();
+            
+            
+            //url로 삭제에 필요한 변수들을 보낸다.
+            document.form1.action="reply_deleted.action?crNo="+crNo+"&commuNo="+commuNo+"&pageNum="+pageNum+"&searchKey="+searchKey+"&searchValue="+searchValue;
+            
+            document.form1.submit();
+            
+            alert("댓글이 삭제되었습니다.")
+            
+        }
+    });
+});
+ 
+</script>
+ 
+<div>
+	<h2>댓글 리스트</h2>
+	<table>
+	 	<tbody id="list">
+		<tr th:if = "${not empty list}" th:each ="dto:${list}">
+			<td><br><br>
+		 
+			닉네임 : ${dto.userId}    작성일자 : ${dto.insert_time}   댓글번호 : ${dto.crNo }<br><br><br>
+		 
+			${dto.crContent}
+		 
+			<!-- 폼태그 안에 위쪽에 있는 자바스크립트 구문에 필요한 값들을 노출시키지 않게 하기 위해 hidden타입으로 값들을 전달한다. -->
+			<form method = "POST" id = "form1">
+		 
+				<input type = "hidden" id = "crNo" name = "crNo" value = "${dto.crNo}">
+				<input type = "hidden" id = "userId" name = "userId" value = "${dto.userId}">
+				<input type = "hidden" id = "commuNo" name = "commuNo" value = "${dto.commuNo}">
+		 
+			<div style = "width : 800px;">
+				<textarea id = "crContent" name = "crContent" rows = "3" cols = "80"></textarea></div><br><br>
+			</form>    
+		
+			<!-- 본인일 경우에만 댓글 수정버튼과 댓글 삭제 버튼이 출력되도록 설정함 -->
+		 
+			<div style = "width:700px; text-align:right;">
+		 
+			<div th:if = "${sessionScope.userId == dto.userId}"></div>
+		 
+				<button type = "button" id = "btn_reply_Update" >댓글 수정</button>
+				<button type = "button" id = "btn_reply_Delete" >댓글 삭제</button>	 
+		 	</div>		 
+			<br><br>
+			</td>
+			</tr>
+		 
+		</tbody>
+	</table>
+</div>	
+	<footer id="footer"><!--Footer-->
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="companyinfo">
+							<h2><span>Muse</span>-Market</h2>
+							<p>Muse Market is a luxurious online market where you can trade art and music related products secondhand. </p>
+						</div>
+					</div>
+					<div class="col-sm-7">
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe1.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe2.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe3.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe4.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="address">
+							<img src=" /images/home/map.png" alt="" />
+							<p>3jo Luxurious Linas MuseMarket, Seoul</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Service</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Online Help</a></li>
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="#">Order Status</a></li>
+								<li><a href="#">Change Location</a></li>
+								<li><a th:href="@{qa_list.action}">FAQ’s</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Quick Shop</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Poster</a></li>
+								<li><a href="#">Figure</a></li>
+								<li><a href="#">Exhibition goods</a></li>
+								<li><a href="#">Vinyl Record(LP)</a></li>
+								<li><a href="#">Video/DVD</a></li>
+								<li><a href="#">Tape</a></li>
+								<li><a href="#">Instruments</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Policies</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Terms of Use</a></li>
+								<li><a href="#">Privecy Policy</a></li>
+								<li><a href="#">Refund Policy</a></li>
+								<li><a href="#">Billing System</a></li>								
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>About Muse Market</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Company Information</a></li>
+								<li><a href="#">Careers</a></li>
+								<li><a href="#">Store Location</a></li>
+								<li><a href="#">Affillate Program</a></li>
+								<li><a href="#">Copyright</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>About Muse Market</h2>
+							<form action="#" class="searchform">
+								<input type="text" placeholder="Your email address" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Muse Market is a luxurious online market where you can trade art and music related products secondhand. </p>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2022 Muse-Market Inc. All rights reserved.</p>
+					<p class="pull-right">Designed by <span><a target="_blank" href="">3조</a></span></p>
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+	
+
+  
+    <script src=" js/jquery.js"></script>
+	<script src=" js/bootstrap.min.js"></script>
+	<script src=" js/jquery.scrollUp.min.js"></script>
+	<script src=" js/price-range.js"></script>
+    <script src=" js/jquery.prettyPhoto.js"></script>
+    <script src=" js/main.js"></script>
+    
+</body>
+</html>
