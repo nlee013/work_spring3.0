@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.boot.dto.CommuDTO;
+import com.spring.boot.dto.LoginDTO;
 import com.spring.boot.service.CommuService;
 import com.spring.boot.util.MyUtil;
 
@@ -49,16 +51,18 @@ public class CommuController {
 	}
 	
 	@RequestMapping(value = "/created_ok.action",method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView created_ok(CommuDTO dto, 
-			HttpServletRequest request) throws Exception{
+	public ModelAndView created_ok(CommuDTO dto, LoginDTO dto2,
+			HttpServletRequest request, HttpSession session) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
+		session = request.getSession();
+		int userNo = 0;
 		
 		int maxNum = commuService.maxNum();
 		
 		dto.setCommuNo(maxNum + 1);
 		dto.setCommuIpAddr(request.getRemoteAddr());
-		dto.setUserNo(1);	// 임시값 : 나중에 session에서 불러오기
+		session.setAttribute("userNo", userNo);	// 임시값 : 나중에 session에서 불러오기
 			
 		
 		commuService.insertData(dto);		
@@ -71,7 +75,7 @@ public class CommuController {
 	
 	@RequestMapping(value = "/list.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView list(HttpServletRequest request) throws Exception{
+	public ModelAndView list(HttpServletRequest request, HttpSession session) throws Exception{
 		
 		String pageNum = request.getParameter("pageNum");
 		
@@ -142,7 +146,8 @@ public class CommuController {
 	
 	@RequestMapping(value = "/article.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView article(HttpServletRequest request) throws Exception{
+	public ModelAndView article(HttpServletRequest request,
+			HttpSession session) throws Exception{
 		
 		int num = Integer.parseInt(request.getParameter("commuNo"));
 		String pageNum = request.getParameter("pageNum");
@@ -192,7 +197,8 @@ public class CommuController {
 	
 	@RequestMapping(value = "/updated.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView updated(HttpServletRequest request) throws Exception{
+	public ModelAndView updated(HttpServletRequest request,
+			HttpSession session) throws Exception{
 		
 		int num = Integer.parseInt(request.getParameter("commuNo"));
 		String pageNum = request.getParameter("pageNum");
@@ -237,7 +243,8 @@ public class CommuController {
 		
 	@RequestMapping(value = "/updated_ok.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView updated_ok(CommuDTO dto,HttpServletRequest request) throws Exception{
+	public ModelAndView updated_ok(CommuDTO dto, HttpServletRequest request,
+			HttpSession session) throws Exception{
 	
 		String pageNum = request.getParameter("pageNum");		
 		String searchKey = request.getParameter("searchKey");
@@ -265,7 +272,8 @@ public class CommuController {
 	
 	@RequestMapping(value = "/deleted_ok.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView deleted_ok(HttpServletRequest request) throws Exception{
+	public ModelAndView deleted_ok(HttpServletRequest request,
+			HttpSession session) throws Exception{
 	
 		int num = Integer.parseInt(request.getParameter("commuNo"));
 		String pageNum = request.getParameter("pageNum");		
@@ -292,9 +300,4 @@ public class CommuController {
 	
 	
 }
-
-
-
-
-
 

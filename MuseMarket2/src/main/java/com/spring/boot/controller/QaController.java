@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +41,7 @@ public class QaController {
 	
 	@RequestMapping(value = "/qa_contact_ok.action",method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView created_ok(QaDTO dto, 
-			HttpServletRequest request) throws Exception{
+			HttpServletRequest request, HttpSession session) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -69,7 +70,8 @@ public class QaController {
 	
 	@RequestMapping(value = "/qa_list.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView list(HttpServletRequest request) throws Exception{
+	public ModelAndView list(HttpServletRequest request,
+			HttpSession session) throws Exception{
 		
 		String pageNum = request.getParameter("pageNum");
 		
@@ -140,9 +142,10 @@ public class QaController {
 	
 	@RequestMapping(value = "/qa_article.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView article(HttpServletRequest request) throws Exception{
+	public ModelAndView article(HttpServletRequest request,
+			HttpSession session) throws Exception{
 		
-		int num = Integer.parseInt(request.getParameter("qa_upNo"));
+		int num = Integer.parseInt(request.getParameter("qaNo"));
 		String pageNum = request.getParameter("pageNum");
 		
 		String searchKey = request.getParameter("searchKey");
@@ -190,7 +193,8 @@ public class QaController {
 	
 	@RequestMapping(value = "/qa_updated.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView updated(HttpServletRequest request) throws Exception{
+	public ModelAndView updated(HttpServletRequest request,
+			HttpSession session) throws Exception{
 		
 		int num = Integer.parseInt(request.getParameter("qaNo"));
 		String pageNum = request.getParameter("pageNum");
@@ -235,7 +239,8 @@ public class QaController {
 		
 	@RequestMapping(value = "/qa_updated_ok.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView updated_ok(QaDTO dto,HttpServletRequest request) throws Exception{
+	public ModelAndView updated_ok(QaDTO dto,HttpServletRequest request,
+			HttpSession session) throws Exception{
 	
 		String pageNum = request.getParameter("pageNum");		
 		String searchKey = request.getParameter("searchKey");
@@ -263,7 +268,8 @@ public class QaController {
 	
 	@RequestMapping(value = "/qa_deleted_ok.action",
 			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView deleted_ok(HttpServletRequest request) throws Exception{
+	public ModelAndView deleted_ok(HttpServletRequest request,
+			HttpSession session) throws Exception{
 	
 		int num = Integer.parseInt(request.getParameter("qaNo"));
 		String pageNum = request.getParameter("pageNum");		

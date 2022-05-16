@@ -10,8 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="insertData" parameterType="com.spring.boot.dto.CommuDTO">
-		insert into commu(commuNo, userNo, commuSubject, commuContent, commuIpAddr, commuHitCount, commuCreated )
-		values(#{commuNo}, #{userNo}, #{commuSubject, jdbcType=VARCHAR}, #{commuContent, jdbcType=VARCHAR}, #{commuIpAddr}, 0, sysdate)
+		insert into commu(commuNo, commuSubject, commuContent, commuIpAddr, commuHitCount, commuCreated )
+		values(#{commuNo}, #{commuSubject, jdbcType=VARCHAR}, #{commuContent, jdbcType=VARCHAR}, #{commuIpAddr}, 0, sysdate)
 	</insert>
 	
 	<select id="getDataCount" parameterType="hashMap" resultType="int">
@@ -44,11 +44,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 	
 	<update id="updateData" parameterType="com.spring.boot.dto.CommuDTO">
-		update commu set userNo=#{userNo},
-		commuSubject=#{commuSubject, jdbcType=VARCHAR}, commuContent=#{commuContent, jdbcType=VARCHAR} where commuNo=#{commuNo}
+		update commu set commuSubject=#{commuSubject, jdbcType=VARCHAR}, commuContent=#{commuContent, jdbcType=VARCHAR} where commuNo=#{commuNo}
 	</update>
-	
-	
 
 	<delete id="deleteData" parameterType="int">
 		delete commu where commuNo=#{commuNo}

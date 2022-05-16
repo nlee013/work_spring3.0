@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SignupPage</title>
+</head>
+<body>
+    <h1>회원가입 페이지</h1>
+    <hr/>
+    <input type="text" name="userId" id="userId" placeholder="아이디"/><br/>
+    <input type="password" name="userPwd" id="userPwd" placeholder="비밀번호"/><br/>
+    <input type="password" name="userPwdChk" id="userPwdChk" placeholder="비밀번호확인"/><br/>
+    <input type="text" name="userName" id="userName" placeholder="이름"/><br/>
+    <input type="text" name="userEmail" id="userEmail" placeholder="이메일"/><br/>
+    <input type="text" name="userAddr" id="userAddr" placeholder="주소"/><br/>
+    <input type="text" name="userTel" id="userTel" placeholder="전화번호"/><br/>
+    <p>성별 :
+    <input type="radio" name="userGender" checked value="남자">남자
+    <input type="radio" name="userGender" value="여자">여자
+    </p>
+    생년월일 : <input type="date" name="userBirth" id="userBirth" placeholder="생일"/><br/>
+    <button type="button" onclick="singup()">회원가입</button>
+</body>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    function singup() {
+        let loginObj = {};
+        loginObj.userId = $('#userId').val();
+        loginObj.userPwd = $('#userPwd').val();
+        loginObj.userPwdChk = $('#userPwdChk').val();
+        loginObj.userName = $('#userName').val();
+        loginObj.userEmail = $('#userEmail').val();
+        loginObj.userAddr = $('#userAddr').val();
+        loginObj.userTel = $('#userTel').val();
+        loginObj.userGender = $("input[name='userGender']:checked").val();
+        loginObj.userBirth = $('#userBirth').val();
+
+        if (loginObj.userPwd !== loginObj.userPwdChk) {
+            alert("비밀번호를 확인해주세요.");
+            return;
+        }
+        if (isUserId(loginObj)) {
+            alert("이미 존재하는 아이디 입니다.");
+            return;
+        }
+
+        $.ajax({
+            url: "/signup.do",
+            method: "POST",
+            data:JSON.stringify(loginObj),
+            contentType:"application/json; charset=utf-8",
+            success : function() {
+                alert("회원가입이 되었습니다.");
+                document.location = "/";
+            },
+            error : function(xhr, status, error) {
+                alert("회원가입에 실패했습니다.");
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
+
+    function isUserId(loginObj) {
+        let isUserId = true;
+        $.ajax({
+            url: "/isUserId.do",
+            method: "POST",
+            data:JSON.stringify(loginObj),
+            contentType:"application/json; charset=utf-8",
+            async: false,
+            success : function(data) {
+                isUserId = data;
+            },
+            error : function(xhr, status, error) {
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+        return isUserId;
+    }
+</script>
+</html>

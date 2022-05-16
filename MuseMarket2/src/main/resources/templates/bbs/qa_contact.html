@@ -110,7 +110,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.html"><img src="images/home/muse.png" alt=""  style="width:60px"/></a>
+							<a th:href="@{index.action}"><img src="images/home/muse.png" alt=""  style="width:60px"/></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
@@ -141,9 +141,13 @@
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{signupForm.action}"><i class="fa fa-user"></i>Join</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-lock"></i>Login</a></li>
+								<li><a th:if="${session.login != null}" th:href="@{logout.action}">Logout</a></li>
+								<li><div th:if="${session.login != null}">
+    							<span th:text="${session.login.getUserName() + ((session.login.getUserId()))} + '님 환영합니다'"></span>
+								</div></li>
 							</ul>
 						</div>
 					</div>
@@ -250,21 +254,30 @@
 			
 			<!-- 아이디 -->
 			<div class="form-group col-md-6">
-				<dl>				
-					<dd> 
-					<input type="text" name="userId" size="35" 
-					maxlength="20" class="form-control" placeholder="ID"/>
-					</dd>
+				<dl>		
+					
+						<dd th:if="${session.login != null}">
+							<span class="form-control" th:text="${session.login.getUserId()}" >
+							</span>
+						</dd>
+						<dd th:unless="${session.login != null}">
+							<input class="form-control" type="text" name="userId" placeholder="ID"/>		
+						</dd>				
+					
 				</dl>		
 			</div>
 			
 			<!-- 이메일 -->
 			<div class="form-group col-md-12">
-				<dl>				
-					<dd> 
-					<input type="text" name="userEmail" size="35" 
-					maxlength="20" class="form-control" placeholder="Email"/>
-					</dd>
+				<dl>									
+					<dd th:if="${session.login != null}">
+							<span class="form-control" th:text="${session.login.getUserId()}">
+							</span>
+						</dd>
+						<dd th:unless="${session.login != null}">
+							<input class="form-control" type="text" name="userEmail" placeholder="Email"/>							
+						</dd>	
+					
 				</dl>		
 			</div>
 			
@@ -282,11 +295,18 @@
 	
 	<!-- 버튼 -->
 	<div id="bbsCreated_footer">
+	<div th:if="${session.login != null}">
 		<input type="button" value=" 등록하기 " class="btn2" onclick="sendIt();"/>
+	</div>
+	<div>
+		<input type="button" value=" 등록하기 " class="btn2"
+		onclick="javascript:location.href='/loginForm.action';"/>
 		<input type="reset" value=" 다시입력 " class="btn2" 
 		onclick="document.myForm.qaSubject.focus();"/>
 		<input type="button" value=" 작성취소 " class="btn2"
 		onclick="javascript:location.href='/qa_list.action';"/>	
+	</div>
+		
 	</div>
 	</div>
 	</div>

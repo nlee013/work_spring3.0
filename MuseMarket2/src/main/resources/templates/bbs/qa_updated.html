@@ -60,15 +60,6 @@
 		}
 		f.qaContent.value = str;
 		
-		str = f.userEmail.value;
-		str = str.trim();
-		if(!str){
-			alert("\n이메일을 입력하세요.");
-			f.userEmail.focus();
-			return;
-		}
-		f.userEmail.value = str;
-		
 		
 		f.action = "/qa_updated_ok.action";
 		f.submit();
@@ -113,7 +104,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.html"><img src="images/home/muse.png" alt=""  style="width:60px"/></a>
+							<a th:href="@{index.action}"><img src="images/home/muse.png" alt=""  style="width:60px"/></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
@@ -144,9 +135,13 @@
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{signupForm.action}"><i class="fa fa-user"></i>Join</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-lock"></i>Login</a></li>
+								<li><a th:if="${session.login != null}" th:href="@{logout.action}">Logout</a></li>
+								<li><div th:if="${session.login != null}">
+    							<span th:text="${session.login.getUserName() + ((session.login.getUserId()))} + '님 환영합니다'"></span>
+								</div></li>
 							</ul>
 						</div>
 					</div>
@@ -253,10 +248,10 @@
 		<div class="bbsCreated_bottomLine">
 			<dl>
 				<dt>아이디</dt>
-				<dd>
-				<input type="text" name="userId" size="10" th:value="${dto.userId }"
+				<dd th:text="${dto.userId }">
+				<!-- <input type="text" name="userId" size="10" th:value="${dto.userId }"
 				maxlength="20" class="boxTF"
-				value=" "/>
+				value=" "/> -->
 				</dd>
 			</dl>		
 		</div>
@@ -265,10 +260,10 @@
 		<div class="bbsCreated_bottomLine">
 			<dl>
 				<dt>이메일</dt>
-				<dd>
-				<input type="text" name="userEmail" size="25" th:value="${dto.userEmail }"
+				<dd th:text="${dto.userEmail }">
+				<!-- <input type="text" name="userEmail" size="25" th:value="${dto.userEmail }"
 				maxlength="20" class="boxTF"
-				value=" "/>
+				value=" "/> -->
 				</dd>
 			</dl>		
 		</div>

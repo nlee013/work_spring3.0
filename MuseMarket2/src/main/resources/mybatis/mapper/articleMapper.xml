@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.boot.mapper.ArticleMapper">
+	
+	<select id="getReadData" parameterType="int" resultType="com.spring.boot.dto.ArticleDTO">
+		select prodNo, userNo, prodSelect, prodSubject, prodSale,
+		prodName, prodPrice, prodHitCount, prodHeart, prodQuality,
+		prodCreated, prodAddr, prodTrade, prodImg, prodContent
+		from product where prodNo=#{prodNo}
+	</select>
+
+	<update id="updateHitCount" parameterType="int">
+		update product set prodHitCount= prodHitCount+1 where prodNo =#{prodNo}
+	</update>
+	
+	<select id="getUserId" parameterType="int" resultType="com.spring.boot.dto.ArticleDTO">
+		select userId from users where userNo=#{userNo}
+	</select>
+	
+	<select id="numMax" resultType="int">
+		select nvl(max(num),0) from iguest
+	</select>
+	
+	<insert id="insertData" parameterType="com.spring.boot.dto.ArticleDTO">
+		insert into iguest (num, name,email,content,ipAddr,created)
+		values (#{num},#{name},#{email},#{content},#{ipAddr},sysdate)
+	</insert>
+	
+	<select id="dataCount" resultType="int">
+		select nvl(count(*),0) from iguest
+	</select>
+	
+	<select id="listData" resultType="com.spring.boot.dto.ArticleDTO">
+		select num,name,email,content, ipAddr,created 
+		from iguest order by num desc
+	</select>
+	
+	<delete id="deleteData" parameterType="int">
+		delete iguest where num=#{num}
+	</delete>
+	
+
+</mapper>

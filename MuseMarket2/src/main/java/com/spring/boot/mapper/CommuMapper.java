@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.boot.dto.CommuDTO;
 
+
 @Mapper
 public interface CommuMapper {
 

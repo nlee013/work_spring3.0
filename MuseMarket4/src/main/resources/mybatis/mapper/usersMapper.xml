@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.boot.mapper.UsersMapper">
+<!--  로그인 처리  -->
+<select id="login" parameterType="com.spring.boot.dto.LoginDTO" resultType="com.spring.boot.dto.LoginDTO"> select userId, userPwd, userName from users where userId = #{userId} and userPwd = #{userPwd} </select>
+<!--  회원가입  -->
+<insert id="write"> insert into users(userNo, userId, userPwd, userName, userEmail, userAddr, userTel, gender, birth) values (users_seq.nextval,#{userId},#{userPwd},#{userName},#{userEmail},#{userAddr},#{userTel},#{userGender},#{userBirth}) </insert>
+<!--  아이디 중복체크  -->
+<select id="userIdChk" parameterType="com.spring.boot.dto.LoginDTO" resultType="Integer"> select count(*) from users where userId = #{userId} </select>
+
+</mapper>

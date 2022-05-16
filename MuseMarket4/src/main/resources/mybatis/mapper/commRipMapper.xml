@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.boot.mapper.CommRipMapper">
+
+	<select id="maxNum" resultType="int">
+		select nvl(max(crNo), 0) from commRip
+	</select>
+
+	<insert id="insertReply" parameterType="com.spring.boot.dto.CommRipDTO">
+		insert into commRip(crNo, commuNo, userId, crContent, insert_time)
+		values(#{crNo}, #{commuNo}, #{userId},  #{crContent} )
+	</insert>
+	
+	<select id="getDataCount" parameterType="hashMap" resultType="int">
+		select nvl(count(*), 0) from commRip
+		where ${searchKey} like '%' || #{searchValue} || '%'
+	</select>
+	
+	<select id="getReplyList" parameterType="map" resultType="com.spring.boot.dto.CommRipDTO">
+		select*from(
+		select rownum rnum, data.* from(
+		select crNo, commuNo, userId, crContent, to_char(insert_time, 'YYYY-MM-DD') created
+		from commRip where ${searchKey} like '%' || #{searchValue} || '%'
+		order by crNo desc) data)
+	<![CDATA[
+		where rnum>=#{start} and rnum<=#{end}
+	]]>
+	</select>
+
+	<select id="getReadData" parameterType="int" resultType="com.spring.boot.dto.CommRipDTO">
+		select crNo, commuNo, userId, crContent, insert_time
+		from commRip where crNo=#{crNo}
+	</select>
+	
+	<update id="updateReply" parameterType="com.spring.boot.dto.CommRipDTO">
+		update commRip set crContent=#{crContent} where crNo=#{crNo}
+	</update>
+
+	<delete id="deleteReply" parameterType="int">
+		delete commRip where crNo=#{crNo}
+	</delete>
+	
+
+</mapper>
