@@ -14,8 +14,10 @@ public class UsersDTO {
 		private String userAddr;
 		private String userTel;
 		private String userGender;
+		
 		@DateTimeFormat(pattern = "yyyy-MM-dd")
 		private Date userBirth;
+		
 		public int getUserNo() {
 			return userNo;
 		}

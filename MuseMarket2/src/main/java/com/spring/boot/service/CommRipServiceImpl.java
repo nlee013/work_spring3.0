@@ -12,42 +12,43 @@ import com.spring.boot.mapper.CommRipMapper;
 public class CommRipServiceImpl implements CommRipService{
 
 	@Autowired
-	private CommRipMapper commripMapper;//commripMapper DI 의존성 주입
+	private CommRipMapper commuRipMapper;//commripMapper DI 의존성 주입
 
 	@Override
 	public int maxNum() throws Exception {
-		return commripMapper.maxNum();
+		return commuRipMapper.maxNum();
 	}
 
 	@Override
 	public void insertReply(CommRipDTO dto) throws Exception {
-		commripMapper.insertReply(dto);
+		commuRipMapper.insertReply(dto);
 	}
 
 	@Override
-	public int getDataCount(String searchKey, String searchValue) throws Exception {
-		return commripMapper.getDataCount(searchKey, searchValue);
+	public int getDataCount() throws Exception {
+		return commuRipMapper.getDataCount();
 	}
 
 	@Override
-	public CommRipDTO getReadData(int crNo) throws Exception {
-		return commripMapper.getReadData(crNo);
+	public List<CommRipDTO> getReplyList(int commuNo) throws Exception {
+		return commuRipMapper.getReplyList(commuNo);
 	}
 
 	@Override
-	public void updateReply(CommRipDTO dto) throws Exception {
-		commripMapper.updateReply(dto);
+	public String getCommuRipUserId(int userNo) throws Exception {
+		return commuRipMapper.getCommuRipUserId(userNo);
 	}
 
 	@Override
-	public void deleteReply(int crNo) throws Exception {
-		commripMapper.deleteReply(crNo);
+	public List<CommRipDTO> getCommuRipList(int commuNo) throws Exception {
+		return commuRipMapper.getCommuRipList(commuNo);
 	}
 
 	@Override
-	public List<CommRipDTO> getReplyList(int commuNo, int start, int end, String searchKey, String searchValue)
-			throws Exception {
-		return commripMapper.getReplyList(commuNo, start, end, searchKey, searchValue);
+	public String getUserId(int userNo) throws Exception {
+		return commuRipMapper.getUserId(userNo);
 	}
 
+	
+	
 }

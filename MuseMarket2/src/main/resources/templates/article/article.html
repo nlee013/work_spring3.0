@@ -21,12 +21,15 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-<title>판매 게시판</title>
+<title>커뮤니티 게시판</title>
 
 <link rel="stylesheet" type="text/css" href="/css/style.css"/>
-<link rel="stylesheet" type="text/css" href="/css/article.css"/>
+<link rel="stylesheet" type="text/css" href="/css/sale_article.css"/>
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<script src="https://kit.fontawesome.com/33d19416e0.js" crossorigin="anonymous"></script> 
+
 
 <script type="text/javascript">
 	
@@ -40,14 +43,13 @@
 	
 		$("#sendButton").click(function(){
 			
-			var params = "name="+ $("#name").val()
-						+ "&email=" + $("#email").val()
-						+ "&content=" + $("#content").val();
+			var params = "userId="+ $("#userId").val()
+						+ "&reviewContent=" + $("#reviewContent").val();
 			
 			$.ajax({
 				
 				type:"POST",
-				url:"/create.action",
+				url:"/sale_create.action",
 				data:params,
 				success:function(args){
 					
@@ -55,10 +57,8 @@
 					
 					//Ajax는 새로고침이 안되기때문에
 					//코딩으로 삭제
-					$("#name").val("");
-					$("#email").val("");
-					$("#content").val("");
-					$("#name").focus();
+					$("#reviewContent").val("");
+					$("#reviewContent").focus();
 				},
 				beforeSend:showRequest,
 				error:function(e){
@@ -68,53 +68,62 @@
 		});
 	});
 	
+
+	$(document).ready(function(){
+	 		
+	 		$("#heartData").click(function(){
+	 			
+
+				var params = "heartCheck="+ $("#heartCheck").val()
+	 			
+	 			$.ajax({
+	 				
+	 				type:"POST",
+	 				url:"/heartData.action",
+	 				data:params,
+	 				success:function(args){
+	 					
+	 					//Ajax는 새로고침이 안되기때문에
+	 					//코딩으로 삭제
+	 					
+	 					
+	 				},
+	 				error:function(e){
+	 					alert(e.responseText);
+	 				}
+	 			});
+	 		});
+	 	}); 
+	 	 
 	
 	
 	function showRequest(){
 		
-		var name = $.trim($("#name").val());
-		var email = $.trim($("#email").val());
-		var content = $.trim($("#content").val());
+		var userId = $.trim($("#userId").val());
+		var reviewContent = $.trim($("#reviewContent").val());
 		
-		if(!name){
-			alert("\n이름을 입력하세요.");
-			$("#name").focus();
-			return false;
-		}
-		
-		if(!email){
-			alert("\n이메일을 입력하세요.");
-			$("#email").focus();
-			return false;
-		}
-		
-		if(!content){
+		if(!reviewContent){
 			alert("\n내용을 입력하세요.");
-			$("#content").focus();
+			$("#reviewContent").focus();
 			return false;
 		}
 		
-		if(content.length>200){
+		if(reviewContent.length>200){
 			alert("\n내용은 200자까지만 가능합니다.")
-			$("#content").focus();
+			$("#reviewContent").focus();
 			return false;
-		
 		}
 		return true;	
 	}
 	
 	
 	function listPage(page){
-		
-
-		
+				
 		var url = "/sale_list.action";
 		
 		$.post(url,{pageNum:page},function(args){
 			$("#listData").html(args);
 		});
-		
-
 		
 		$("#listData").show();
 		
@@ -122,19 +131,67 @@
 	}
 	function deleteData(num,page){
 		
-		var url = "/sale_deleted.action";
+		var url = "/deleted.action";
 		
 		$.post(url,{num:num,pageNum:page},function(args){
 			$("#listData").html(args);
 			
-		});
-		
-		
+		});		
 	}
 	
+ 	 $(document).ready(function(){
+		
+		$("#sendHeart").click(function(){
+			
+			var params = "heartData="+ $("#myHeartCount").val()
+	
+			$.ajax({
+				
+				type:"POST",
+				data:params,
+				url:"/heartData.action",
+				success:function(args){
+					
+					//Ajax는 새로고침이 안되기때문에
+					//코딩으로 삭제
+					$("#sendHeart").val("♥");
+					
+				},
+				error:function(e){
+					alert(e.responseText);
+				}
+			});
+		});
+	}); 
+ 	 
+ 	 $(document).ready(function(){
+ 		
+ 		$("#removeHeart").click(function(){
+ 			
+ 			var params = "heartData="+ $("#myHeartCount").val()
+ 			
+ 			$.ajax({
+ 				
+ 				type:"POST",
+ 				url:"/heartData.action",
+ 				success:function(args){
+ 					
+ 					//Ajax는 새로고침이 안되기때문에
+ 					//코딩으로 삭제
+ 					$("#removeHeart").val("♡");
+ 					
+ 				},
+ 				error:function(e){
+ 					alert(e.responseText);
+ 				}
+ 			});
+ 		});
+ 	}); 
+	 
 </script>
 
 </head>
+
 
 <body>
 	<header id="header"><!--header-->
@@ -144,19 +201,19 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href=""><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href=""><i class="fa fa-envelope"></i> info@domain.com</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i> +82 123 1234</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> info@muse.com</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href=""><i class="fa fa-facebook"></i></a></li>
-								<li><a href=""><i class="fa fa-twitter"></i></a></li>
-								<li><a href=""><i class="fa fa-linkedin"></i></a></li>
-								<li><a href=""><i class="fa fa-dribbble"></i></a></li>
-								<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -169,28 +226,28 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.html"><img src="images/home/logo.png" alt="" /></a>
+							<a th:href="@{index.action}"><img src=" images/home/muse.png" alt=""  style="width:60px"/></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									USA
+									Korea
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li><a href="">Canada</a></li>
-									<li><a href="">UK</a></li>
+									<li><a href="#">USA</a></li>
+									<li><a href="#">UK</a></li>
 								</ul>
 							</div>
 							
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									DOLLAR
+									Won
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li><a href="">Canadian Dollar</a></li>
-									<li><a href="">Pound</a></li>
+									<li><a href="#">Dollar</a></li>
+									<li><a href="#">Pound</a></li>
 								</ul>
 							</div>
 						</div>
@@ -198,11 +255,15 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
-								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{signupForm.action}"><i class="fa fa-user"></i>Join</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-lock"></i>Login</a></li>
+								<li><a th:if="${session.login != null}" th:href="@{logout.action}">Logout</a></li>
+								<li><div th:if="${session.login != null}">
+    							<span th:text="${session.login.getUserName() + ((session.login.getUserId()))} + '님 환영합니다'"></span>
+								</div></li>
 							</ul>
 						</div>
 					</div>
@@ -224,24 +285,66 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+								<li><a th:href="@{index.action}" class="active">Home</a></li>
+								<li class="dropdown">
+									<a th:if="${session.login != null}" th:href="@{upload.action}">Sale<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html" class="active">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html">Login</a></li> 
+                                        <li><a th:href="@{upload.action}">Art(Whole)</a></li>
+                                        <li><a th:href="@{upload.action}">Art- Poster</a></li>                                        
+                                        <li><a th:href="@{upload.action}">Art - Figure</a></li>
+										<li><a th:href="@{upload.action}">Art - Exhibition goods</a></li> 
+										<li><a th:href="@{upload.action}">Art - Extra</a></li> 
+										
+									
+                                        <li><a th:href="@{upload.action}">Music(Whole)</a></li>
+                                        <li><a th:href="@{upload.action}">Music - LP</a></li>                                        
+                                        <li><a th:href="@{upload.action}">Music - Video/DVD</a></li>
+										<li><a th:href="@{upload.action}">Music - Tape</a></li> 
+										<li><a th:href="@{upload.action}">Music - Instruments</a></li>
+										<li><a th:href="@{upload.action}">Music - Extra</a></li> 
+                                    </ul>                                    
+                                </li>
+                                <li class="dropdown">
+                                <a th:unless="${session.login != null}" th:href="@{loginForm.action}">Sale<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a th:href="@{loginForm.action}">Art(Whole)</a></li>
+                                        <li><a th:href="@{loginForm.action}">Art- Poster</a></li>                                        
+                                        <li><a th:href="@{loginForm.action}">Art - Figure</a></li>
+										<li><a th:href="@{loginForm.action}">Art - Exhibition goods</a></li> 
+										<li><a th:href="@{loginForm.action}">Art - Extra</a></li> 										
+			
+                                        <li><a th:href="@{loginForm.action}">Music(Whole)</a></li>
+                                        <li><a th:href="@{loginForm.action}">Music - LP</a></li>                                        
+                                        <li><a th:href="@{loginForm.action}">Music - Video/DVD</a></li>
+										<li><a th:href="@{loginForm.action}">Music - Tape</a></li> 
+										<li><a th:href="@{loginForm.action}">Music - Instruments</a></li>
+										<li><a th:href="@{loginForm.action}">Music - Extra</a></li> 
+                                    </ul>
+                                </li>
+								<li class="dropdown"><a th:href="@{shop.action}">Purchase<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">                                                                       
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                  
+                                        <li><a href="shop.html">Art - Figure</a></li>
+										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
+										<li><a href="checkout.html">Art - Extra</a></li> 
+										
+                                        <li><a href="shop.html">Music(Whole)</a>
+                                        <li><a href="shop.html">Music - LP</a></li>
+                                        <li><a href="shop.html">Music - Video/DVD</a></li>
+										<li><a href="product-details.html">Music - Tape</a></li> 
+										<li><a href="checkout.html">Music - Instruments</a></li>
+										<li><a href="checkout.html">Music - Extra</a></li> 
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+								<li><a th:href="@{list.action}">Community</a></li>
+								
+								<li class="dropdown"><a th:href="@{list.action}">Contact<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li> 
-								<li><a href="404.html">404</a></li>
-								<li><a href="contact-us.html">Contact</a></li>
+										<li><a th:href="@{master_list.action}">Q & A</a></li>
+										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
+										<li><a th:href="@{qa_list.action}">1:1 List</a></li>
+									</ul>
 							</ul>
 						</div>
 					</div>
@@ -255,6 +358,8 @@
 		</div><!--/header-bottom-->
 	</header><!--/header-->
 	
+	<!-- 여기까지가 헤더 부분 : 다른 사람들이랑 취합해서 똑같이 수정! -->
+	
 	<section>
 		<div class="container">
 			<div class="row">
@@ -267,18 +372,17 @@
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
 											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Sportswear
+											Art
 										</a>
 									</h4>
 								</div>
 								<div id="sportswear" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul>
-											<li><a href="">Nike </a></li>
-											<li><a href="">Under Armour </a></li>
-											<li><a href="">Adidas </a></li>
-											<li><a href="">Puma</a></li>
-											<li><a href="">ASICS </a></li>
+											<li><a href="#">Poster </a></li>
+											<li><a href="#">Figure </a></li>
+											<li><a href="#">Exhibition goods </a></li>
+											<li><a href="#">Extra</a></li>											
 										</ul>
 									</div>
 								</div>
@@ -288,104 +392,28 @@
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
 											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Mens
+											Music
 										</a>
 									</h4>
 								</div>
 								<div id="mens" class="panel-collapse collapse">
 									<div class="panel-body">
-										<ul>
-											<li><a href="">Fendi</a></li>
-											<li><a href="">Guess</a></li>
-											<li><a href="">Valentino</a></li>
-											<li><a href="">Dior</a></li>
-											<li><a href="">Versace</a></li>
-											<li><a href="">Armani</a></li>
-											<li><a href="">Prada</a></li>
-											<li><a href="">Dolce and Gabbana</a></li>
-											<li><a href="">Chanel</a></li>
-											<li><a href="">Gucci</a></li>
+										<ul>											
+											<li><a href="#">Vinyl Record (LP)</a></li>
+											<li><a href="#">Video/DVD</a></li>
+											<li><a href="#">Tape</a></li>
+											<li><a href="#">Instruments</a></li>
+											<li><a href="#">Extra</a></li>											
 										</ul>
 									</div>
 								</div>
 							</div>
 							
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#womens">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Womens
-										</a>
-									</h4>
-								</div>
-								<div id="womens" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="">Fendi</a></li>
-											<li><a href="">Guess</a></li>
-											<li><a href="">Valentino</a></li>
-											<li><a href="">Dior</a></li>
-											<li><a href="">Versace</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Kids</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Fashion</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Households</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Interiors</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Clothing</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Bags</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Shoes</a></h4>
-								</div>
-							</div>
+							
 						</div><!--/category-products-->
 					
 	<!-- 여기까지가 카테고리1 부분 : 다른 사람들이랑 취합해서 똑같이 수정! -->
-					
-						<div class="brands_products"><!--brands_products-->
-							<h2>Brands</h2>
-							<div class="brands-name">
-								<ul class="nav nav-pills nav-stacked">
-									<li><a href=""> <span class="pull-right">(50)</span>Acne</a></li>
-									<li><a href=""> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-									<li><a href=""> <span class="pull-right">(27)</span>Albiro</a></li>
-									<li><a href=""> <span class="pull-right">(32)</span>Ronhill</a></li>
-									<li><a href=""> <span class="pull-right">(5)</span>Oddmolly</a></li>
-									<li><a href=""> <span class="pull-right">(9)</span>Boudestijn</a></li>
-									<li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
-								</ul>
-							</div>
-						</div><!--/brands_products-->
-						
-	<!-- 여기까지가 카테고리2 부분 : 다른 사람들이랑 취합해서 똑같이 수정! -->						
+											
 						
 						<div class="shipping text-center"><!--shipping-->
 							<img src="images/home/shipping.jpg" alt="" />
@@ -451,25 +479,39 @@
 						<div class="col-sm-7">
 							<div class="product-information">
 								<h2><div style="color: red" th:text="'['+${dto.prodSale }+']'"></div></h2>
-								<h2><div th:text="${dto.prodName }"></div></h2>
+								<h2><div style="padding-right: 40px" th:text="${dto.prodName }"></div></h2>
 								
-								<p><div th:text="'판매자 : ' + ${userDto.userId }" ></div></p>
+								<p><div th:text="'판매자 : ' + ${userId }" ></div></p>
 								
 								<span style="text-align: right;">
 									<span style="text-align: right;" th:text="${dto.prodPrice } + ' 원'"></span>
+									<span style="color: #fff">fdfdfd</span>
+									
+								
+									
+									<span th:if="${myHeartCount} == 2 or ${myHeartCount} == 0">
+										<!-- <input type="button" id="heartData" class="btn btn-fefault cart" style="color: #fff; line-height: 15px" value="♡"/> -->
+										<input type="button" id="sendHeart" class="btn btn-fefault cart" style="color: #fff; line-height: 15px" value="♡"/>
+									</span>
+									<span th:if="${myHeartCount} == 1" >
+ 										<!-- <input type="button" id="heartData" class="btn btn-fefault cart" style="color: #fff; line-height: 15px" value="♥"/> --> 
+ 										<input type="button" id="removeHeart" class="btn btn-fefault cart" style="color: #fff; line-height: 15px" value="♥"/>  
+ 									</span>
+									
 								</span>
 								
 								<div style="border: 1px solid #F7F7F0; padding: 10px; margin-right: 60px; letter-spacing: 1.5px" >
-									<span>
-										<i class="fa-solid fa-eye" th:text="${dto.prodHitCount }"></i>
-										<i class="fa-solid fa-heart" th:text="${dto.prodHeart }"></i>
-										<i class="fa-solid fa-comments"></i>
+									<span style="font-size: 17px">
+										<i class="fa-solid fa-eye" th:text="${dto.prodHitCount }" style="color: blue"></i>
+										<i class="fa-solid fa-heart" th:text="${heartCount }" style="color: red"></i>
+										<i class="fa-solid fa-comments" th:text="${reviewCount}" style="color: green"></i>
 									</span>
 									<br/><br/>
 									<div th:text="'- 상품상태	: ' + ${dto.prodQuality }" ></div><br/>
 									<div th:text="'- 등록일자	: ' + ${dto.prodCreated }" ></div><br/>
 									<div th:text="'- 거래방식	: ' + ${dto.prodTrade }" ></div><br/>
 									<div th:text="'- 거래지역	: ' + ${dto.prodAddr }" ></div><br/>
+									
 								</div>
 								
 								
@@ -482,25 +524,27 @@
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
 								<li><a href="#details">Details</a></li>
-								<li><a href="#reviews">Reviews (5)</a></li>
+								<li><a href="#reviews">Reviews</a></li>
 							</ul>
 						</div>
 						<div class="tab-content">
 							<div style="border:1px solid #F7F7F0; padding: 40px">
 								<h4><b>- details -</b></h4>
-								<div th:text="${dto.prodContent }">
+								<div align="center"><img width=500px src="images/1/1.PNG" alt=""></div>
+								<div align="center"><img width=500px src="images/1/2.PNG" alt=""></div>
+								<div align="center"><img width=500px src="images/1/3.PNG" alt=""></div>
+								<div align="center"><img width=500px src="images/1/4.jpg" alt=""></div>
+								<div align="center"><img width=500px src="images/1/5.jpg" alt=""></div>
+								
+								
+								<div style="height: 50px" ></div>
+								<div style="padding-left: 30px" th:text="${dto.prodContent }">
 								</div>
 							</div>
 							
 							<div style="border:1px solid #F7F7F0; padding: 40px">
 								<h4><b>- review -</b></h4>
-								
-								<!-- <table>
-								<tr th:each="item : ${dto}">
-									<td th:text="${item.prodName"></td>
-								</tr>
-								</table> -->
-								
+		
 								<div>
 								
 								
@@ -511,41 +555,38 @@
 	<table width="700" border="0" cellpadding="0" cellspacing="0"
 		style="margin: auto;">
 
+
 		<tr>
-			<td width="600" colspan="4" height="3" bgcolor="#e6d4a6"></td>
+			<td width="600" colspan="4" height="10" ></td>
 		</tr>
 
 		<tr>
-			<td width="60" height="30" bgcolor="#eeeeee" align="center">작성자</td>
-			<td width="240" height="30" style="padding-left: 10px;"><input
-				type="text" id="name" size="35" maxlength="20" class="boxTF" /></td>
-
-			<td width="60" height="30" bgcolor="#eeeeee" align="center">이메일</td>
-			<td width="240" height="30" style="padding-left: 10px;"><input
-				type="text" id="email" size="35" maxlength="50" class="boxTF" /></td>
-
+			<td width="600" colspan="4" height="3" bgcolor="#999999"></td>
 		</tr>
 
 		<tr>
-			<td width="600" colspan="4" height="3" bgcolor="#e6d4a6"></td>
-		</tr>
-
-		<tr>
-			<td width="60" height="30" bgcolor="#eeeeee" align="center">내용</td>
-			<td width="540" colspan="3" style="padding-left: 10px;"><textarea
-					rows="3" cols="85" class="boxTA" style="height: 50px;" id="content"></textarea>
+			<td width="60" height="40" bgcolor="#eeeeee" align="center">작성자</td>
+			<td width="240" height="40" style="padding-left: 10px;" th:text="${reviewUserId }" id="userId" >
 			</td>
 		</tr>
 
 		<tr>
-			<td width="600" colspan="4" height="3" bgcolor="#e6d4a6"></td>
+			<td width="600" colspan="4" height="3" bgcolor="#999999"></td>
 		</tr>
 
 		<tr>
-			<td width="600" colspan="4" height="30" align="right"
-				style="padding-right: 15px;">
-			<input type="button" value="등록하기"
-				class="btn2" id="sendButton" /></td>
+			<td width="60" height="80" bgcolor="#eeeeee" align="center">내용</td>
+			<td width="500" colspan="2" style="padding-left: 10px;">
+			<textarea rows="3" cols="85" class="boxTA"  bgcolor="#eeeeee" style="height: 78px;" id="reviewContent"></textarea>
+			
+			<td width="40" height="80" align="right" style="padding-right: 15px;">
+			<input type="button" value="등록" class="btn2" id="sendButton" /></td>
+			
+			</td>
+		</tr>
+
+		<tr>
+			<td width="600" colspan="4" height="3" bgcolor="#999999"></td>
 		</tr>
 
 	</table>

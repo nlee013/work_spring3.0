@@ -29,17 +29,6 @@ public class ArticleController {
 	@Autowired
 	MyUtil myUtil;
 	
-	//spring boot에서는 무조건 modelAndView 사용
-	@RequestMapping(value = "/")
-	public ModelAndView index() throws Exception{
-		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("index");//index.html index.jsp
-		
-		return mav;
-	}
-	
 	@RequestMapping(value = "/sale_article.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView article(HttpServletRequest request) throws Exception{
 		
@@ -65,9 +54,22 @@ public class ArticleController {
 		
 		ArticleDTO dto = articleService.getReadData(prodNo);
 
-		ArticleDTO userDto = articleService.getUserId(dto.getUserNo());
-	
+		String userId  = articleService.getUserId(dto.getUserNo()); // 판매자 아이디
 		
+		int reviewCount = articleService.getReviewCount(prodNo);
+		
+		int heartCount = articleService.heartCount(prodNo);
+		
+		dto.setUserNo(1);
+		
+		int myHeartCount = articleService.myHeartCount(dto);
+		
+		System.out.println(myHeartCount);
+
+		
+		// String userId = session.getAttribute("userId");
+		
+		String reviewUserId = "hyemin"; // 리뷰작성자 아이디 (세션)
 		
 		  if(dto == null) {
 		  
@@ -95,19 +97,17 @@ public class ArticleController {
 		  param += "&searchValue=" + URLEncoder.encode(searchValue, "UTF-8"); }
 		 
 		  
-		  // 여기부터는 리뷰창 구현용..
-		 
-		
-			
-			/*
-			 * List<ArticleDTO> lists = (List<ArticleDTO>) articleService.listData();
-			 */
+
 		
 			
 		ModelAndView mav = new ModelAndView();
 		
+		mav.addObject("heartCount",heartCount);
+		mav.addObject("myHeartCount",myHeartCount);
+		mav.addObject("reviewCount",reviewCount);
+		mav.addObject("userId",userId);
 		//mav.addObject("lists",lists);
-		mav.addObject("userDto",userDto);
+		mav.addObject("reviewUserId",reviewUserId);
 		mav.addObject("dto", dto);
 		//mav.addObject("params", param);
 		mav.addObject("lineSu", lineSu);
@@ -115,7 +115,6 @@ public class ArticleController {
 		
 		mav.setViewName("article/article");
 		
-		System.out.println("여기여기로로로");
 		
 		return mav;
 	}
@@ -123,8 +122,22 @@ public class ArticleController {
 	@RequestMapping(value = "/sale_list.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView list(HttpServletRequest request) throws Exception{
 		
-		List<ArticleDTO> lists = articleService.listData();
-		 
+		
+		//int prodNo = Integer.parseInt(request.getParameter("prodNo")); 
+
+		int prodNo = 1;
+		List<ArticleDTO> lists = articleService.listData(prodNo);
+		
+		for(int i=0;i<lists.size();i++) {
+			
+			int reviewUserNo = lists.get(i).getUserNo();
+			
+			String reviewUserId = articleService.getUserId(reviewUserNo);
+			
+			lists.get(i).setReviewUserId(reviewUserId);
+			
+		}
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("lists",lists);
@@ -136,24 +149,103 @@ public class ArticleController {
 	
 	@RequestMapping(value = "/sale_create.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView create(ArticleDTO dto, HttpServletRequest request) throws Exception{
-
-		System.out.println("안녕:)");
 		
+		  //int prodNo = Integer.parseInt(request.getParameter("prodNo"));
+		  //int userNo = Integer.parseInt(request.getParameter("userNo"));
+			
+	
+		
+		int prodNo = 1;
+		int userNo = 1;
+		
+		String userId = articleService.getUserId(userNo);
 		int numMax = articleService.numMax();
 		
-		dto.setNum(numMax+1);
-		dto.setIpAddr(request.getRemoteAddr());
 		
+		dto.setReviewNo(numMax + 1);
+		dto.setProdNo(prodNo);
+		dto.setUserNo(userNo);
+		dto.setReviewIpAddr(request.getRemoteAddr());
+			
+//			reviewGroupNo,
+//			reviewDepth,
+//			reviewOrderNo,
+//			reviewParent,
+			
+			
 		articleService.insertData(dto);
+	
 		 
-		System.out.println(dto.getNum());
-		System.out.println(dto.getName());
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("redirect:/sale_list.action");
 		
 		return mav;
+	}
+	
+	@RequestMapping(value = "/sale_delete.action", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView delete(ArticleDTO dto, HttpServletRequest request) throws Exception{
+		
+		  //int prodNo = Integer.parseInt(request.getParameter("prodNo"));
+		  //int userNo = Integer.parseInt(request.getParameter("userNo"));
+		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+		
+		System.out.println("여기까지");
+		System.out.println(reviewNo);
+		
+		articleService.deleteData(reviewNo);
+	
+		 
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("redirect:/sale_list.action");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/heartData.action", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView heartIn(ArticleDTO dto,HttpServletRequest request) throws Exception{
+	
+		dto.setProdNo(1);
+		dto.setUserNo(1);
+		
+		int myHeartCount = articleService.myHeartCount(dto); // 빈하트 : 0,2
+		
+		if(myHeartCount==0) {
+		
+			dto.setHeartCheck(1);
+			
+			articleService.heartUpdate(dto);
+			 
+		}
+		
+		if(myHeartCount==1) {
+			
+			dto.setHeartCheck(0);
+			
+			articleService.heartUpdate(dto);
+			 
+		}
+		
+		if(myHeartCount==2) {
+			
+			int heartNo = articleService.heartNumMax();
+			
+			dto.setHeartNo(heartNo + 1);
+			
+			articleService.heartIn(dto);
+		}
+		
+		System.out.println("dfdfdfdf");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("article/heartData");
+		
+		return mav;
+		
 	}
 	
 }

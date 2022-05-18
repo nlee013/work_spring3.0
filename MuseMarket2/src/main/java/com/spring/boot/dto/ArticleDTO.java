@@ -19,72 +19,154 @@ public class ArticleDTO {
 	private String prodImg;
 	private String prodContent;
 	
+	///////////////////////////
+	
 	private String userId;
 	private String userTel;
 	
 	///////////////////////////
-	private int listNum;
+//	private int listNum;
+//
+//	private int num;
+//	private String name;
+//	private String email;
+//	private String content;
+//	private String ipAddr;
+//	private String created;
+//
+//	private String pageNum;
+	//////////////////////////
+	
+	private String reviewUserId;
+	private int reviewNo;
+	private String reviewContent;
+	private String reviewIpAddr;
+	private int reviewGroupNo;
+	private int reviewDepth;
+	private int reviewOrderNo;
+	private int reviewParent;
+	private String reviewCreated;
+	
 
-	private int num;
-	private String name;
-	private String email;
-	private String content;
-	private String ipAddr;
-	private String created;
-
-	private String pageNum;
-
+	private int heartNo;
+	private int heartCheck;
 	
 	
 	
-	public int getListNum() {
-		return listNum;
+	public int getHeartNo() {
+		return heartNo;
 	}
-	public void setListNum(int listNum) {
-		this.listNum = listNum;
+	public void setHeartNo(int heartNo) {
+		this.heartNo = heartNo;
 	}
-	public int getNum() {
-		return num;
+	public int getHeartCheck() {
+		return heartCheck;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setHeartCheck(int heartCheck) {
+		this.heartCheck = heartCheck;
 	}
-	public String getName() {
-		return name;
+	public String getReviewUserId() {
+		return reviewUserId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setReviewUserId(String reviewUserId) {
+		this.reviewUserId = reviewUserId;
 	}
-	public String getEmail() {
-		return email;
+	public int getReviewNo() {
+		return reviewNo;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
 	}
-	public String getContent() {
-		return content;
+	public String getReviewContent() {
+		return reviewContent;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setReviewContent(String reviewContent) {
+		this.reviewContent = reviewContent;
 	}
-	public String getIpAddr() {
-		return ipAddr;
+	public String getReviewIpAddr() {
+		return reviewIpAddr;
 	}
-	public void setIpAddr(String ipAddr) {
-		this.ipAddr = ipAddr;
+	public void setReviewIpAddr(String reviewIpAddr) {
+		this.reviewIpAddr = reviewIpAddr;
 	}
-	public String getCreated() {
-		return created;
+	public int getReviewGroupNo() {
+		return reviewGroupNo;
 	}
-	public void setCreated(String created) {
-		this.created = created;
+	public void setReviewGroupNo(int reviewGroupNo) {
+		this.reviewGroupNo = reviewGroupNo;
 	}
-	public String getPageNum() {
-		return pageNum;
+	public int getReviewDepth() {
+		return reviewDepth;
 	}
-	public void setPageNum(String pageNum) {
-		this.pageNum = pageNum;
+	public void setReviewDepth(int reviewDepth) {
+		this.reviewDepth = reviewDepth;
 	}
+	public int getReviewOrderNo() {
+		return reviewOrderNo;
+	}
+	public void setReviewOrderNo(int reviewOrderNo) {
+		this.reviewOrderNo = reviewOrderNo;
+	}
+	public int getReviewParent() {
+		return reviewParent;
+	}
+	public void setReviewParent(int reviewParent) {
+		this.reviewParent = reviewParent;
+	}
+	public String getReviewCreated() {
+		return reviewCreated;
+	}
+	public void setReviewCreated(String reviewCreated) {
+		this.reviewCreated = reviewCreated;
+	}
+//	public int getListNum() {
+//		return listNum;
+//	}
+//	public void setListNum(int listNum) {
+//		this.listNum = listNum;
+//	}
+//	public int getNum() {
+//		return num;
+//	}
+//	public void setNum(int num) {
+//		this.num = num;
+//	}
+//	public String getName() {
+//		return name;
+//	}
+//	public void setName(String name) {
+//		this.name = name;
+//	}
+//	public String getEmail() {
+//		return email;
+//	}
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
+//	public String getContent() {
+//		return content;
+//	}
+//	public void setContent(String content) {
+//		this.content = content;
+//	}
+//	public String getIpAddr() {
+//		return ipAddr;
+//	}
+//	public void setIpAddr(String ipAddr) {
+//		this.ipAddr = ipAddr;
+//	}
+//	public String getCreated() {
+//		return created;
+//	}
+//	public void setCreated(String created) {
+//		this.created = created;
+//	}
+//	public String getPageNum() {
+//		return pageNum;
+//	}
+//	public void setPageNum(String pageNum) {
+//		this.pageNum = pageNum;
+//	}
 	public String getUserId() {
 		return userId;
 	}

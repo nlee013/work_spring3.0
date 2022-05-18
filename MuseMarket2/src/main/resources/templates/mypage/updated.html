@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#7952b3">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>Muse-Market</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href=" css/prettyPhoto.css" rel="stylesheet">
+    <link href=" css/price-range.css" rel="stylesheet">
+    <link href=" css/animate.css" rel="stylesheet">
+	<link href=" css/main.css" rel="stylesheet">
+	<link href=" css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href=" images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+<title>Muse-Market</title>
+
+
+<!-- Bootstrap CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  
+    <!-- Bootstrap core CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+
+<!-- 헤더 푸터 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/price-range.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    
+        <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet">
+      
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript">
+
+	function sendIt(){
+		
+		var f = document.myForm;
+		
+		str = f.userId.value;
+		str = str.trim();
+		if(!str){
+			alert("\n아이디를 입력하세요.");
+			f.userId.focus();
+			return;
+		}
+		f.subject.value = str;
+		
+		str = f.userName.value;
+		str = str.trim();
+		if(!str){
+			alert("\n이름을 입력하세요.");
+			f.userName.focus();
+			return;
+		}		
+		f.name.value = str;
+		
+		if(f.userEmail.value){
+			if(!isValidEmail(f.userEmail.value)){
+				alert("\n정상적인 E-Mail을 입력하세요.");
+				f.userEmail.focus();
+				return;
+			}
+		}
+		
+		str = f.userAddr.value;
+		str = str.trim();
+		if(!str){
+			alert("\n주소를 입력하세요.");
+			f.userAddr.focus();
+			return;
+		}
+		f.userAddr.value = str;
+		
+		str = f.userPwd.value;
+		str = str.trim();
+		if(!str){
+			alert("\n비밀번호를 입력하세요.");
+			f.userPwd.focus();
+			return;
+		}
+		f.userPwd.value = str;
+		
+		f.action = "/mypage_updated_ok.action";
+		f.submit();
+		
+	}
+
+</script>
+
+</head>
+ <body>
+    
+    <!-- 헤더 -->
+	 <header id="header"><!--header-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="#"><i class="fa fa-phone"></i> +82 123 1234</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> info@muse.com</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+		
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a th:href="@{index.action}"><img src="images/home/muse.png" alt=""  style="width:60px"/></a>
+						</div>
+						<div class="btn-group pull-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									Korea
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">USA</a></li>
+									<li><a href="#">UK</a></li>
+								</ul>
+							</div>
+							
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									Won
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Dollar</a></li>
+									<li><a href="#">Pound</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{signupForm.action}"><i class="fa fa-user"></i>Join</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-lock"></i>Login</a></li>
+								<li><a th:if="${session.login != null}" th:href="@{logout.action}"><i class="fa fa-lock"></i>Logout</a></li>
+								<li><div th:if="${session.login != null}">
+    							<span th:text="${session.login.getUserName() + ((session.login.getUserId()))} + '님 환영합니다'"></span>
+								</div></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="index.action" class="active">Home</a></li>
+								<li class="dropdown"><a href="#">Sale<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="shop.html">Art(Whole)</a>
+                                        <li><a href="shop.html">Art- Poster</a></li>
+                                        </li>
+                                        <li><a href="shop.html">Art - Figure</a></li>
+										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
+										<li><a href="checkout.html">Art - Extra</a></li> 
+										
+										<li><a href="<%=cp%>/list.action">Community</a></li>
+                                        <li><a href="shop.html">Music(Whole)</a>
+                                        <li><a href="shop.html">Music - LP</a></li>
+                                        </li>
+                                        <li><a href="shop.html">Music - Video/DVD</a></li>
+										<li><a href="product-details.html">Music - Tape</a></li> 
+										<li><a href="checkout.html">Music - Instruments</a></li>
+										<li><a href="checkout.html">Music - Extra</a></li> 
+                                    </ul>
+                                </li>
+                               
+								<li class="dropdown"><a th:href="@{list.action}">Purchase<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a th:href="@{list.action}">Community</a></li>
+                                        
+                                        <li><a href="shop.html">Art(Whole)</a>
+                                        <li><a href="shop.html">Art- Poster</a></li>
+                                        </li>
+                                        <li><a href="shop.html">Art - Figure</a></li>
+										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
+										<li><a href="checkout.html">Art - Extra</a></li> 
+										
+                                        <li><a href="shop.html">Music(Whole)</a>
+                                        <li><a href="shop.html">Music - LP</a></li>
+                                        <li><a href="shop.html">Music - Video/DVD</a></li>
+										<li><a href="product-details.html">Music - Tape</a></li> 
+										<li><a href="checkout.html">Music - Instruments</a></li>
+										<li><a href="checkout.html">Music - Extra</a></li> 
+                                    </ul>
+                                </li> 
+								<li><a th:href="@{list.action}">Community</a></li>
+								
+								<li class="dropdown"><a th:href="@{list.action}">Contact<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+										<li><a th:href="@{qa_list.action}">Q & A</a></li>
+										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
+										<li><a href="@{contact_list.action}">1:1 List</a></li>
+									</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+							<input type="text" placeholder="Search"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+	
+	<!-- 헤더 끝  -->
+	  
+<div class="container">
+	    <h2>개인 정보 수정</h2>
+	    <br/>
+  <main>
+
+<div>
+	    
+	    <div id="wrapper">
+	  	<div class="container">
+		  
+		  
+		  <!-- Nav tabs -->
+		  <ul class="nav nav-tabs" role="tablist">
+		    <li class="nav-item">
+		      <a class="nav-link active" data-toggle="tab" href="#home" style="color: black;">개인 정보 변경</a>
+		    </li>
+<!-- 		    <li class="nav-item">
+		      <a class="nav-link" data-toggle="tab" href="#addr" style="color: black;">주소지 변경</a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link" data-toggle="tab" href="#menu1" style="color: black;">프로필 사진 변경</a>
+		    </li> -->
+		   
+		  </ul>
+		
+		  <!-- Tab panes -->
+		  <div class="tab-content">
+		    <div id="home" class="container tab-pane active"><br>
+		
+		    <!-- 정보 수정 -->
+		    <div class="row g-5">
+
+     <div class="col-md-7 col-lg-8">
+        <form class="needs-validation" novalidate action="">
+          <div class="row g-3">
+
+ <!--            <div class="col-12">
+              <label for="userId" class="form-label">ID</label>
+              <input class="form-control" id="userId" th:value="${session.login.getUserId()}" readonly>
+              <div class="invalid-feedback">
+                아이디 고정
+              </div>
+            </div>
+            
+                        
+            <div class="col-12">
+              <label for="userEmail" class="form-label">Email <span class="text-muted"></span></label>
+              <input type="text" class="form-control" id="userEmail" name="userEmail" th:value="${session.login.getUserEmail()}" >
+              <div class="invalid-feedback">
+                올바른 이메일을 입력하세요.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="userName" class="form-label">Name</label>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control" id="userName" th:value="${session.login.getUserName()}"  placeholder="Username" >
+              <div class="invalid-feedback">
+                  이름을 정확히 입력하세요.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="userPwd" class="form-label">Password <span class="text-muted"></span></label>
+              <input type="password" class="form-control" th:value="${session.login.getUserPwd()}"  id="userPwd">
+              <div class="invalid-feedback">
+                비밀번호를 입력하세요.
+              </div>
+            </div>
+
+            
+            <div class="col-12">
+              <label for="userBirth" class="form-label">Birth <span class="text-muted"></span></label>
+              <input type="date" class="form-control" id="userBirth" th:value="${session.login.getUserBirth()}"  placeholder="99-09-09">
+
+            </div>
+            
+
+
+            <div class="col-12">
+              <label for="userAddr" class="form-label">Address</label>
+              <input type="text" class="form-control" id="userAddr" th:value="${session.login.getUserAddr()}" placeholder="1234 Main St" required>
+              <div class="invalid-feedback">
+                올바른 주소지를 입력하세요.
+              </div> -->
+            </div>
+            <div class="col-12">
+              <label for="userTel" class="form-label">Tel</label>
+              <input type="text" class="form-control" id="userTel" th:value="${dto.userTel}" placeholder="01012345678" required>
+              <div class="invalid-feedback">
+                올바른 연락처를 입력하세요.
+              </div>
+            </div>
+
+          <hr class="my-4">
+
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="same-address">
+            <label class="form-check-label" for="same-address">광고성 이메일 수신 동의</label>
+          </div>
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" th:attr="onclick=|sendIt()|"  style="background-color: black;">
+          	 정보 수정 1
+          </button>
+          <button class="w-100 btn btn-primary btn-lg" onclick="sendIt();" style="background-color: black;">
+          	 정보 수정 2 
+          </button>
+          <button class="w-100 btn btn-primary btn-lg" th:onclick="|javascript:sendIt()|" style="background-color: black;">
+          	 정보 수정 3
+          </button>
+          <button class="w-100 btn btn-primary btn-lg" th:href="@{mypage_updated_ok.action}" style="background-color: black;">
+          	 정보 수정 4
+          </button>
+           <button class="w-100 btn btn-primary btn-lg" onclick="javascript:location.href='/mypage_updated_ok.action';" style="background-color: black;">
+          	 정보 수정 5
+          </button>
+          <a href="javascript:location.href='/mypage_updated_ok.action';">dd</a>
+        </form>
+      </div>
+    </div>
+		    <!-- ! 정보 수정 -->
+		    
+		    
+		    
+		    
+		    </div>
+
+		  </div>
+		</div>
+		
+		<br/>
+		<br/>
+	    </div>
+	    
+	 </div>
+	 <!--내비바 끝  -->
+    
+  </main>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2017–2021 Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+
+<!-- 푸터  -->
+		
+		<footer id="footer"><!--Footer-->
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="companyinfo">
+							<h2><span>Muse</span>-Market</h2>
+							<p>Muse Market is a luxurious online market where you can trade art and music related products secondhand. </p>
+						</div>
+					</div>
+					<div class="col-sm-7">
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe1.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe2.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe3.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe4.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>N</p>
+								<h2>24 MAY 2022</h2>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="address">
+							<img src=" /images/home/map.png" alt="" />
+							<p>3jo Luxurious Linas MuseMarket, Seoul</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Service</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Online Help</a></li>
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="#">Order Status</a></li>
+								<li><a href="#">Change Location</a></li>
+								<li><a th:href="@{qa_list.action}">FAQ’s</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Quick Shop</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Poster</a></li>
+								<li><a href="#">Figure</a></li>
+								<li><a href="#">Exhibition goods</a></li>
+								<li><a href="#">Vinyl Record(LP)</a></li>
+								<li><a href="#">Video/DVD</a></li>
+								<li><a href="#">Tape</a></li>
+								<li><a href="#">Instruments</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Policies</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Terms of Use</a></li>
+								<li><a href="#">Privecy Policy</a></li>
+								<li><a href="#">Refund Policy</a></li>
+								<li><a href="#">Billing System</a></li>								
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>About Muse Market</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Company Information</a></li>
+								<li><a href="#">Careers</a></li>
+								<li><a href="#">Store Location</a></li>
+								<li><a href="#">Affillate Program</a></li>
+								<li><a href="#">Copyright</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>About Muse Market</h2>
+							<form action="#" class="searchform">
+								<input type="text" placeholder="Your email address" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Muse Market is a luxurious online market where you can trade art and music related products secondhand. </p>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2022 Muse-Market Inc. All rights reserved.</p>
+					<p class="pull-right">Designed by <span><a target="_blank" href="">3조</a></span></p>
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+	
+
+  
+    <script src=" js/jquery.js"></script>
+	<script src=" js/bootstrap.min.js"></script>
+	<script src=" js/jquery.scrollUp.min.js"></script>
+	<script src=" js/price-range.js"></script>
+    <script src=" js/jquery.prettyPhoto.js"></script>
+    <script src=" js/main.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      <script src="form-validation.js"></script>
+
+
+</body>
+</html>

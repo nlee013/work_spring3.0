@@ -2,47 +2,25 @@ package com.spring.boot.dto;
 
 public class CommRipDTO {
 
-	//댓글
-	private int crNo;
-	private String crContent;
-	private String insert_time;
-	
-	//공통
-	private int commuNo;
+	private int commuRipNo;
 	private int userNo;
+	private int commuNo;
+	private String commuRipContent;
+	private String commuRipCreated;
+	
 	private String userId;
-	private String userPwd;
 	
-	//커뮤니티
-	private String cmSubject;
-	private String cmContent;
-	private String ipAddr;
-	private String created;
-	private int hitCount;
-	
-	public int getCrNo() {
-		return crNo;
+	public String getUserId() {
+		return userId;
 	}
-	public void setCrNo(int crNo) {
-		this.crNo = crNo;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getCrContent() {
-		return crContent;
+	public int getCommuRipNo() {
+		return commuRipNo;
 	}
-	public void setCrContent(String crContent) {
-		this.crContent = crContent;
-	}
-	public String getInsert_time() {
-		return insert_time;
-	}
-	public void setInsert_time(String insert_time) {
-		this.insert_time = insert_time;
-	}
-	public int getCommuNo() {
-		return commuNo;
-	}
-	public void setCommuNo(int commuNo) {
-		this.commuNo = commuNo;
+	public void setCommuRipNo(int commuRipNo) {
+		this.commuRipNo = commuRipNo;
 	}
 	public int getUserNo() {
 		return userNo;
@@ -50,48 +28,25 @@ public class CommRipDTO {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	public String getUserId() {
-		return userId;
+	public int getCommuNo() {
+		return commuNo;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setCommuNo(int commuNo) {
+		this.commuNo = commuNo;
 	}
-	public String getUserPwd() {
-		return userPwd;
+	public String getCommuRipContent() {
+		return commuRipContent;
 	}
-	public void setUserPwd(String userPwd) {
-		this.userPwd = userPwd;
+	public void setCommuRipContent(String commuRipContent) {
+		this.commuRipContent = commuRipContent;
 	}
-	public String getCmSubject() {
-		return cmSubject;
+	public String getCommuRipCreated() {
+		return commuRipCreated;
 	}
-	public void setCmSubject(String cmSubject) {
-		this.cmSubject = cmSubject;
+	public void setCommuRipCreated(String commuRipCreated) {
+		this.commuRipCreated = commuRipCreated;
 	}
-	public String getCmContent() {
-		return cmContent;
-	}
-	public void setCmContent(String cmContent) {
-		this.cmContent = cmContent;
-	}
-	public String getIpAddr() {
-		return ipAddr;
-	}
-	public void setIpAddr(String ipAddr) {
-		this.ipAddr = ipAddr;
-	}
-	public String getCreated() {
-		return created;
-	}
-	public void setCreated(String created) {
-		this.created = created;
-	}
-	public int getHitCount() {
-		return hitCount;
-	}
-	public void setHitCount(int hitCount) {
-		this.hitCount = hitCount;
-	}
+	
 	
 	
 	

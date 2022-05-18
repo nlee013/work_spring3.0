@@ -11,7 +11,7 @@ public interface ArticleService {
 	
 	public void updateHitCount(int prodNo) throws Exception;
 	
-	public ArticleDTO getUserId(int userNo) throws Exception;
+	public String getUserId(int userNo) throws Exception;
 	
 	public int numMax() throws Exception;
 	
@@ -19,8 +19,19 @@ public interface ArticleService {
 	
 	public int dataCount() throws Exception;
 	
-	public List<ArticleDTO> listData() throws Exception;
+	public List<ArticleDTO> listData(int prodNo) throws Exception;
 	
 	public void deleteData(int num) throws Exception;
 
+	public int getReviewCount(int prodNo) throws Exception;
+
+	public void heartIn(ArticleDTO articleDTO) throws Exception;
+
+	public int heartCount(int prodNo) throws Exception;
+	
+	public int heartNumMax() throws Exception;
+	
+	public void heartUpdate(ArticleDTO articleDTO) throws Exception;
+	 
+	public int myHeartCount(ArticleDTO articleDTO) throws Exception;
 }

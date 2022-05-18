@@ -26,6 +26,93 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 <link rel="stylesheet" type="text/css" href="/css/article.css"/>
 
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+
+<script type="text/javascript">
+	
+	$(function(){
+
+		listPage(1);
+		
+	});
+	
+	$(document).ready(function(){
+	
+		$("#sendButton").click(function(){
+			
+			var params = "commuRipUserId="+ $("#commuRipUserId").val()
+						+ "&commuRipContent=" + $("#commuRipContent").val();
+			
+			$.ajax({
+				
+				type:"POST",
+				url:"/commuRipCreate.action",
+				data:params,
+				success:function(args){
+					
+					$("#listData").html(args);
+					
+					//Ajax는 새로고침이 안되기때문에
+					//코딩으로 삭제
+					$("#commuRipContent").val("");
+					$("#commuRipContent").focus();
+				},
+				beforeSend:showRequest,
+				error:function(e){
+					alert(e.responseText);
+				}
+			});
+		});
+	});
+	
+
+	function showRequest(){
+		
+		var commuRipUserId = $.trim($("#commuRipUserId").val());
+		var commuRipContent = $.trim($("#commuRipContent").val());
+		
+		if(!commuRipContent){
+			alert("\n내용을 입력하세요.");
+			$("#commuRipContent").focus();
+			return false;
+		}
+		
+		if(commuRipContent.length>200){
+			alert("\n내용은 200자까지만 가능합니다.")
+			$("#commuRipContent").focus();
+			return false;
+		}
+		return true;	
+	}
+	
+	
+	function listPage(page){
+				
+		var url = "/commuRipList.action";
+		
+		$.post(url,{pageNum:page},function(args){
+			$("#listData").html(args);
+		});
+		
+		$("#listData").show();
+		
+		
+	}
+	function deleteData(num,page){
+		
+		var url = "/deleted.action";
+		
+		$.post(url,{num:num,pageNum:page},function(args){
+			$("#listData").html(args);
+			
+		});		
+	}
+	
+ 	
+ 	 
+ 	
+</script>
 </head>
 <body>
 
@@ -252,155 +339,60 @@
 			
 		</div>	
 	</div>
-<!-- 	
-	<!-- 댓글 추가
-	<div id="bbsArticle">
-		<div id="bbsArticle_header">
-			<label for="content">댓글 남기기</label>
-			<dl>
-				<dt>작성자</dt>
-				<dd><input type="text" th:id="id" name="userId" placeholder="아이디"></dd>
-				<dt>내용</dt>
-				<dd><input type="text" th:id="content" name="commuContent" placeholder="댓글을 남겨주세요."></dd>
-			</dl>
+	
+	<div>
+	
+	
+	<!-- 댓글 구현 기능 -->
+	
+	<span id="listData" style="display: none;"></span>
+
+	<table width="700" border="0" cellpadding="0" cellspacing="0"
+		style="margin: auto;">
+
+
+		<tr>
+			<td width="600" colspan="4" height="10" ></td>
+		</tr>
+
+		<tr>
+			<td width="600" colspan="4" height="3" bgcolor="#999999"></td>
+		</tr>
+
+		<tr>
+			<td width="60" height="40" bgcolor="#eeeeee" align="center">작성자</td>
+			<td width="240" height="40" style="padding-left: 10px;" th:text="${userId}" id="commuRipUserId" >
+			</td>
+		</tr>
+
+		<tr>
+			<td width="600" colspan="4" height="3" bgcolor="#999999"></td>
+		</tr>
+
+		<tr>
+			<td width="60" height="80" bgcolor="#eeeeee" align="center">내용</td>
+			<td width="500" colspan="2" style="padding-left: 10px;">
+			<textarea rows="3" cols="85" class="boxTA"  bgcolor="#eeeeee" style="height: 78px;" id="commuRipContent"></textarea>
 			
-			 <input type="hidden" name="commuNo" value="${dto.commuNo}"/>			 
-			 <input type="button" value="등록" class="btn2"
-					th:onclick="'location.href=\'reply_article.action?' + @{${params }} + '\''"/>     
-		</div>
-	</div> -->
+			<td width="40" height="80" align="right" style="padding-right: 15px;">
+			<input type="button" value="등록" class="btn2" id="sendButton" /></td>
+			
+			</td>
+		</tr>
+
+		<tr>
+			<td width="600" colspan="4" height="3" bgcolor="#999999"></td>
+		</tr>
+
+	</table>
 	
+	<!-- 댓글 구현 기능 -->
+	
+	
+	</div>
+
 </div>
-	<script type="text/javascript">
-	
-/* 	$(document).ready( function() {
 
-		$("#comment").load("comment/comment.html");
-
-	});
-
-
-	
-	//댓글 목록 
-	function commentList(){
-	    $.ajax({
-	        url : '/comment/comment.html',
-	        type : 'get',
-	        data : {'commuNo':commuNo},
-	        success : function(data){
-	        	
-	            var a =''; 
-	            $.each(data, function(key, value){ 
-	                a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-	                a += '<div class="commentInfo'+value.crNo+'">'+'댓글번호 : '+value.crNo+' / 작성자 : '+value.userId;
-	                a += '<a onclick="commentUpdate('+value.crNo+',\''+value.crContent+'\');"> 수정 </a>';
-	                a += '<a onclick="commentDelete('+value.crNo+');"> 삭제 </a> </div>';
-	                a += '<div class="commentContent'+value.crNo+'"> <p> 내용 : '+value.crContent +'</p>';
-	                a += '</div></div>';
-	            });
-	            
-	            $(".commentList").html(a);
-	        }
-	    });
-	} */
-	
-	</script>
-
-
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>
- $(function(){
- $("#another").load("comment/test.html"); 
- });
-</script> 
-<script>
-$(function(){
-    
- 
-    //댓글쓰기 버튼 (버튼을 눌러서 id값이 넘어와서 실행되는 자바스크립트 구문)
-    listReply();
- 
-        
-    $("#btnReply").click(function(){
-        
-    var crContent = $("#crContent").val();    //댓글의 내용
-    var commuNo =  "${dto.commuNo}";
-    var params = {"crContent" : crContent, "commuNo" : commuNo};
-    
-    
-    $.ajax({
-        type: "post", //데이터를 보낼 방식
-        url: "reply_insert.action", //데이터를 보낼 url
-        data: params, //보낼 데이터
-    
-        
-        success: function(data){//데이터를 보내는 것이 성공했을 시 출력되는 메시지
-            alert("댓글이 등록되었습니다.");
-            listReply2();
-                }
-            });
-        });
-    
-    
- 
-    
-//댓글 목록을 출력하는 함수
-function listReply(){
-    $.ajax({
-        type: "get",    //get방식으로 자료를 전달
-        url: "reply_list.action",    //컨트롤러에 있는 list.do로 맵핑되고 게시글 번호도 같이 보낸다.
-        success: function(result){    //자료를 보내는것이 성공했을때 출력되는 메시지
-            
-            //댓글목록을 실행한 결과를 가져온다.
-        $("#listReply").html(result);
-            }
-        });
-}
- 
- 
- 
- 
-function listReply2(){
-    $.ajax({
-        type: "get",
-        contentType: "application/json",
-        url: "reply_list_json.do?member_bno=${dto.member_bno}",
-        success: function(result){
-            console.log(result);
-            var output="<table>";
-            for(var i in result){
-                var repl=result[i].replytext;
-                repl = repl.replace(/  /gi,"&nbsp;&nbsp;");//공백처리
-                repl = repl.replace(/</gi,"&lt;"); //태그문자 처리
-                repl = repl.replace(/>/gi,"&gt;");
-                repl = repl.replace(/\n/gi,"<br>"); //줄바꿈 처리
-                
-                output += "<tr><td>"+result[i].name;
-                date = changeDate(result[i].regdate);
-                output += "("+date+")";
-                output += "<br>"+repl+"</td></tr>";
-            }
-                output+="</table>";
-                $("#listReply").html(output);
-        }
-    });
-}
-    
-    
-});
- 
- 
-</script>
- 
-    
-    댓글쓰기 버튼을 클릭하면 위쪽에 있는 자바스크립트 구문이 실행되어서 컨트롤러로 맵핑됨<br><br>
-    
-    <button type = "button" id = "btnReply">댓글쓰기</button>
-    
-    
-    댓글 목록
-    댓글이 등록이 되면 listReply에 댓글이 쌓이게 된다.
-    <div id = "listReply"></div> -->
     
 <footer id="footer"><!--Footer-->
 		<div class="footer-top">

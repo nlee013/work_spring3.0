@@ -106,12 +106,82 @@
 				</div>
 			</div>
 		</div><!--/header-middle-->
+	
+<div class="header-bottom"><!--header-bottom-->
+		<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="index.action" class="active">Home</a></li>
+								<li class="dropdown"><a href="#">Sale<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                        
+                                        <li><a href="shop.html">Art - Figure</a></li>
+										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
+										<li><a href="checkout.html">Art - Extra</a></li> 
+										
+										<li><a th:href="@{list.action}">Community</a></li>
+                                        <li><a href="shop.html">Music(Whole)</a></li>
+                                        <li><a href="shop.html">Music - LP</a></li>
+                                        
+                                        <li><a href="shop.html">Music - Video/DVD</a></li>
+										<li><a href="product-details.html">Music - Tape</a></li> 
+										<li><a href="checkout.html">Music - Instruments</a></li>
+										<li><a href="checkout.html">Music - Extra</a></li> 
+                                    </ul>
+                                </li>
+                               
+								<li class="dropdown"><a th:href="@{list.action}">Purchase<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">                                                                       
+                                        <li><a href="shop.html">Art(Whole)</a></li>
+                                        <li><a href="shop.html">Art- Poster</a></li>                                  
+                                        <li><a href="shop.html">Art - Figure</a></li>
+										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
+										<li><a href="checkout.html">Art - Extra</a></li> 
+										
+                                        <li><a href="shop.html">Music(Whole)</a>
+                                        <li><a href="shop.html">Music - LP</a></li>
+                                        <li><a href="shop.html">Music - Video/DVD</a></li>
+										<li><a href="product-details.html">Music - Tape</a></li> 
+										<li><a href="checkout.html">Music - Instruments</a></li>
+										<li><a href="checkout.html">Music - Extra</a></li> 
+                                    </ul>
+                                </li> 
+								<li><a th:href="@{list.action}">Community</a></li>
+								
+								<li class="dropdown"><a th:href="@{list.action}">Contact<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+										<li><a th:href="@{master_list.action}">Q & A</a></li>
+										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
+										<li><a th:href="@{qa_list.action}">1:1 List</a></li>
+									</ul>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+							<input type="text" placeholder="Search"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
 	</header><!--/header-->
 	
-	<div id="header">
-		<div class="container">
-			<div class="row">				
-				<div class="col-sm-4">
+	<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
 						<form action="#">
@@ -137,7 +207,7 @@
 						    여자 <input type="radio" style="width:20px;" name="userGender" value="여자">
 						    </div>
 						    
-						    생년월일 : <input type="date" name="userBirth" id="userBirth" placeholder="생일"/><br/>
+						    생년월일 <input type="date" name="userBirth" id="userBirth" placeholder="생일"/><br/>
 						    <button type="button" class="btn btn-default" onclick="singup()">회원가입</button>
 						<br/>
 						</form>

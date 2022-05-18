@@ -16,31 +16,65 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update product set prodHitCount= prodHitCount+1 where prodNo =#{prodNo}
 	</update>
 	
-	<select id="getUserId" parameterType="int" resultType="com.spring.boot.dto.ArticleDTO">
+	<select id="getUserId" parameterType="int" resultType="string">
 		select userId from users where userNo=#{userNo}
 	</select>
 	
-	<select id="numMax" resultType="int">
-		select nvl(max(num),0) from iguest
-	</select>
+	
+	
 	
 	<insert id="insertData" parameterType="com.spring.boot.dto.ArticleDTO">
-		insert into iguest (num, name,email,content,ipAddr,created)
-		values (#{num},#{name},#{email},#{content},#{ipAddr},sysdate)
+	 	insert into review (prodNo, userNo, reviewNo, reviewContent, reviewIpAddr, 
+	 	reviewGroupNo, reviewDepth, reviewOrderNo, reviewParent, reviewCreated) 
+	 	values (#{prodNo},#{userNo}, #{reviewNo},#{reviewContent}, #{reviewIpAddr},
+	 	#{reviewGroupNo}, #{reviewDepth}, #{reviewOrderNo}, #{reviewParent}, sysdate)
 	</insert>
 	
-	<select id="dataCount" resultType="int">
-		select nvl(count(*),0) from iguest
+	<select id="numMax" resultType="int">
+		select nvl(max(reviewNo),0) from review
 	</select>
 	
-	<select id="listData" resultType="com.spring.boot.dto.ArticleDTO">
-		select num,name,email,content, ipAddr,created 
-		from iguest order by num desc
+	<select id="dataCount" resultType="int">
+		select nvl(count(*),0) from review
 	</select>
+	
+	
+		
+	<select id="listData" parameterType="int" resultType="com.spring.boot.dto.ArticleDTO">
+		select * from review where prodNo=#{prodNo} order by reviewNo
+	</select>
+
+	
 	
 	<delete id="deleteData" parameterType="int">
-		delete iguest where num=#{num}
+		delete review where reviewNo=#{reviewNo}
 	</delete>
+	
+	
+	<select id="getReviewCount" parameterType="int" resultType="int">
+		select count(*) from review where prodNo=#{prodNo}
+	</select>
+	
+	<select id="heartCount" parameterType="int" resultType="int">
+		select nvl(count(*),0) from heart where prodNo = #{prodNo} and heartCheck = 1
+	</select>
+	
+	<select id="heartNumMax" resultType="int">
+		select nvl(max(heartNo),0) from heart
+	</select>
+	
+	<insert id="heartIn" parameterType="com.spring.boot.dto.ArticleDTO">
+		insert into heart (prodNo, userNo, heartNo, heartCheck) 
+		values (#{prodNo}, #{userNo}, #{heartNo}, 1)
+	</insert>
+	
+	<update id="heartUpdate"  parameterType="com.spring.boot.dto.ArticleDTO">
+		update heart set heartCheck = #{heartCheck} where prodNo=#{prodNo} and userNo=#{userNo}
+	</update>
+	
+	<select id="myHeartCount" parameterType="com.spring.boot.dto.ArticleDTO" resultType="int">
+		select nvl(heartCheck,2) from heart where prodNo = #{prodNo} and userNo=#{userNo} 
+	</select>
 	
 
 </mapper>

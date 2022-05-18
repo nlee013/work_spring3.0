@@ -86,7 +86,8 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+								<li><a th:if="${session.login != null}" th:href="@{mypage.action}"><i class="fa fa-user"></i> MyPage</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-user"></i> MyPage</a></li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a th:if="${session.login == null}" th:href="@{signupForm.action}"><i class="fa fa-user"></i>Join</a></li>
@@ -116,27 +117,43 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.action" class="active">Home</a></li>
-								<li class="dropdown"><a href="#">Sale<i class="fa fa-angle-down"></i></a>
+								<li><a th:href="@{index.action}" class="active">Home</a></li>
+								<li class="dropdown">
+									<a th:if="${session.login != null}" th:href="@{upload.action}">Sale<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Art(Whole)</a></li>
-                                        <li><a href="shop.html">Art- Poster</a></li>                                        
-                                        <li><a href="shop.html">Art - Figure</a></li>
-										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
-										<li><a href="checkout.html">Art - Extra</a></li> 
+                                        <li><a th:href="@{upload.action}">Art(Whole)</a></li>
+                                        <li><a th:href="@{upload.action}">Art- Poster</a></li>                                        
+                                        <li><a th:href="@{upload.action}">Art - Figure</a></li>
+										<li><a th:href="@{upload.action}">Art - Exhibition goods</a></li> 
+										<li><a th:href="@{upload.action}">Art - Extra</a></li> 
 										
-										<li><a th:href="@{list.action}">Community</a></li>
-                                        <li><a href="shop.html">Music(Whole)</a></li>
-                                        <li><a href="shop.html">Music - LP</a></li>
-                                        
-                                        <li><a href="shop.html">Music - Video/DVD</a></li>
-										<li><a href="product-details.html">Music - Tape</a></li> 
-										<li><a href="checkout.html">Music - Instruments</a></li>
-										<li><a href="checkout.html">Music - Extra</a></li> 
+									
+                                        <li><a th:href="@{upload.action}">Music(Whole)</a></li>
+                                        <li><a th:href="@{upload.action}">Music - LP</a></li>                                        
+                                        <li><a th:href="@{upload.action}">Music - Video/DVD</a></li>
+										<li><a th:href="@{upload.action}">Music - Tape</a></li> 
+										<li><a th:href="@{upload.action}">Music - Instruments</a></li>
+										<li><a th:href="@{upload.action}">Music - Extra</a></li> 
+                                    </ul>                                    
+                                </li>
+                                <li class="dropdown">
+                                <a th:unless="${session.login != null}" th:href="@{loginForm.action}">Sale<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a th:href="@{loginForm.action}">Art(Whole)</a></li>
+                                        <li><a th:href="@{loginForm.action}">Art- Poster</a></li>                                        
+                                        <li><a th:href="@{loginForm.action}">Art - Figure</a></li>
+										<li><a th:href="@{loginForm.action}">Art - Exhibition goods</a></li> 
+										<li><a th:href="@{loginForm.action}">Art - Extra</a></li> 										
+			
+                                        <li><a th:href="@{loginForm.action}">Music(Whole)</a></li>
+                                        <li><a th:href="@{loginForm.action}">Music - LP</a></li>                                        
+                                        <li><a th:href="@{loginForm.action}">Music - Video/DVD</a></li>
+										<li><a th:href="@{loginForm.action}">Music - Tape</a></li> 
+										<li><a th:href="@{loginForm.action}">Music - Instruments</a></li>
+										<li><a th:href="@{loginForm.action}">Music - Extra</a></li> 
                                     </ul>
                                 </li>
-                               
-								<li class="dropdown"><a th:href="@{list.action}">Purchase<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a th:href="@{shop.action}">Purchase<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">                                                                       
                                         <li><a href="shop.html">Art(Whole)</a></li>
                                         <li><a href="shop.html">Art- Poster</a></li>                                  

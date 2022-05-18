@@ -31,7 +31,7 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public ArticleDTO getUserId(int userNo) throws Exception {
+	public String getUserId(int userNo) throws Exception {
 		return articleMapper.getUserId(userNo);
 	}
 
@@ -51,13 +51,45 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public List<ArticleDTO> listData() throws Exception {
-		return articleMapper.listData();
+	public List<ArticleDTO> listData(int prodNo) throws Exception {
+		return articleMapper.listData(prodNo);
 	}
 
 	@Override
 	public void deleteData(int num) throws Exception {
 		articleMapper.deleteData(num);
 	}
+
+	@Override
+	public int getReviewCount(int prodNo) throws Exception {
+		return articleMapper.getReviewCount(prodNo);
+	}
+
+	@Override
+	public void heartIn(ArticleDTO articleDTO) throws Exception {
+		articleMapper.heartIn(articleDTO);
+	}
+
+	@Override
+	public int heartCount(int prodNo) throws Exception {
+		return articleMapper.heartCount(prodNo);
+	}
+
+	@Override
+	public int myHeartCount(ArticleDTO articleDTO) throws Exception {
+		return articleMapper.myHeartCount(articleDTO);
+	}
+
+	@Override
+	public int heartNumMax() throws Exception {
+		return articleMapper.heartNumMax();
+	}
+
+	@Override
+	public void heartUpdate(ArticleDTO articleDTO) throws Exception {
+		articleMapper.heartUpdate(articleDTO); 
+
+	}
+
 	
 }
