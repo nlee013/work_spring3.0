@@ -91,5 +91,15 @@ public class ArticleServiceImpl implements ArticleService{
 
 	}
 
+	@Override
+	public int myHeartCheck(ArticleDTO articleDTO) throws Exception {
+		return articleMapper.myHeartCheck(articleDTO);
+	}
+
+	@Override
+	public List<ArticleDTO> findProductFile(int prodNo) throws Exception {
+		return articleMapper.findProductFile(prodNo);
+	}
+
 	
 }

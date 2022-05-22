@@ -4,7 +4,6 @@ package com.spring.boot.dto;
 public class ShopDTO {
 	
 	
-	
 	private int prodNo;
 	private int userNo;
 	private String prodSelect;
@@ -12,12 +11,30 @@ public class ShopDTO {
 	private String prodSale;
 	private String prodName;
 	private String prodPrice;
+	private int prodHitCount;
+	private int prodHeart;
 	private String prodQuality;
 	private String prodCreated;
 	private String prodAddr;
 	private String prodTrade;
 	private String prodContent;
+		
+	private String userId;
+	private String userTel;
+	
 
+	
+	private String reviewUserId;
+	private int reviewNo;
+	private String reviewContent;
+	private String reviewIpAddr;
+	private int reviewGroupNo;
+	private int reviewDepth;
+	private int reviewOrderNo;
+	private int reviewParent;
+	private String reviewCreated;
+	
+	
 	private String tmImg;
 	
 	private int imgNo;
@@ -25,16 +42,103 @@ public class ShopDTO {
 	private String saveFileName;	
 
 	
-	private String prodHitCount;
-	private String prodHeart;
 
+	
+
+	
+	
+	
 	public String getTmImg() {
 		return tmImg;
 	}
 	public void setTmImg(String tmImg) {
 		this.tmImg = tmImg;
 	}
-	
+	public int getImgNo() {
+		return imgNo;
+	}
+	public void setImgNo(int imgNo) {
+		this.imgNo = imgNo;
+	}
+	public String getOriginalFileName() {
+		return originalFileName;
+	}
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
+	}
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
+	}
+	public String getReviewUserId() {
+		return reviewUserId;
+	}
+	public void setReviewUserId(String reviewUserId) {
+		this.reviewUserId = reviewUserId;
+	}
+	public int getReviewNo() {
+		return reviewNo;
+	}
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
+	}
+	public String getReviewContent() {
+		return reviewContent;
+	}
+	public void setReviewContent(String reviewContent) {
+		this.reviewContent = reviewContent;
+	}
+	public String getReviewIpAddr() {
+		return reviewIpAddr;
+	}
+	public void setReviewIpAddr(String reviewIpAddr) {
+		this.reviewIpAddr = reviewIpAddr;
+	}
+	public int getReviewGroupNo() {
+		return reviewGroupNo;
+	}
+	public void setReviewGroupNo(int reviewGroupNo) {
+		this.reviewGroupNo = reviewGroupNo;
+	}
+	public int getReviewDepth() {
+		return reviewDepth;
+	}
+	public void setReviewDepth(int reviewDepth) {
+		this.reviewDepth = reviewDepth;
+	}
+	public int getReviewOrderNo() {
+		return reviewOrderNo;
+	}
+	public void setReviewOrderNo(int reviewOrderNo) {
+		this.reviewOrderNo = reviewOrderNo;
+	}
+	public int getReviewParent() {
+		return reviewParent;
+	}
+	public void setReviewParent(int reviewParent) {
+		this.reviewParent = reviewParent;
+	}
+	public String getReviewCreated() {
+		return reviewCreated;
+	}
+	public void setReviewCreated(String reviewCreated) {
+		this.reviewCreated = reviewCreated;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getUserTel() {
+		return userTel;
+	}
+	public void setUserTel(String userTel) {
+		this.userTel = userTel;
+	}
 	public int getProdNo() {
 		return prodNo;
 	}
@@ -47,7 +151,7 @@ public class ShopDTO {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	public String getProdSelect(String string, String string2, String string3, String string4) {
+	public String getProdSelect() {
 		return prodSelect;
 	}
 	public void setProdSelect(String prodSelect) {
@@ -77,6 +181,18 @@ public class ShopDTO {
 	public void setProdPrice(String prodPrice) {
 		this.prodPrice = prodPrice;
 	}
+	public int getProdHitCount() {
+		return prodHitCount;
+	}
+	public void setProdHitCount(int prodHitCount) {
+		this.prodHitCount = prodHitCount;
+	}
+	public int getProdHeart() {
+		return prodHeart;
+	}
+	public void setProdHeart(int prodHeart) {
+		this.prodHeart = prodHeart;
+	}
 	public String getProdQuality() {
 		return prodQuality;
 	}
@@ -101,57 +217,14 @@ public class ShopDTO {
 	public void setProdTrade(String prodTrade) {
 		this.prodTrade = prodTrade;
 	}
+
 	public String getProdContent() {
 		return prodContent;
 	}
 	public void setProdContent(String prodContent) {
 		this.prodContent = prodContent;
 	}
-	public String getOriginalFileName() {
-		return originalFileName;
-	}
-	public void setOriginalFileName(String originalFileName) {
-		this.originalFileName = originalFileName;
-	}
-	public String getSaveFileName() {
-		return saveFileName;
-	}
-	public void setSaveFileName(String saveFileName) {
-		this.saveFileName = saveFileName;
-	}
-
-	public String getProdHitCount() {
-		return prodHitCount;
-	}
-	public void setProdHitCount(String prodHitCount) {
-		this.prodHitCount = prodHitCount;
-	}
-	public String getProdHeart() {
-		return prodHeart;
-	}
-	public void setProdHeart(String prodHeart) {
-		this.prodHeart = prodHeart;
-	}
-	public int getImgNo() {
-		return imgNo;
-	}
-	public void setImgNo(int imgNo) {
-		this.imgNo = imgNo;
-	}
 	
 	
 	
 }
-/*
-//내 입맛대로 바꿔야 한대
-//file 태그 name 속성 일치해야함
-
-
-//	private int listNo;
-		public int getListNo() {
-			return listNo;
-		}
-		public void setListNo(int listNo) {
-			this.listNo = listNo;
-		}
-		*/

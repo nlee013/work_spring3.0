@@ -26,6 +26,87 @@
 	<link rel="stylesheet" type="text/css" href=" css/style.css"/>
 	<link rel="stylesheet" type="text/css" href=" css/list.css"/>
 	<link rel="stylesheet" type="text/css" href=" css/join.css"/>
+	
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+//아이디 중복검사
+$('.userIdChk').on("propertychange change keyup paste input", function(){
+
+	console.log("keyup 테스트");	
+	
+	var userId = $('.userIdChk').val();			// .id_input에 입력되는 값
+	var data = {userId : userId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+	
+	$.ajax({
+		type : "post",
+		url : "/signup.action",
+		data : data
+	}); // ajax 종료	
+
+});// function 종료
+
+
+
+    function signup() {
+        let loginObj = {};
+        loginObj.userId = $('#userId').val();
+        loginObj.userPwd = $('#userPwd').val();
+        loginObj.userPwdChk = $('#userPwdChk').val();
+        loginObj.userName = $('#userName').val();
+        loginObj.userEmail = $('#userEmail').val();
+        loginObj.userAddr = $('#userAddr').val();
+        loginObj.userTel = $('#userTel').val();
+        loginObj.userGender = $("input[name='userGender']:checked").val();
+        loginObj.userBirth = $('#userBirth').val();
+
+        if (loginObj.userPwd !== loginObj.userPwdChk) {
+            alert("비밀번호를 확인해주세요.");
+            return;
+        }
+        if (isUserId(loginObj)) {
+            alert("이미 존재하는 아이디 입니다.");
+            return;
+        }
+
+        $.ajax({
+            url: "/signup.action",
+            method: "POST",
+            data:JSON.stringify(loginObj),
+            contentType:"application/json; charset=utf-8",
+            success : function() {
+                alert("회원가입이 되었습니다.");
+                document.location = "/loginForm.action";
+            },
+            error : function(xhr, status, error) {
+                alert("회원가입에 실패했습니다.");
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
+
+    function isUserId(loginObj) {
+        let isUserId = true;
+        $.ajax({
+            url: "/isUserId.action",
+            method: "POST",
+            data:JSON.stringify(loginObj),
+            contentType:"application/json; charset=utf-8",
+            async: false,
+            success : function(data) {
+                isUserId = data;
+            },
+            error : function(xhr, status, error) {
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+        return isUserId;
+    }
+    </script>   
 </head><!--/head-->
 
 <body>
@@ -64,34 +145,12 @@
 						<div class="logo pull-left">
 							<a th:href="@{index.action}"><img src=" images/home/muse.png" alt=""  style="width:60px"/></a>
 						</div>
-						<div class="btn-group pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									Korea
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">USA</a></li>
-									<li><a href="#">UK</a></li>
-								</ul>
-							</div>
-							
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									Won
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Dollar</a></li>
-									<li><a href="#">Pound</a></li>
-								</ul>
-							</div>
-						</div>
+						
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+								<li><a href="#"><i class="fa fa-user"></i> MyPage</a></li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a th:if="${session.login == null}" th:href="@{signupForm.action}"><i class="fa fa-user"></i>Join</a></li>
@@ -168,22 +227,18 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
 	
-	<div class="header-bottom"><!--header-bottom-->
+	<hr/>
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9">
 					<div class="signup-form"><!--sign up form-->
-						<h2>New User Signup!</h2>
+						<h2>New Muse User Sign Up!</h2>
 						<form action="#">
 							
 							<input class="userIdChk" type="text" name="userId" id="userId" placeholder="아이디"/><br/>
@@ -208,14 +263,14 @@
 						    </div>
 						    
 						    생년월일 <input type="date" name="userBirth" id="userBirth" placeholder="생일"/><br/>
-						    <button type="button" class="btn btn-default" onclick="singup()">회원가입</button>
+						    <button type="button" class="btn btn-default" onclick="signup()">회원가입</button>
 						<br/>
 						</form>
 					</div><!--/sign up form-->
 				</div>
 			</div>
 		</div>
-	</div>
+<hr/>
 	
     <!-- <h1>회원가입 페이지</h1>
     <hr/>
@@ -232,89 +287,6 @@
     </p>
     생년월일 : <input type="date" name="userBirth" id="userBirth" placeholder="생일"/><br/>
     <button type="button" onclick="singup()">회원가입</button> -->
-</body>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-
-//아이디 중복검사
-$('.userIdChk').on("propertychange change keyup paste input", function(){
-
-	console.log("keyup 테스트");	
-	
-	var userId = $('.userIdChk').val();			// .id_input에 입력되는 값
-	var data = {userId : userId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
-	
-	$.ajax({
-		type : "post",
-		url : "/signup.action",
-		data : data
-	}); // ajax 종료	
-
-});// function 종료
-
-
-
-    function singup() {
-        let loginObj = {};
-        loginObj.userId = $('#userId').val();
-        loginObj.userPwd = $('#userPwd').val();
-        loginObj.userPwdChk = $('#userPwdChk').val();
-        loginObj.userName = $('#userName').val();
-        loginObj.userEmail = $('#userEmail').val();
-        loginObj.userAddr = $('#userAddr').val();
-        loginObj.userTel = $('#userTel').val();
-        loginObj.userGender = $("input[name='userGender']:checked").val();
-        loginObj.userBirth = $('#userBirth').val();
-
-        if (loginObj.userPwd !== loginObj.userPwdChk) {
-            alert("비밀번호를 확인해주세요.");
-            return;
-        }
-        if (isUserId(loginObj)) {
-            alert("이미 존재하는 아이디 입니다.");
-            return;
-        }
-
-        $.ajax({
-            url: "/signup.action",
-            method: "POST",
-            data:JSON.stringify(loginObj),
-            contentType:"application/json; charset=utf-8",
-            success : function() {
-                alert("회원가입이 되었습니다.");
-                document.location = "/signup";
-            },
-            error : function(xhr, status, error) {
-                alert("회원가입에 실패했습니다.");
-                console.log(xhr);
-                console.log(status);
-                console.log(error);
-            }
-        });
-    }
-
-    function isUserId(loginObj) {
-        let isUserId = true;
-        $.ajax({
-            url: "/isUserId.action",
-            method: "POST",
-            data:JSON.stringify(loginObj),
-            contentType:"application/json; charset=utf-8",
-            async: false,
-            success : function(data) {
-                isUserId = data;
-            },
-            error : function(xhr, status, error) {
-                console.log(xhr);
-                console.log(status);
-                console.log(error);
-            }
-        });
-        return isUserId;
-    }
-    
-    
-</script>
 
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">

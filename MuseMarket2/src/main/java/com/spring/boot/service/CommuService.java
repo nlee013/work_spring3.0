@@ -21,5 +21,7 @@ public interface CommuService {
 	public void updateData(CommuDTO dto) throws Exception;
 	
 	public void deleteData(int commuNo) throws Exception;
+
+	public String getUserId(int userNo) throws Exception;
 	
 }

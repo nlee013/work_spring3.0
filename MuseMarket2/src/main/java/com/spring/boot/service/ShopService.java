@@ -29,7 +29,7 @@ public interface ShopService {
 	public List<ShopDTO> getList(int prodNo, ShopDTO dto ) throws Exception;
 	
 	//셀렉트 리스트
-	public List<ShopDTO> getSelectLists(int prodNo, ShopDTO dto) throws Exception;
+	public List<ShopDTO> getSelectLists(int prodNo, String prodSelect, ShopDTO dto) throws Exception;
 	
 	//하나의 데이터 일겅오기
 	public ShopDTO getReadData(int listNo) throws Exception;

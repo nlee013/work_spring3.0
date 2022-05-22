@@ -24,17 +24,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
    
     
-    
-    
 </head><!--/head-->
-
-
-
-
-
-
-
-
 
 
 <body>
@@ -42,21 +32,22 @@
 		<div class="header_top"><!--header_top-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-6 ">
+					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href=""><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href=""><i class="fa fa-envelope"></i> info@domain.com</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i> +82 123 1234</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> info@muse.com</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="https://de.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -64,48 +55,47 @@
 			</div>
 		</div><!--/header_top-->
 		
-		<div class="header-middle"><!--header-middle-->
-			<div class="container"><!-- http://localhost:8080/shop.action -->
+				<div class="header-middle"><!--header-middle-->
+			<div class="container">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="http://localhost:8080/"><img src="images/sample/logo.jpg" width="223px" height="166px" alt="" /></a>
+							<a th:href="@{index.action}"><img src=" images/home/muse.png" alt=""  style="width:60px"/></a>
 						</div>
-						<div class="btn-group pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									LANGUAGE
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="">KOR</a></li>
-									<li><a href="">UK</a></li>
-								</ul>
-							</div>
-						<!-- 	
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									DOLLAR
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="">Canadian Dollar</a></li>
-									<li><a href="">Pound</a></li>
-								</ul>
-							</div> -->
-						</div>
+					
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
-							<ul class="nav navbar-nav">
-								<li><a href=""><i class="fa fa-user"></i> MyPage</a></li>
-								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-<!-- 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li> -->
-										
-								<li><a href="javascript:location.href='/upload.action';"><i class="fa fa-pencil-square"></i> write</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+							<ul class="nav navbar-navr">
+	    						<li th:if="${session.login != null}" >
+	    							<div th:text="${session.login.getUserName() + ((session.login.getUserId()))} + '님 환영합니다'"></div>
+	    						</li>														
+							</ul>
+						</div>
+					</div>					
+					
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-navr">
+						
+								<li>								
+								<a th:if="${session.login != null}" th:href="@{mypage.action}">
+								<i class="fa fa-user"></i> MyPage</a>
 								
+								</li>
+								
+								<li>
+								<a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-user"></i> MyPage</a>
+								</li>
+								
+								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{signupForm.action}"><i class="fa fa-user"></i>Join</a></li>
+								
+								<li><a th:if="${session.login != null}" th:href="@{upload.action}"><i class="fa fa-pencil-square"></i>Write</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-lock"></i>Login</a></li>
+								<li><a th:if="${session.login != null}" th:href="@{logout.action}"><i class="fa fa-unlock"></i>Logout</a></li>
+								<li><div th:if="${session.login != null}"></div></li>
 							</ul>
 						</div>
 					</div>
@@ -127,47 +117,40 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html">Home</a></li>
-								<li class="dropdown"><a href="#" class="active">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html" class="active">Shop</a></li>                                        
-										<li><a href="product-details.html">Art</a></li> 
-										<li><a href="checkout.html">Music</a></li> 
+								<li><a th:href="@{index.action}" class="active">Home</a></li>
+								<li class="dropdown"><a th:href="@{shop.action}">Purchase<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">                                                                       
+                                        <li><a href="http://localhost:8080/selecshop.action?prodSelect=poster">POSTER</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=FIGURE">FIGURE</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=GOODS">GOODS</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=ETC">ETC</a></li> 
+										
+                                        <li><a href="http://localhost:8080/selecshop.action?prodSelect=LP">LP </a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=VIDEOS">VIDEOS </a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=TAPE">TAPE </a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=CD/DVD">CD/DVD</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=INSTRUMENT">INSTRUMENT </a></li> 
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="#">Community<i class="fa fa-angle-down"></i></a>
+								<li><a th:href="@{list.action}">Community</a></li>
+								
+								<li class="dropdown"><a th:href="@{list.action}">Contact<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li> 
-<!-- 								<li><a href="404.html">404</a></li>
-								<li><a href="contact-us.html">Contact</a></li> -->
+										<li><a th:href="@{master_list.action}">Q & A</a></li>
+										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
+										<li><a th:href="@{qa_list.action}">1:1 List</a></li>
+									</ul>
+								</li>
+								<li><a th:if="${session.login != null}" th:href="@{upload.action}">Write</a></li>
+								<li><a th:unless="${session.login != null}" th:href="@{loginForm.action}">Write</a></li>
 							</ul>
 						</div>
 					</div>
-				
-							
-					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
-						</div>
-					</div>
-				</div>
+					
 				</div>
 			</div>
-	</header>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		</div><!--/header-bottom-->
+	</header><!--/header-->
 	
 	<section id="advertisement">
 		<div class="container">
@@ -194,10 +177,10 @@
 								<div id="sportswear" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul>
-											<li><a href="">POSTER </a></li>
-											<li><a href="">PIGURE </a></li>
-											<li><a href="">GOODS </a></li>
-											<li><a href="">ETC </a></li>
+											<li><a href="http://localhost:8080/selecshop.action?prodSelect=poster">POSTER</a></li>
+											<li><a href="http://localhost:8080/selecshop.action?prodSelect=pigure">PIGURE</a></li>
+											<li><a href="http://localhost:8080/selecshop.action?prodSelect=goods">GOODS</a></li>
+											<li><a href="http://localhost:8080/selecshop.action?prodSelect=etc">ETC</a></li>
 										</ul>
 									</div>
 								</div>
@@ -214,11 +197,11 @@
 								<div id="mens" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul>
-											<li><a href="">LP </a></li>
-											<li><a href="">VIDEOS </a></li>
-											<li><a href="">TAPE </a></li>
-											<li><a href="">CD/DVD</a></li>
-											<li><a href="">INSTRUMENT </a></li>
+											<li><a href="http://localhost:8080/selecshop.action?prodSelect=lp">LP </a></li>
+											<li><a href="http://localhost:8080/selecshop.action?prodSelect=video">VIDEOS </a></li>
+											<li><a href="http://localhost:8080/selecshop.action?prodSelect=tape">TAPE </a></li>
+											<li><a href="http://localhost:8080/selecshop.action?prodSelect=cd/dvd">CD/DVD</a></li>
+											<li><a href="http://localhost:8080/selecshop.action?prodSelect=instrument">INSTRUMENT </a></li>
 										</ul>
 									</div>
 								</div>
@@ -231,55 +214,17 @@
 								</div>
 							</div>
 							
-						<!-- 	<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Fashion</a></h4>
-								</div>
+													
+							<div style="border-bottom: 1px solid #F7F7F0; margin: 20px">
+							<button type="button" class="btn btn-fefault lcart" style="float: left;"
+							onclick="javascript:location.href='/upload.action';">write</button>
 							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Households</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Interiors</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Clothing</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Bags</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Shoes</a></h4>
-								</div>
-							</div> -->
+	
 						</div><!--/category-productsr-->
 					
-<!-- 						<div class="brands_products">brands_products
-							<h2>Brands</h2>
-							<div class="brands-name">
-								<ul class="nav nav-pills nav-stacked">
-									<li><a href=""> <span class="pull-right">(50)</span>Acne</a></li>
-									<li><a href=""> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-									<li><a href=""> <span class="pull-right">(27)</span>Albiro</a></li>
-									<li><a href=""> <span class="pull-right">(32)</span>Ronhill</a></li>
-									<li><a href=""> <span class="pull-right">(5)</span>Oddmolly</a></li>
-									<li><a href=""> <span class="pull-right">(9)</span>Boudestijn</a></li>
-									<li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
-								</ul>
-							</div>
-						</div>/brands_products -->
-						
-
 					
+
+
 						<!-- 좌측 하단의 베너 -->
 						<div class="shipping text-center"><!--shipping-->
 							<img src="images/sample/sideimg.png" alt="" />
@@ -293,25 +238,18 @@
 				
 				
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				<div class="col-sm-9 padding-right">
 				
 				<!-- 아이템 출력부분 -->
 					<div class="features_items"><!--ART_items-->
-						<h2 class="title text-center">ALL Items</h2>
+					
+						<!--  <tr th:if="${lists.size(alists)}>0"> 
+						/이부분에,,,,,, 카테고리 네임.....&&
+						<h2 class="title text-center"><td th:text="${dto.prodSelect}"></td> Items</h2>
+						 -->
 						
-						
-						<!-- <tr th:if="${#lists.size(lists)}>0" th:each="dto:${lists}"> -->
-						 <tr th:each="dto:${lists}"> 
+						 <tr th:if="${#lists.size(alists)}>0" th:each="dto:${alists}"> 
+						 <!-- <tr th:each="dto:${alists}">  -->
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
@@ -320,16 +258,25 @@
 										
 										<h2><td th:text="${dto.prodPrice}"></td>₩</h2>
 										<p><td th:text="${dto.prodSubject}"/></p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									
+										<div th:with="baseUrl=(${dto.prodNo}? 'sale_article.action' : ${dto.prodNo})">
+										<a th:href="@{http://localhost:8080/sale_article.action?prodNo=${dto.prodNo}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>More</a>
+										</div>									
+									
 									</div>
 									<div class="product-overlay">
 										<div class="overlay-content">
 											<h2><td th:text="${dto.prodPrice}"></td>₩</h2>
 											<p><td th:text="${dto.prodSubject}"/></p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											
+											<div th:with="baseUrl=(${dto.prodNo}? 'sale_article.action' : ${dto.prodNo})">
+											<a th:href="@{${baseUrl}(prodNo=${dto.prodNo})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>More</a>
+											</div>
+										
+										
 										</div>
 									</div>
-									<img src="images/home/new.png" class="new" alt="" />
+
 								</div>
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
@@ -346,14 +293,15 @@
 					</div><!--features_items-->
 	
 						<!-- --------------------------------------------------------------------------------------------------------------MUSIC -->
-					
-						<!-- 페이징처리 -->
+			  	<!-- 
+						페이징처리
 						<ul class="pagination">
 							<li class="active"><a href="">1</a></li>
 							<li><a href="">2</a></li>
 							<li><a href="">3</a></li>
 							<li><a href="">&raquo;</a></li>
 						</ul>
+						 -->
 			</div>
 	</section>
 	

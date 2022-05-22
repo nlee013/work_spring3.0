@@ -6,10 +6,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.spring.boot.mapper.ArticleMapper">
 	
 	<select id="getReadData" parameterType="int" resultType="com.spring.boot.dto.ArticleDTO">
-		select prodNo, userNo, prodSelect, prodSubject, prodSale,
-		prodName, prodPrice, prodHitCount, prodHeart, prodQuality,
-		prodCreated, prodAddr, prodTrade, prodImg, prodContent
-		from product where prodNo=#{prodNo}
+		select 
+		product.prodNo, product.userNo, product.prodSelect, product.prodSubject, product.prodSale,
+		product.prodName, product.prodPrice, product.prodHitCount, product.prodHeart, product.prodQuality,
+		product.prodCreated, product.prodAddr, product.prodTrade, product.prodContent,
+		productTm.tmImg 
+		from product 
+		inner join productTm
+		on product.prodNo = productTm.prodNo
+		where product.prodNo=#{prodNo}	
 	</select>
 
 	<update id="updateHitCount" parameterType="int">
@@ -18,10 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getUserId" parameterType="int" resultType="string">
 		select userId from users where userNo=#{userNo}
-	</select>
-	
-	
-	
+	</select>	
 	
 	<insert id="insertData" parameterType="com.spring.boot.dto.ArticleDTO">
 	 	insert into review (prodNo, userNo, reviewNo, reviewContent, reviewIpAddr, 
@@ -38,18 +40,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select nvl(count(*),0) from review
 	</select>
 	
-	
-		
 	<select id="listData" parameterType="int" resultType="com.spring.boot.dto.ArticleDTO">
 		select * from review where prodNo=#{prodNo} order by reviewNo
 	</select>
-
-	
 	
 	<delete id="deleteData" parameterType="int">
 		delete review where reviewNo=#{reviewNo}
 	</delete>
-	
 	
 	<select id="getReviewCount" parameterType="int" resultType="int">
 		select count(*) from review where prodNo=#{prodNo}
@@ -73,7 +70,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="myHeartCount" parameterType="com.spring.boot.dto.ArticleDTO" resultType="int">
-		select nvl(heartCheck,2) from heart where prodNo = #{prodNo} and userNo=#{userNo} 
+		select heartCheck from heart where prodNo = #{prodNo} and userNo=#{userNo} 
+	</select>
+	
+	<select id="myHeartCheck" parameterType="com.spring.boot.dto.ArticleDTO" resultType="int">
+		select count(*) from heart where prodNo = #{prodNo} and userNo=#{userNo} 
+	</select>
+	
+	<select id="findProductFile" parameterType="int" resultType="com.spring.boot.dto.ArticleDTO">
+		select * from productFile where prodNo = #{prodNo}
 	</select>
 	
 

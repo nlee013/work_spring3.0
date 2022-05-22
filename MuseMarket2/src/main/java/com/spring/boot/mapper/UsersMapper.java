@@ -26,4 +26,15 @@ public interface UsersMapper {
 	public List<UsersDTO> getList() throws Exception;
 
 	public void updateData(UsersDTO dto) throws Exception;
+
+	public UsersDTO update_mypage(UsersDTO dto) throws Exception;
+	
+	UsersDTO findUserId(UsersDTO dto) throws Exception;
+
+	UsersDTO findUserPwd(UsersDTO dto) throws Exception;
+	
+	public UsersDTO memberModifyGET(String userId) throws Exception;
+
+	public void memberModifyPOST(UsersDTO dto) throws Exception;
+
 }

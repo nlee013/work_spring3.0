@@ -43,9 +43,11 @@
 	
 		$("#sendButton").click(function(){
 			
-			var params = "userId="+ $("#userId").val()
-						+ "&reviewContent=" + $("#reviewContent").val();
-			
+			var params = "userNo="+ $("#userNo").val()
+						+ "&reviewContent=" + $("#reviewContent").val()
+					 	+ "&prodNo=" + $("#prodNo").val();  
+			alert(params);
+					 	
 			$.ajax({
 				
 				type:"POST",
@@ -67,34 +69,6 @@
 			});
 		});
 	});
-	
-
-	$(document).ready(function(){
-	 		
-	 		$("#heartData").click(function(){
-	 			
-
-				var params = "heartCheck="+ $("#heartCheck").val()
-	 			
-	 			$.ajax({
-	 				
-	 				type:"POST",
-	 				url:"/heartData.action",
-	 				data:params,
-	 				success:function(args){
-	 					
-	 					//Ajax는 새로고침이 안되기때문에
-	 					//코딩으로 삭제
-	 					
-	 					
-	 				},
-	 				error:function(e){
-	 					alert(e.responseText);
-	 				}
-	 			});
-	 		});
-	 	}); 
-	 	 
 	
 	
 	function showRequest(){
@@ -120,16 +94,19 @@
 	function listPage(page){
 				
 		var url = "/sale_list.action";
+		var hhh = $("#prodNo").val();
 		
-		$.post(url,{pageNum:page},function(args){
+		$.post(url,{
+			 prodNo: hhh
+		},function(args){
 			$("#listData").html(args);
 		});
 		
 		$("#listData").show();
 		
-		
 	}
-	function deleteData(num,page){
+	
+/* 	function deleteData(num,page){
 		
 		var url = "/deleted.action";
 		
@@ -137,13 +114,14 @@
 			$("#listData").html(args);
 			
 		});		
-	}
+	} */
 	
  	 $(document).ready(function(){
 		
 		$("#sendHeart").click(function(){
 			
 			var params = "heartData="+ $("#myHeartCount").val()
+						+ "&prodNo=" + $("#prodNo").val();  
 	
 			$.ajax({
 				
@@ -169,10 +147,12 @@
  		$("#removeHeart").click(function(){
  			
  			var params = "heartData="+ $("#myHeartCount").val()
+ 						+ "&prodNo=" + $("#prodNo").val();  
  			
  			$.ajax({
  				
  				type:"POST",
+ 				data:params,
  				url:"/heartData.action",
  				success:function(args){
  					
@@ -228,42 +208,37 @@
 						<div class="logo pull-left">
 							<a th:href="@{index.action}"><img src=" images/home/muse.png" alt=""  style="width:60px"/></a>
 						</div>
-						<div class="btn-group pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									Korea
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">USA</a></li>
-									<li><a href="#">UK</a></li>
-								</ul>
-							</div>
-							
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									Won
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Dollar</a></li>
-									<li><a href="#">Pound</a></li>
-								</ul>
-							</div>
+					
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-navr">
+	    						<li><div th:text="${session.login.getUserName() + ((session.login.getUserId()))} + '님 환영합니다'"></div></li>
+							</ul>
 						</div>
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
-							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+							<ul class="nav navbar-navr">
+						
+								<li>								
+								<a th:if="${session.login != null}" th:href="@{mypage.action}">
+								<i class="fa fa-user"></i> MyPage</a>
+								
+								</li>
+								
+								<li>
+								<a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-user"></i> MyPage</a>
+								</li>
+								
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a th:if="${session.login == null}" th:href="@{signupForm.action}"><i class="fa fa-user"></i>Join</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-pencil-square"></i>Write</a></li>
+								<li><a th:if="${session.login != null}" th:href="@{upload.action}"><i class="fa fa-pencil-square"></i>Write</a></li>
 								<li><a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-lock"></i>Login</a></li>
-								<li><a th:if="${session.login != null}" th:href="@{logout.action}">Logout</a></li>
-								<li><div th:if="${session.login != null}">
-    							<span th:text="${session.login.getUserName() + ((session.login.getUserId()))} + '님 환영합니다'"></span>
-								</div></li>
+								<li><a th:if="${session.login != null}" th:href="@{logout.action}"><i class="fa fa-unlock"></i>Logout</a></li>
+								<li><div th:if="${session.login != null}"></div></li>
 							</ul>
 						</div>
 					</div>
@@ -286,55 +261,18 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a th:href="@{index.action}" class="active">Home</a></li>
-								<li class="dropdown">
-									<a th:if="${session.login != null}" th:href="@{upload.action}">Sale<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a th:href="@{upload.action}">Art(Whole)</a></li>
-                                        <li><a th:href="@{upload.action}">Art- Poster</a></li>                                        
-                                        <li><a th:href="@{upload.action}">Art - Figure</a></li>
-										<li><a th:href="@{upload.action}">Art - Exhibition goods</a></li> 
-										<li><a th:href="@{upload.action}">Art - Extra</a></li> 
-										
-									
-                                        <li><a th:href="@{upload.action}">Music(Whole)</a></li>
-                                        <li><a th:href="@{upload.action}">Music - LP</a></li>                                        
-                                        <li><a th:href="@{upload.action}">Music - Video/DVD</a></li>
-										<li><a th:href="@{upload.action}">Music - Tape</a></li> 
-										<li><a th:href="@{upload.action}">Music - Instruments</a></li>
-										<li><a th:href="@{upload.action}">Music - Extra</a></li> 
-                                    </ul>                                    
-                                </li>
-                                <li class="dropdown">
-                                <a th:unless="${session.login != null}" th:href="@{loginForm.action}">Sale<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a th:href="@{loginForm.action}">Art(Whole)</a></li>
-                                        <li><a th:href="@{loginForm.action}">Art- Poster</a></li>                                        
-                                        <li><a th:href="@{loginForm.action}">Art - Figure</a></li>
-										<li><a th:href="@{loginForm.action}">Art - Exhibition goods</a></li> 
-										<li><a th:href="@{loginForm.action}">Art - Extra</a></li> 										
-			
-                                        <li><a th:href="@{loginForm.action}">Music(Whole)</a></li>
-                                        <li><a th:href="@{loginForm.action}">Music - LP</a></li>                                        
-                                        <li><a th:href="@{loginForm.action}">Music - Video/DVD</a></li>
-										<li><a th:href="@{loginForm.action}">Music - Tape</a></li> 
-										<li><a th:href="@{loginForm.action}">Music - Instruments</a></li>
-										<li><a th:href="@{loginForm.action}">Music - Extra</a></li> 
-                                    </ul>
-                                </li>
 								<li class="dropdown"><a th:href="@{shop.action}">Purchase<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">                                                                       
-                                        <li><a href="shop.html">Art(Whole)</a></li>
-                                        <li><a href="shop.html">Art- Poster</a></li>                                  
-                                        <li><a href="shop.html">Art - Figure</a></li>
-										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
-										<li><a href="checkout.html">Art - Extra</a></li> 
+                                        <li><a href="http://localhost:8080/selecshop.action?prodSelect=poster">POSTER</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=FIGURE">FIGURE</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=GOODS">GOODS</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=ETC">ETC</a></li> 
 										
-                                        <li><a href="shop.html">Music(Whole)</a>
-                                        <li><a href="shop.html">Music - LP</a></li>
-                                        <li><a href="shop.html">Music - Video/DVD</a></li>
-										<li><a href="product-details.html">Music - Tape</a></li> 
-										<li><a href="checkout.html">Music - Instruments</a></li>
-										<li><a href="checkout.html">Music - Extra</a></li> 
+                                        <li><a href="http://localhost:8080/selecshop.action?prodSelect=LP">LP </a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=VIDEOS">VIDEOS </a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=TAPE">TAPE </a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=CD/DVD">CD/DVD</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=INSTRUMENT">INSTRUMENT </a></li> 
                                     </ul>
                                 </li> 
 								<li><a th:href="@{list.action}">Community</a></li>
@@ -345,14 +283,13 @@
 										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
 										<li><a th:href="@{qa_list.action}">1:1 List</a></li>
 									</ul>
+								</li>
+								<li><a th:if="${session.login != null}" th:href="@{upload.action}">Write</a></li>
+								<li><a th:unless="${session.login != null}" th:href="@{loginForm.action}">Write</a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div><!--/header-bottom-->
@@ -431,70 +368,36 @@
 					
 	<!-- 대분류 > 소분류 / 목록 -->
 						<div style="border-bottom: 1px solid #F7F7F0; margin: 20px">
-							<span><button type="button" class="btn btn-fefault cart" style="float: right;">list</button></span>
-							<b><span style="padding: 5px;" th:text="'[ '+${dto.prodSelect }+ ' > ' +${dto.prodSubject } + ' ]'"></span></b>
+							<!-- <span><button type="button" class="btn btn-fefault cart" style="float: right;">list</button></span> -->
+							<b><span style="padding: 5px;" th:text="'[ '+${dto.prodSelect }+ ' ]'"></span></b>
 						</div>
 	
 	<!-- 왼쪽 이미지 부분 -->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img src="images/1/1.PNG" alt="" />
-								
-							</div>
-							<div id="similar-product" class="carousel slide" data-ride="carousel">
-								
-								  <!-- 슬라이드 이미지 부분 -->
-								    <div class="carousel-inner">
-										<div class="item active">
-										  <a href=""><img width=70px src="images/1/1.PNG" alt=""></a>
-										  <a href=""><img width=70px src="images/1/2.PNG" alt=""></a>
-										  <a href=""><img width=70px src="images/1/3.PNG" alt=""></a>
-										</div>
-										<div class="item">
-										  <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-										  <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-										  <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-										</div>
-										<div class="item">
-										  <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-										  <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-										  <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-										</div>
-									</div>
-								  <!-- 슬라이드 이미지 부분 -->
-									
-									
-								  <!-- Controls -->
-								  <a class="left item-control" href="#similar-product" data-slide="prev">
-									<i class="fa fa-angle-left"></i>
-								  </a>
-								  <a class="right item-control" href="#similar-product" data-slide="next">
-									<i class="fa fa-angle-right"></i>
-								  </a>
+								<img th:src="@{/upload/} + ${dto.tmImg}" alt="" />
+								<!-- <img th:src="'upload/' +${dto.tmImg}" alt="" /> -->
 							</div>
 
 						</div>
 						
 						<!-- 상단 설명부분 -->
 						<div class="col-sm-7">
-							<div class="product-information">
-								<h2><div style="color: red" th:text="'['+${dto.prodSale }+']'"></div></h2>
+							<div class="aproduct-information">
+								
 								<h2><div style="padding-right: 40px" th:text="${dto.prodName }"></div></h2>
+								<h2><div style="color: red" th:text="'['+${dto.prodSale }+']'+${dto.prodSubject }"></div></h2>
 								
 								<p><div th:text="'판매자 : ' + ${userId }" ></div></p>
 								
 								<span style="text-align: right;">
 									<span style="text-align: right;" th:text="${dto.prodPrice } + ' 원'"></span>
-									<span style="color: #fff">fdfdfd</span>
+									<!-- <span style="color: #fff">fdfdfd</span> -->
 									
-								
-									
-									<span th:if="${myHeartCount} == 2 or ${myHeartCount} == 0">
-										<!-- <input type="button" id="heartData" class="btn btn-fefault cart" style="color: #fff; line-height: 15px" value="♡"/> -->
+									<span th:if="${myHeartCheck} == 0 or ${myHeartCount} == 0">
 										<input type="button" id="sendHeart" class="btn btn-fefault cart" style="color: #fff; line-height: 15px" value="♡"/>
 									</span>
 									<span th:if="${myHeartCount} == 1" >
- 										<!-- <input type="button" id="heartData" class="btn btn-fefault cart" style="color: #fff; line-height: 15px" value="♥"/> --> 
  										<input type="button" id="removeHeart" class="btn btn-fefault cart" style="color: #fff; line-height: 15px" value="♥"/>  
  									</span>
 									
@@ -530,12 +433,12 @@
 						<div class="tab-content">
 							<div style="border:1px solid #F7F7F0; padding: 40px">
 								<h4><b>- details -</b></h4>
-								<div align="center"><img width=500px src="images/1/1.PNG" alt=""></div>
-								<div align="center"><img width=500px src="images/1/2.PNG" alt=""></div>
-								<div align="center"><img width=500px src="images/1/3.PNG" alt=""></div>
-								<div align="center"><img width=500px src="images/1/4.jpg" alt=""></div>
-								<div align="center"><img width=500px src="images/1/5.jpg" alt=""></div>
 								
+								<!-- 이미지 여러개 띄우기 -->
+								<div th:each="imgDto : ${imgDtos}">
+									<div align="center"><img width=500px th:src="@{/upload/} + ${imgDto.saveFileName}" alt=""></div>
+									</br>
+								</div>
 								
 								<div style="height: 50px" ></div>
 								<div style="padding-left: 30px" th:text="${dto.prodContent }">
@@ -547,7 +450,10 @@
 		
 								<div>
 								
-								
+<!-- 히든히든 -->
+ <input type="hidden" id="userNo" th:value="${dto.userNo}"/> 
+ <input type="hidden" id="prodNo" th:value="${dto.prodNo}"/> 
+ 
 	<!-- 댓글 구현 기능 -->
 	
 	<span id="listData" style="display: none;"></span>
@@ -566,7 +472,7 @@
 
 		<tr>
 			<td width="60" height="40" bgcolor="#eeeeee" align="center">작성자</td>
-			<td width="240" height="40" style="padding-left: 10px;" th:text="${reviewUserId }" id="userId" >
+			<td width="240" height="40" style="padding-left: 10px;" th:text="${userDto.userId }" id="userId">
 			</td>
 		</tr>
 
@@ -592,106 +498,17 @@
 	</table>
 	
 	<!-- 댓글 구현 기능 -->
-								
-								
 								</div>
+							
 							</div>
 							
+								</br>
+								<div style="padding-right: 70px;">
+									<button type="button" class="btn btn-fefault cart" style="float: right;" >list</button>
+								</div>
 						</div>
 					</div><!--/category-tab-->
 					
-	<!-- 하단 추천목록 -->
-					
-					<div class="recommended_items"><!--recommended_items-->
-						<h2 class="title text-center">recommended items</h2>
-						
-						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-							<div class="carousel-inner">
-								<div class="item active">	
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/recommend1.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/recommend2.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/recommend3.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="item">	
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/recommend1.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/recommend2.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="images/home/recommend3.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-								<i class="fa fa-angle-left"></i>
-							  </a>
-							  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-								<i class="fa fa-angle-right"></i>
-							  </a>			
-						</div>
-					</div><!--/recommended_items-->
 					
 				</div>
 			</div>

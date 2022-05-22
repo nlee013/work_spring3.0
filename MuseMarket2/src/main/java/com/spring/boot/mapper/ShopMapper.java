@@ -24,7 +24,8 @@ public interface ShopMapper {
 	
 	public List<ShopDTO> getLists(int prodNo, ShopDTO dto) throws Exception;
 	
-	public List<ShopDTO> getSelectLists(int prodNo, ShopDTO dto) throws Exception;
+	//셀렉트 리스트
+		public List<ShopDTO> getSelectLists(int prodNo, String prodSelect, ShopDTO dto) throws Exception;
 	
 	
 	//article하나의 데이터 읽어오는것

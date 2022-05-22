@@ -51,8 +51,38 @@ public class ArticleDTO {
 	private int heartNo;
 	private int heartCheck;
 	
+	private String tmImg;
+	
+	private int imgNo;
+	private String originalFileName;
+	private String saveFileName;	
 	
 	
+	
+	public String getTmImg() {
+		return tmImg;
+	}
+	public void setTmImg(String tmImg) {
+		this.tmImg = tmImg;
+	}
+	public int getImgNo() {
+		return imgNo;
+	}
+	public void setImgNo(int imgNo) {
+		this.imgNo = imgNo;
+	}
+	public String getOriginalFileName() {
+		return originalFileName;
+	}
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
+	}
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
+	}
 	public int getHeartNo() {
 		return heartNo;
 	}

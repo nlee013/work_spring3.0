@@ -18,6 +18,7 @@ import com.spring.boot.dto.ArticleDTO;
 import com.spring.boot.dto.CommRipDTO;
 import com.spring.boot.dto.CommuDTO;
 import com.spring.boot.dto.LoginDTO;
+import com.spring.boot.dto.UsersDTO;
 import com.spring.boot.service.CommRipService;
 import com.spring.boot.service.CommuService;
 import com.spring.boot.util.MyUtil;
@@ -45,7 +46,8 @@ public class CommuController {
 	}
 	
 	@RequestMapping(value = "/created.action",method = {RequestMethod.GET})
-	public ModelAndView created() throws Exception{
+	public ModelAndView created(HttpSession session) throws Exception{
+		
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -59,17 +61,19 @@ public class CommuController {
 	public ModelAndView created_ok(CommuDTO dto, LoginDTO dto2,
 			HttpServletRequest request, HttpSession session) throws Exception{
 		
+		UsersDTO login = (UsersDTO) session.getAttribute("login");
+		
 		ModelAndView mav = new ModelAndView();
-		session = request.getSession();
-		int userNo = 0;
+		
+		int userNo = login.getUserNo();
+		System.out.println(userNo);
 		
 		int maxNum = commuService.maxNum();
 		
+		dto.setUserNo(userNo);
 		dto.setCommuNo(maxNum + 1);
 		dto.setCommuIpAddr(request.getRemoteAddr());
-		session.setAttribute("userNo", userNo);	// 임시값 : 나중에 session에서 불러오기
-			
-		
+
 		commuService.insertData(dto);		
 		
 		mav.setViewName("redirect:/list.action");
@@ -115,6 +119,18 @@ public class CommuController {
 		List<CommuDTO> lists = 
 				commuService.getList(start, end, searchKey, searchValue);
 		
+		for(int i=0;i<lists.size();i++) {
+			
+			int userNo = lists.get(i).getUserNo();
+			
+			String userId = commuService.getUserId(userNo);
+			
+			lists.get(i).setUserId(userId);
+			
+			System.out.println();
+			
+		}
+		
 		String param = "";
 		if(searchValue!=null&&!searchValue.equals("")) {
 			param = "searchKey=" + searchKey;
@@ -154,51 +170,22 @@ public class CommuController {
 	public ModelAndView article(HttpServletRequest request,
 			HttpSession session) throws Exception{
 		
-		
 		int num = Integer.parseInt(request.getParameter("commuNo"));
 		String pageNum = request.getParameter("pageNum");
 		int commuNo = Integer.parseInt(request.getParameter("commuNo")); 
 		
-		String searchKey = request.getParameter("searchKey");
-		String searchValue = request.getParameter("searchValue");
-		
-		if(searchValue!=null) {
-			searchValue = URLDecoder.decode(searchValue, "UTF-8");
-		}
-		
 		commuService.updateHitCount(num);
 		
 		CommuDTO dto = commuService.getReadData(num);
-		
-		if(dto==null) {			
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("redirect:/list.action?pageNum=" + pageNum);
-			return mav;
-		}
-		
-		int lineSu = dto.getCommuContent().split("\n").length;
-		
-		//dto.setContent(dto.getContent().replaceAll("\r\n", "<br/>"));
-		
-		String param = "pageNum=" + pageNum;
-		if(searchValue!=null&&!searchValue.equals("")) {
-			
-			param += "&searchKey=" + searchKey;
-			param += "&searchValue=" + 
-					URLEncoder.encode(searchValue, "UTF-8");
-			
-		}
-		
-		String userId = "aaa"; // 나중에 세션에서 id 받아오기
-		
-		
+		String userId = commuService.getUserId(dto.getUserNo());
+		dto.setUserId(userId);
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("userId",userId);
+		mav.addObject("commuNo", commuNo);
+	
 		mav.addObject("dto", dto);
-		mav.addObject("params", param);
-		mav.addObject("lineSu", lineSu);
+
 		mav.addObject("pageNum", pageNum);
 		
 		mav.setViewName("bbs/article");
@@ -208,12 +195,9 @@ public class CommuController {
 	}
 	
 	@RequestMapping(value = "/commuRipList.action", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView commuRipList(HttpServletRequest request) throws Exception{
+	public ModelAndView commuRipList(CommuDTO dto,HttpServletRequest request) throws Exception{
 		
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		
-		//int commuNo = Integer.parseInt(request.getParameter("commuNo")); 
-		int commuNo = 3;
+		int commuNo = Integer.parseInt(request.getParameter("commuNo"));
 		
 		// commuRip 댓글 구현
 		List<CommRipDTO> lists = commuRipService.getReplyList(commuNo);
@@ -221,8 +205,6 @@ public class CommuController {
 		for(int i=0;i<lists.size();i++) {
 			
 			int commuRipUserNo = lists.get(i).getUserNo();
-			
-			
 			
 			String commuRipUserId = commuRipService.getCommuRipUserId(commuRipUserNo);
 			
@@ -240,31 +222,56 @@ public class CommuController {
 	}
 	
 	@RequestMapping(value = "/commuRipCreate.action", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView commuRipCreate(CommRipDTO dto, HttpServletRequest request) throws Exception{
-		
-		  //int prodNo = Integer.parseInt(request.getParameter("prodNo"));
-		  //int userNo = Integer.parseInt(request.getParameter("userNo"));
+	public ModelAndView commuRipCreate(CommRipDTO dto, HttpServletRequest request, HttpSession session) throws Exception{
 			
-	
 		
-		int prodNo = 3;
-		int userNo = 1;
+		int commuNo = Integer.parseInt(request.getParameter("commuNo"));
 		
-		String userId = commuRipService.getUserId(userNo);
+		UsersDTO login = (UsersDTO) session.getAttribute("login");
+		 
+		int userNo = login.getUserNo();
+		
 		int numMax = commuRipService.maxNum();
 		
 		dto.setCommuRipNo(numMax+1);
-		dto.setCommuNo(prodNo);
 		dto.setUserNo(userNo);
 			
 		commuRipService.insertReply(dto);
 
 		ModelAndView mav = new ModelAndView();
 		
+		mav.addObject("commuNo",commuNo);
 		mav.setViewName("redirect:/commuRipList.action");
 		
 		return mav;
-	}
+		
+	
+	
+	// 세션세션
+			
+	/*
+	 * redirectAttributes.addAttribute("prodNo",prodNo);
+	 * 
+	 * String aa = dto.getReviewContent();
+	 * 
+	 * String userId = articleService.getUserId(login.getUserNo()); int numMax =
+	 * articleService.numMax();
+	 * 
+	 * dto.setReviewNo(numMax + 1); dto.setProdNo(prodNo);
+	 * dto.setUserNo(login.getUserNo());
+	 * dto.setReviewIpAddr(request.getRemoteAddr());
+	 * 
+	 * articleService.insertData(dto);
+	 * 
+	 * ModelAndView mav = new ModelAndView();
+	 * 
+	 * mav.addObject("prodNo",prodNo); mav.addObject("userNo",login.getUserNo());
+	 * 
+	 * mav.setViewName("redirect:/commuRipList.action");
+	 * 
+	 * return mav;
+	 */
+		}
 	
 	@RequestMapping(value = "/updated.action",
 			method = {RequestMethod.GET,RequestMethod.POST})

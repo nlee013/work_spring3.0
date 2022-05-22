@@ -104,44 +104,39 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a th:href="@{index.action}"><img src="images/home/muse.png" alt=""  style="width:60px"/></a>
+							<a th:href="@{index.action}"><img src=" images/home/muse.png" alt=""  style="width:60px"/></a>
 						</div>
-						<div class="btn-group pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									Korea
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">USA</a></li>
-									<li><a href="#">UK</a></li>
-								</ul>
-							</div>
-							
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									Won
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Dollar</a></li>
-									<li><a href="#">Pound</a></li>
-								</ul>
-							</div>
+					
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-navr">
+	    						<li><div th:text="${session.login.getUserName() + ((session.login.getUserId()))} + '님 환영합니다'"></div></li>
+							</ul>
 						</div>
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
-							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+							<ul class="nav navbar-navr">
+						
+								<li>								
+								<a th:if="${session.login != null}" th:href="@{mypage.action}">
+								<i class="fa fa-user"></i> MyPage</a>
+								
+								</li>
+								
+								<li>
+								<a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-user"></i> MyPage</a>
+								</li>
+								
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a th:if="${session.login == null}" th:href="@{signupForm.action}"><i class="fa fa-user"></i>Join</a></li>
+								<li><a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-pencil-square"></i>Write</a></li>
+								<li><a th:if="${session.login != null}" th:href="@{upload.action}"><i class="fa fa-pencil-square"></i>Write</a></li>
 								<li><a th:if="${session.login == null}" th:href="@{loginForm.action}"><i class="fa fa-lock"></i>Login</a></li>
-								<li><a th:if="${session.login != null}" th:href="@{logout.action}">Logout</a></li>
-								<li><div th:if="${session.login != null}">
-    							<span th:text="${session.login.getUserName() + ((session.login.getUserId()))} + '님 환영합니다'"></span>
-								</div></li>
+								<li><a th:if="${session.login != null}" th:href="@{logout.action}"><i class="fa fa-unlock"></i>Logout</a></li>
+								<li><div th:if="${session.login != null}"></div></li>
 							</ul>
 						</div>
 					</div>
@@ -163,66 +158,39 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.action" class="active">Home</a></li>
-								<li class="dropdown"><a href="#">Sale<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Art(Whole)</a>
-                                        <li><a href="shop.html">Art- Poster</a></li>
-                                        </li>
-                                        <li><a href="shop.html">Art - Figure</a></li>
-										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
-										<li><a href="checkout.html">Art - Extra</a></li> 
+								<li><a th:href="@{index.action}" class="active">Home</a></li>
+								<li class="dropdown"><a th:href="@{shop.action}">Purchase<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">                                                                       
+                                        <li><a href="http://localhost:8080/selecshop.action?prodSelect=poster">POSTER</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=FIGURE">FIGURE</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=GOODS">GOODS</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=ETC">ETC</a></li> 
 										
-										<li><a href="<%=cp%>/list.action">Community</a></li>
-                                        <li><a href="shop.html">Music(Whole)</a>
-                                        <li><a href="shop.html">Music - LP</a></li>
-                                        </li>
-                                        <li><a href="shop.html">Music - Video/DVD</a></li>
-										<li><a href="product-details.html">Music - Tape</a></li> 
-										<li><a href="checkout.html">Music - Instruments</a></li>
-										<li><a href="checkout.html">Music - Extra</a></li> 
-                                    </ul>
-                                </li>
-                               
-								<li class="dropdown"><a th:href="@{list.action}">Purchase<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a th:href="@{list.action}">Community</a></li>
-                                        
-                                        <li><a href="shop.html">Art(Whole)</a>
-                                        <li><a href="shop.html">Art- Poster</a></li>
-                                        </li>
-                                        <li><a href="shop.html">Art - Figure</a></li>
-										<li><a href="product-details.html">Art - Exhibition goods</a></li> 
-										<li><a href="checkout.html">Art - Extra</a></li> 
-										
-                                        <li><a href="shop.html">Music(Whole)</a>
-                                        <li><a href="shop.html">Music - LP</a></li>
-                                        <li><a href="shop.html">Music - Video/DVD</a></li>
-										<li><a href="product-details.html">Music - Tape</a></li> 
-										<li><a href="checkout.html">Music - Instruments</a></li>
-										<li><a href="checkout.html">Music - Extra</a></li> 
+                                        <li><a href="http://localhost:8080/selecshop.action?prodSelect=LP">LP </a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=VIDEOS">VIDEOS </a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=TAPE">TAPE </a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=CD/DVD">CD/DVD</a></li>
+										<li><a href="http://localhost:8080/selecshop.action?prodSelect=INSTRUMENT">INSTRUMENT </a></li> 
                                     </ul>
                                 </li> 
 								<li><a th:href="@{list.action}">Community</a></li>
 								
 								<li class="dropdown"><a th:href="@{list.action}">Contact<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-										<li><a th:href="@{qa_list.action}">Q & A</a></li>
-										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>
-										<li><a th:href="@{qa_list.action}">1:1 List</a></li>
+										<li><a th:href="@{master_list.action}">Q & A</a></li>
+										<li><a th:href="@{qa_contact.action}">Contact 1:1</a></li>										
 									</ul>
+								</li>
+								<li><a th:if="${session.login != null}" th:href="@{upload.action}">Write</a></li>
+								<li><a th:unless="${session.login != null}" th:href="@{loginForm.action}">Write</a></li>
+							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-	
 <div id="bbs">
 	<div id="bbs_title">
 		1 : 1 수정하기

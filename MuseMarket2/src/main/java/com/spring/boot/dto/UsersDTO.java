@@ -16,7 +16,7 @@ public class UsersDTO {
 		private String userGender;
 		
 		@DateTimeFormat(pattern = "yyyy-MM-dd")
-		private Date userBirth;
+		private String userBirth;
 		
 		public int getUserNo() {
 			return userNo;
@@ -65,11 +65,12 @@ public class UsersDTO {
 		}
 		public void setUserGender(String userGender) {
 			this.userGender = userGender;
-		}
-		public Date getUserBirth() {
+		}		
+		
+		public String getUserBirth() {
 			return userBirth;
 		}
-		public void setUserBirth(Date userBirth) {
+		public void setUserBirth(String userBirth) {
 			this.userBirth = userBirth;
 		}
 		@Override

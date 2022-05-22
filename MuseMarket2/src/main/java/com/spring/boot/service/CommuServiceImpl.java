@@ -61,6 +61,14 @@ public class CommuServiceImpl implements CommuService{
 		
 		commuMapper.deleteData(commuNo);
 	}
+
+	@Override
+	public String getUserId(int userNo) throws Exception {
+		return commuMapper.getUserId(userNo);
+	}
+
+	
+
 	
 	//찾아가는 순서
 	//BoardController -> BoardService(Interface) -> BoardServiceImpl(Class) -> BoardMapper(I) -> boardMapper.xml

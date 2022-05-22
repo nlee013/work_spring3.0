@@ -1149,6 +1149,29 @@ h2.title {
 	color:#fff;
 }
 
+/*****************
+*******추가*******/
+
+.pagination input, select, textarea {
+  background: #EAEAEA;
+  border:0;
+  color: #696763;
+  padding: 5px;
+  width: 100px;
+  border-radius: 0;
+  resize: none
+}
+
+.bbsCreated {
+	align-content: center;
+}
+
+
+.bbsCreated.dt {
+	text-align: left;
+}
+
+
 
 
 /*************************

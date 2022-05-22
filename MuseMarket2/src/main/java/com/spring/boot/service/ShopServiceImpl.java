@@ -54,9 +54,9 @@ public class ShopServiceImpl implements ShopService {
 
 	
 	@Override
-	public List<ShopDTO> getSelectLists(int prodNo, ShopDTO dto) throws Exception {
+	public List<ShopDTO> getSelectLists(int prodNo, String prodSelect, ShopDTO dto) throws Exception {
 		
-		return shopMapper.getSelectLists(prodNo, dto);
+		return shopMapper.getSelectLists(prodNo, prodSelect ,dto);
 	}
 	
 	

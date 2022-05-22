@@ -2,8 +2,11 @@ package com.spring.boot.service;
 
 import java.util.List;
 
+import javax.websocket.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.spring.boot.dto.UsersDTO;
 import com.spring.boot.mapper.UsersMapper;
@@ -49,6 +52,45 @@ public class UsersServiceImpl implements UsersService {
 	public void updateData(UsersDTO dto) throws Exception {
 		usersmapper.updateData(dto);
 	}
+
+	@Override
+	public UsersDTO update_mypage(UsersDTO dto) throws Exception {
+		usersmapper.update_mypage(dto);
+		
+		return usersmapper.login(dto);
+	}
+
+	@Override
+	public String findUserId(UsersDTO dto) throws Exception {
+		UsersDTO usersDTO = usersmapper.findUserId(dto);
+		if (ObjectUtils.isEmpty(usersDTO)) {
+			return "";
+		}
+		return usersDTO.getUserId();
+	}
+
+	@Override
+	public String findUserPwd(UsersDTO dto) throws Exception {
+		UsersDTO usersDTO = usersmapper.findUserPwd(dto);
+		if (ObjectUtils.isEmpty(usersDTO)) {
+			return "";
+		}
+		return usersDTO.getUserPwd();
+	}
+
+	@Override
+	public UsersDTO membermodifyGET(String userId) throws Exception {
+		return usersmapper.memberModifyGET(userId);
+	}
+
+	@Override
+	public void memberModifyPOST(UsersDTO dto) throws Exception {
+	
+		usersmapper.memberModifyPOST(dto);
+	}
+
+	
+
 
 
 }

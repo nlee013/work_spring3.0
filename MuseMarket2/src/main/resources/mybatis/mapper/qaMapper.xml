@@ -10,8 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertData" parameterType="com.spring.boot.dto.QaDTO">
-		insert into qa(qaNo, qaSubject, qaContent, qaCreated )
-		values(#{qaNo}, #{qaSubject}, #{qaContent}, sysdate)
+		insert into qa(qaNo,userNo, qaSubject, qaContent, qaCreated )
+		values(#{qaNo},#{userNo}, #{qaSubject}, #{qaContent}, sysdate)
 	</insert>
 	
 	<select id="getDataCount" parameterType="hashMap" resultType="int">

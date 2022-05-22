@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.boot.dto.QaDTO;
+import com.spring.boot.dto.UsersDTO;
 import com.spring.boot.service.QaService;
 import com.spring.boot.util.MyUtil;
 
@@ -42,18 +43,21 @@ public class QaController {
 	@RequestMapping(value = "/qa_contact_ok.action",method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView created_ok(QaDTO dto, 
 			HttpServletRequest request, HttpSession session) throws Exception{
+
+		UsersDTO login = (UsersDTO) session.getAttribute("login");
 		
 		ModelAndView mav = new ModelAndView();
 		
 		int maxNum = qaService.maxNum();
 		
 		dto.setQaNo(maxNum + 1);
-		//dto.setIpAddr(request.getRemoteAddr());
 		
-		int userNo = 1;
+		int userNo = login.getUserNo();
 		
+		dto.setUserNo(userNo);
 		dto.setUserId(qaService.getUserId(userNo));
 		dto.setUserEmail(qaService.getUserEmail(userNo));
+		
 		
 		qaService.insertData(dto);
 		
@@ -105,6 +109,18 @@ public class QaController {
 		
 		List<QaDTO> lists = 
 				qaService.getList(start, end, searchKey, searchValue);
+		
+		for(int i=0;i<lists.size();i++) {
+			
+			int userNo = lists.get(i).getUserNo();
+			
+			String userId = qaService.getUserId(userNo);
+			
+			lists.get(i).setUserId(userId);
+			
+			System.out.println();
+			
+		}
 		
 		String param = "";
 		if(searchValue!=null&&!searchValue.equals("")) {

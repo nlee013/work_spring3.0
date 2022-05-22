@@ -37,4 +37,8 @@ public interface ArticleMapper {
 	public void heartUpdate(ArticleDTO articleDTO) throws Exception;
 
 	public int myHeartCount(ArticleDTO articleDTO) throws Exception;
+	
+	public int myHeartCheck(ArticleDTO articleDTO) throws Exception;
+	
+	public List<ArticleDTO> findProductFile(int prodNo) throws Exception;
 }

@@ -1,5 +1,6 @@
 package com.spring.boot.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spring.boot.dto.UsersDTO;
 import com.spring.boot.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.net.URLDecoder;
 import java.security.Principal;
@@ -57,14 +59,26 @@ public class UsersController {
 
 	//아이디찾기폼
 	@RequestMapping("/findUserIdForm.action")
-	public String findUserIdForm() throws Exception{
-		return "findUserIdForm";
+	public ModelAndView findUserIdForm() throws Exception{
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("signup/findUserIdForm");
+		
+		return mav;
+		
 	}
 
 	//비밀번호찾기폼
 	@RequestMapping("/findUserPwdForm.action")
-	public String findUserPwdForm() throws Exception{
-		return "findUserPwdForm";
+	public ModelAndView findUserPwdForm() throws Exception{
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("signup/findUserPwdForm");
+		
+		return mav;
+	
 	}
 
 	//로그인 처리
@@ -76,8 +90,9 @@ public class UsersController {
 		if (ObjectUtils.isEmpty(usersDTO)) {
 			return false;
 		}
-		session.setAttribute("login", usersDTO);
-		//session.setAttribute("userEmail", userEmail);
+		session.setAttribute("login", usersDTO);	
+		session.setMaxInactiveInterval(60*60*24);
+		
 		return true;
 	}
 
@@ -95,18 +110,10 @@ public class UsersController {
 	}
 	
 	//회원가입처리
-	@RequestMapping(value = "/signup.action")
+	@PostMapping("/signup.action")
 	@ResponseBody
-	public ModelAndView write(HttpServletRequest request, HttpServletResponse response,
-			UsersDTO dto) throws Exception {
-		
-		ModelAndView mav = new ModelAndView();
-		
+	public void write(@RequestBody UsersDTO dto) throws Exception {
 		service.write(dto);
-		
-		mav.setViewName("redirect:/login.action");
-		
-		return mav;
 	}
 
 	// 유저 아이디 중복 체크
@@ -115,78 +122,146 @@ public class UsersController {
 	public boolean isUserId(@RequestBody UsersDTO dto) throws Exception{
 		return service.isUserId(dto);
 	}
-
 	
-	
-	//마이페이지 
-	
-	@RequestMapping(value = "/mypage.action",method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView mypage(UsersDTO dto, HttpSession session,HttpServletRequest request) throws Exception{
-		
-		int userNo = 1; 
-		//int userNo = Integer.parseInt(request.getParameter("userNo"));
-		//UsersDTO users = service.getReadData(userNo);
-		ModelAndView mav = new ModelAndView();
-
-		//mav.addObject("users", users);
-//		session.setAttribute("dto", users);
-		
-		service.getReadData(userNo);
-		
-		mav.addObject("dto",dto);
-		//mav.setViewName("signup/mypage");
-		mav.setViewName("mypage/mypage");
-		
-		return mav;
-		
+	// 유저 아이디 찾기
+	@RequestMapping("/findUserId.action")
+	@ResponseBody
+	public String findUserId(@RequestBody UsersDTO dto) throws Exception{
+		return service.findUserId(dto);
 	}
+
+			// 유저 비밀번호 찾기
+	@RequestMapping("/findUserPwd.action")
+	@ResponseBody
+	public String findUserPwd(@RequestBody UsersDTO dto) throws Exception{
+		return service.findUserPwd(dto);
+	}
+		
 	
-	//개인 정보 수정 
-	
-	  @RequestMapping(value = "/mypage_updated.action",
-			  method = {RequestMethod.GET, RequestMethod.POST})
-	  public ModelAndView my_updated(HttpSession session,HttpServletRequest request) throws Exception{
+	  //마이페이지
 	  
-		 	
-		  int userNo = 1;  
-		  //int userNo = Integer.parseInt(request.getParameter("userNo"));
-		  
-		  session = request.getSession();
-		  
-		  
-		  UsersDTO dto = service.getReadData(userNo);
-		  
-		  if(dto==null) {
-			  ModelAndView mav = new ModelAndView();
-			  mav.setViewName("redirect:/index.action");
-			  return mav;
-		 }
-		  
-		  ModelAndView mav = new ModelAndView();
-		  
-		  mav.addObject("dto", dto);		  
-		  //mav.setViewName("signup/updated");
-		  mav.setViewName("mypage/updated");
-		  
-		  return mav;
+	  @RequestMapping(value = "/mypage.action",
+	  method = {RequestMethod.GET,RequestMethod.POST})
+	  public ModelAndView mypage(UsersDTO
+	  dto, HttpSession session,HttpServletRequest request)
+			  throws Exception{
+	  
+	 UsersDTO login = (UsersDTO) session.getAttribute("login");
+	  //int userNo = 1; 
+	  System.out.println("aa" + login.getUserNo());
+	  
+	  //int userNo = Integer.parseInt(request.getParameter(login)); 
+	  
+	  service.getReadData(login.getUserNo());
+	  ModelAndView mav = new ModelAndView();
+	  
+	  //mav.addObject("users", users); 
+	  // session.setAttribute("dto", users);
+	  
+	  mav.addObject("dto",login); 
+	  //mav.setViewName("signup/mypage");
+	  mav.setViewName("mypage/mypage");
+	  
+	  return mav;
 	  
 	  }
-	  
-	@ResponseBody
-	@RequestMapping(value = "/mypage_updated_ok.action",
-			method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView my_updated_ok(UsersDTO dto,HttpServletRequest request) throws Exception{
+		/*
+		 * @RequestMapping(value = "/mypage.action", method =
+		 * {RequestMethod.GET,RequestMethod.POST}) public ModelAndView mypage(UsersDTO
+		 * dto, HttpSession session,HttpServletRequest request) throws Exception{
+		 * 
+		 * UsersDTO login = (UsersDTO) session.getAttribute("login"); int usersDataNo =
+		 * login.getUserNo();
+		 * 
+		 * List<UsersDataDTO> heartLists = new ArrayList<UsersDataDTO>(); ModelAndView
+		 * mav = new ModelAndView();
+		 * 
+		 * // 마이페이지 정보 가져오기 service.getReadData(usersDataNo);
+		 * 
+		 * // 내 제품 판매 내역 List<UsersDataDTO> saleLists =
+		 * usersDataService.mySaleProduct(usersDataNo);
+		 * 
+		 * // 내가 찜한 목록 List<Integer> heartProdNoLists =
+		 * usersDataService.myUserHeart(usersDataNo);
+		 * 
+		 * for(int i=0;i<heartProdNoLists.size();i++) {
+		 * 
+		 * int heartProdNo = heartProdNoLists.get(i);
+		 * 
+		 * UsersDataDTO heartDTO = usersDataService.myHeartProduct(heartProdNo);
+		 * 
+		 * heartLists.add(heartDTO);
+		 * 
+		 * }
+		 * 
+		 * // 내가 댓글 쓴 목록 List<UsersDataDTO> reviewList
+		 * =usersDataService.myReview(usersDataNo);
+		 * 
+		 * for(int i=0;i<reviewList.size();i++) {
+		 * 
+		 * int reviewProdNo = reviewList.get(i).getProdNo();
+		 * 
+		 * UsersDataDTO reviewProductDTO =
+		 * usersDataService.myReviewProduct(reviewProdNo);
+		 * 
+		 * reviewList.get(i).setProdNo(reviewProductDTO.getProdNo());
+		 * reviewList.get(i).setProdName(reviewProductDTO.getProdName());
+		 * reviewList.get(i).setProdCreated(reviewProductDTO.getProdCreated());
+		 * reviewList.get(i).setProdPrice(reviewProductDTO.getProdPrice());
+		 * reviewList.get(i).setProdSubject(reviewProductDTO.getProdSubject());
+		 * 
+		 * }
+		 * 
+		 * mav.addObject("reviewList",reviewList); mav.addObject("saleLists",saleLists);
+		 * mav.addObject("heartLists",heartLists); mav.addObject("dto",login);
+		 * mav.addObject("saleLists",saleLists);
+		 * 
+		 * mav.setViewName("mypage/mypage");
+		 * 
+		 * return mav;
+		 * 
+		 * }
+		 */
+			
 	
+	  //개인 정보 수정
+	  @JsonProperty("dto")
+	  @RequestMapping(value = "mypage_updated.action",
+			  method = {RequestMethod.GET, RequestMethod.POST})
+	  public String memberModifyGET(UsersDTO dto, HttpSession session,
+			  HttpServletRequest request, Model model) throws Exception{
+	        
+		  UsersDTO login = (UsersDTO) session.getAttribute("login");
+		  System.out.println(login.getUserId());
+		  UsersDTO modifyMember = service.membermodifyGET(login.getUserId());
+		   System.out.println(modifyMember.getUserBirth());	     
+	      model.addAttribute("userName", modifyMember.getUserName());
+	      model.addAttribute("userId", modifyMember.getUserId());
+	      model.addAttribute("userEmail", modifyMember.getUserEmail());
+	      model.addAttribute("userPwd", modifyMember.getUserPwd());
+	      model.addAttribute("userTel", modifyMember.getUserTel());
+	      model.addAttribute("userBirth", modifyMember.getUserBirth());
+	      model.addAttribute("userAddr", modifyMember.getUserAddr());
+	      model.addAttribute("userGender", modifyMember.getUserGender());
+	        
+	      return "mypage/updated";    
+	  
+	  }
+	 
 		
-		service.updateData(dto);
+		@RequestMapping("/mypage_updated_ok.action")
+		@ResponseBody
+		public String memberModifyPOST(@RequestBody UsersDTO dto,HttpSession session)
+				throws Exception{
 
-		ModelAndView mav = new ModelAndView();
-		
-
-		mav.setViewName("redirect:/mypage_updated_ok.action");
-				
-		return mav;
-		
-	}
+			service.memberModifyPOST(dto);
+			System.out.println(dto.getUserNo());
+			System.out.println(dto.getUserName());
+			System.out.println(dto.getUserId());
+			System.out.println(dto.getUserGender());
+			session.setAttribute("login", dto);
+			
+			return "mypage/updated";
+		}
 	
 }

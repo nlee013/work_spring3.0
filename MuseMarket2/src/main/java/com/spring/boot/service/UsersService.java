@@ -2,6 +2,8 @@ package com.spring.boot.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.spring.boot.dto.UsersDTO;
 
 public interface UsersService {
@@ -22,5 +24,18 @@ public interface UsersService {
 
 		public List<UsersDTO> getList() throws Exception;
 
-		public void updateData(UsersDTO dto) throws Exception;		
+		public void updateData(UsersDTO dto) throws Exception;
+		
+		public UsersDTO update_mypage(UsersDTO dto) throws Exception;
+		
+		String findUserId(UsersDTO dto) throws Exception;
+
+		String findUserPwd(UsersDTO dto) throws Exception;
+		
+		public UsersDTO membermodifyGET(String userId) throws Exception;
+		
+		public void memberModifyPOST(UsersDTO dto) throws Exception;
+		
+		
+		
 }
